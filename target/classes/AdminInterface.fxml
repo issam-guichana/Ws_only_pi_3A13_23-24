@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminInterfaceController">
+    <left>
+        <AnchorPane prefHeight="400.0" prefWidth="197.0" style="-fx-background-color: #D8D1BD;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="50.0" fitWidth="190.0" layoutX="4.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../../../img/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="bLogout" layoutX="51.0" layoutY="362.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="24.0" prefWidth="96.0" style="-fx-background-color: #E68C3A;" text="Se déconnecter" textFill="WHITE">
+                    <font>
+                        <Font name="Candara" size="12.0" />
+                    </font>
+                </Button>
+                <JFXButton fx:id="bGoToGestUser" layoutX="11.0" layoutY="111.0" onAction="#GoToGestUser" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Gestion d'utilisateur" textFill="WHITE" />
+                <JFXButton fx:id="bGotouppwd" layoutX="11.0" layoutY="171.0" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="/// to dooo" textFill="WHITE" />
+                <JFXButton fx:id="bGotodeleteacc" layoutX="11.0" layoutY="291.0" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="//to doo " textFill="WHITE" />
+                <JFXButton fx:id="bGotopay" layoutX="12.0" layoutY="231.0" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="//to doo " textFill="WHITE" />
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane prefHeight="400.0" prefWidth="469.0" style="-fx-background-color: #F4F2EF;" BorderPane.alignment="CENTER">
+            <children>
+                <Text fill="#213e60" layoutX="97.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous êtes le bienvenu en tant qu'administrateur" textAlignment="CENTER" wrappingWidth="207.68438720703125">
+                    <font>
+                        <Font name="Comic Sans MS" size="16.0" />
+                    </font>
+                </Text>
+                <Button fx:id="bExit" layoutX="370.0" layoutY="1.0" mnemonicParsing="false" onAction="#Exit" style="-fx-background-color: transparant;">
+                    <graphic>
+                        <FontAwesomeIconView fill="#e68c3a" glyphName="CLOSE" size="20" />
+                    </graphic>
+                </Button>
+            <TableView fx:id="tabUsers" layoutX="6.0" layoutY="77.0" prefHeight="246.0" prefWidth="390.0">
+              <columns>
+                <TableColumn fx:id="colUsername" prefWidth="75.99994039535522" text="Nom d'utilisateur" />
+                <TableColumn fx:id="colEmail" prefWidth="70.40001678466797" text="E-mail" />
+                  <TableColumn fx:id="colAge" prefWidth="28.7999267578125" text="Age" />
+                  <TableColumn fx:id="colPassword" prefWidth="96.0" text="mot de passe" />
+                  <TableColumn fx:id="colRole" prefWidth="103.20001220703125" text="Role" />
+              </columns>
+            </TableView>
+            <Button layoutX="64.0" layoutY="351.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="91.0" style="-fx-background-color: #E68C3A;" text="//to do" textFill="WHITE">
+               <font>
+                  <Font name="Candara" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="bRefresh" layoutX="253.0" layoutY="351.0" mnemonicParsing="false" onAction="#Refresh" prefHeight="24.0" prefWidth="91.0" style="-fx-background-color: #E68C3A;" text="Actualiser" textFill="WHITE">
+               <font>
+                  <Font name="Candara" size="12.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>

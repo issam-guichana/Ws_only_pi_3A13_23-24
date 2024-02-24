@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserSettingsController">
+    <left>
+        <AnchorPane prefHeight="400.0" prefWidth="197.0" style="-fx-background-color: #D8D1BD;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="50.0" fitWidth="190.0" layoutX="4.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../../../img/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="bBack" layoutX="-3.0" mnemonicParsing="false" onAction="#BackToMenu" style="-fx-background-color: TRANSPARANT;">
+                    <graphic>
+                        <FontAwesomeIconView fill="#e68c3a" glyphName="ARROW_LEFT" size="20" />
+                    </graphic>
+                </Button>
+                <Button fx:id="bLogout" layoutX="51.0" layoutY="362.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="24.0" prefWidth="96.0" style="-fx-background-color: #E68C3A;" text="Se déconnecter" textFill="WHITE">
+                    <font>
+                        <Font name="Candara" size="12.0" />
+                    </font>
+                </Button>
+            <JFXButton fx:id="bGotoupdate" layoutX="11.0" layoutY="111.0" onAction="#GoToUpdateProfile" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Modifier vos informations" textFill="WHITE" />
+            <JFXButton fx:id="bGotouppwd" layoutX="11.0" layoutY="171.0" onAction="#GoToResetPwd" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Modifier votre mot de passe" textFill="WHITE" />
+            <JFXButton fx:id="bGotodeleteacc" layoutX="11.0" layoutY="291.0" onAction="#GoToDeleteAcc" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Supprimer votre compte" textFill="WHITE" />
+            <JFXButton fx:id="bGotopay" layoutX="12.0" layoutY="231.0" onAction="#GoToPaymentMethod" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Les détails du paiement" textFill="WHITE" />
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane prefHeight="400.0" prefWidth="469.0" style="-fx-background-color: #F4F2EF;" BorderPane.alignment="CENTER">
+            <children>
+                <Text fill="#213e60" layoutX="69.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vos informations personnelles">
+                    <font>
+                        <Font name="Comic Sans MS" size="18.0" />
+                    </font>
+                </Text>
+                <Button fx:id="bExit" layoutX="370.0" layoutY="1.0" mnemonicParsing="false" onAction="#Exit" style="-fx-background-color: transparant;">
+                    <graphic>
+                        <FontAwesomeIconView fill="#e68c3a" glyphName="CLOSE" size="20" />
+                    </graphic>
+                </Button>
+                <TextField fx:id="tfUsername" layoutX="201.0" layoutY="118.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+                <TextField fx:id="tfEmail" layoutX="202.0" layoutY="170.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+                <TextField fx:id="tfAge" layoutX="203.0" layoutY="220.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+            <TextField fx:id="tfRole" layoutX="203.0" layoutY="270.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+                <Text fill="#213e60" layoutX="46.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre nom d'utilisateur :">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                    </font>
+                </Text>
+                <Text fill="#213e60" layoutX="109.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre e-mail :">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                    </font>
+                </Text>
+                <Text fill="#213e60" layoutX="125.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="votre age :">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                    </font></Text>
+            <Text fill="#213e60" layoutX="100.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre fonction :">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Text>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>
