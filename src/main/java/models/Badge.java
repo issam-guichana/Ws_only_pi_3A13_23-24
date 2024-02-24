@@ -1,0 +1,71 @@
+package models;
+
+
+public class Badge {
+    private int idBadge;
+    private String nomBadge;
+    private String type;
+    private int formationId; // Foreign key
+
+    // Constructors
+    public Badge() {
+    }
+
+    public Badge(String nomBadge, String type) {
+        this.nomBadge = nomBadge;
+        this.type = type;
+    }
+
+    public Badge(int idBadge, String nomBadge, String type, int formationId) {
+        this.idBadge = idBadge;
+        this.nomBadge = nomBadge;
+        this.type = type;
+        this.formationId = formationId;
+    }
+
+    // Getters and setters
+    public int getIdBadge() {
+        return idBadge;
+    }
+
+    public void setIdBadge(int idBadge) {
+        this.idBadge = idBadge;
+    }
+
+    public String getNomBadge() {
+        return nomBadge;
+    }
+
+    public void setNomBadge(String nomBadge) {
+        this.nomBadge = nomBadge;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getFormationId() {
+        return formationId;
+    }
+
+    public void setFormationId(int formationId) {
+        this.formationId = formationId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Badge{" +
+                "idBadge=" + idBadge +
+                ", nomBadge='" + nomBadge + '\'' +
+                ", type='" + type + '\'' +
+                ", formationId=" + formationId +
+                '}';
+    }
+
+
+}

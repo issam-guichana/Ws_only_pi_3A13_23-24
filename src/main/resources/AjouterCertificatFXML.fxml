@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="479.0" prefWidth="654.0" style="-fx-background-color: #D8D1BD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterCertificatFXML">
+   <children>
+      <VBox layoutX="-1.0" layoutY="-1.0" prefHeight="490.0" prefWidth="144.0" style="-fx-background-color: #E68C3A;">
+         <children>
+            <HBox prefHeight="117.0" prefWidth="144.0" />
+            <HBox prefHeight="51.0" prefWidth="144.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="42.0" prefWidth="144.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="142.0" layoutY="1.0" prefHeight="489.0" prefWidth="512.0" style="-fx-background-color: #E68C3A;">
+         <children>
+            <VBox prefHeight="487.0" prefWidth="512.0" style="-fx-background-color: white; -fx-background-radius: 25;">
+               <children>
+                  <HBox prefHeight="107.0" prefWidth="512.0" style="-fx-background-color: #213E60;">
+                     <children>
+                        <VBox prefHeight="107.0" prefWidth="168.0" />
+                        <Button fx:id="btnrefresh" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#refresh" prefHeight="63.0" prefWidth="108.0" text="Actualiser" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="170.0" style="-fx-background-color: #f9f9f9; -fx-background-radius: 15;">
+                           <children>
+                              <Button fx:id="idajouter" alignment="CENTER" mnemonicParsing="false" onAction="#ajouterBadge" prefHeight="78.0" prefWidth="138.0" style="-fx-background-radius: 50;" text="Ajouter  ">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="156.0" style="-fx-background-color: #f9f9f9; -fx-background-radius: 15;">
+                           <children>
+                              <Button fx:id="idmodifier" alignment="CENTER" mnemonicParsing="false" prefHeight="79.0" prefWidth="130.0" style="-fx-background-radius: 50;" text="Modifier ">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="179.0" style="-fx-background-color: #f9f9f9; -fx-background-radius: 15;">
+                           <children>
+                              <Button fx:id="idsupprimer" alignment="CENTER" mnemonicParsing="false" prefHeight="77.0" prefWidth="130.0" style="-fx-background-radius: 50;" text="Supprimer ">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="tabcertif" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="colnom" prefWidth="183.0" text="Nom" />
+                      <TableColumn fx:id="coltype" prefWidth="263.0" text="Type" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
