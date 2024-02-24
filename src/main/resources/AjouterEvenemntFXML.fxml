@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="924.0" styleClass="form-container" stylesheets="@css/Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjouterEvenementFXML">
+   <children>
+      <VBox layoutY="32.0" prefHeight="495.0" prefWidth="201.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
+            <TextField fx:id="tfNom1" prefWidth="190.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+            <TextArea fx:id="tfDescr1" prefHeight="76.0" prefWidth="175.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date event" />
+            <DatePicker fx:id="tfDate_event" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Heure event" />
+            <Spinner fx:id="tfheure_event" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" />
+            <TextField fx:id="tfprix" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Participants" />
+            <TextField fx:id="tfNbrP1" />
+         </children>
+      </VBox>
+      <Label layoutX="389.0" layoutY="14.0" styleClass="title" text="Crud-event" />
+      <ButtonBar layoutX="195.0" layoutY="535.0" prefHeight="40.0" prefWidth="565.0">
+        <buttons>
+            <Button fx:id="tfSave" mnemonicParsing="false" onAction="#ajouterEvenemnt" prefHeight="35.0" prefWidth="218.0" styleClass="form-container" text="Save" />
+            <Button fx:id="tfupdate" mnemonicParsing="false" onAction="#updateEvenemnt" styleClass="form-container" text="Update" />
+            <Button fx:id="tfdelete" mnemonicParsing="false" onAction="#deleteEvenemnt" styleClass="form-container" text="Delete" />
+            <Button fx:id="tfclear" mnemonicParsing="false" onAction="#clearFiled" styleClass="form-container" text="clear" />
+            <Button fx:id="tfafficher" mnemonicParsing="false" onAction="#refresh" text="Afficher" />
+        </buttons>
+      </ButtonBar>
+      <TableView fx:id="tbEvents" layoutX="188.0" layoutY="204.0" prefHeight="200.0" prefWidth="734.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="204.0">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="34.39999485015869" text="ID" />
+            <TableColumn fx:id="ColNom" prefWidth="71.20000839233398" text="Nom" />
+            <TableColumn fx:id="colDescr" prefWidth="156.8000030517578" text="Description" />
+            <TableColumn fx:id="coldate" prefWidth="128.00006103515625" text="Date event" />
+            <TableColumn fx:id="colheure" prefWidth="106.39996337890625" text="Heure event" />
+            <TableColumn fx:id="colPrix" prefWidth="107.199951171875" text="Prix" />
+            <TableColumn fx:id="colNbrP" minWidth="0.0" prefWidth="151.20001220703125" text="Nbr Participants" />
+         </columns>
+      </TableView>
+
+
+   </children>
+</AnchorPane>
