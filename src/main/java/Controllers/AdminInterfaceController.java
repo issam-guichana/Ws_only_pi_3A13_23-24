@@ -62,7 +62,6 @@ public class AdminInterfaceController implements Initializable {
         }
         tabUsers.setItems(oblist);
     }
-
     @FXML
     public void GoToGestUser(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
@@ -71,6 +70,7 @@ public class AdminInterfaceController implements Initializable {
         AdminAddFormateurController lc = loader.getController();
         bGoToGestUser.getScene().setRoot(root);
     }
+
    @FXML
     public void LogOut(ActionEvent event) {
        try {
@@ -78,6 +78,7 @@ public class AdminInterfaceController implements Initializable {
            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
            Parent root = loader.load();
            bLogout.getScene().setRoot(root);
+
        } catch (IOException ex) {
            Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
        }

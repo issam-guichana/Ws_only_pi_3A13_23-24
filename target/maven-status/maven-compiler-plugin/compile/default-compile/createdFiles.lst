@@ -3,6 +3,7 @@ Controllers\RegisterUserController.class
 Controllers\AdminAddFormateurController.class
 Controllers\LoginUserController$1.class
 Controllers\UserSettingsController.class
+Controllers\AdminUpdateFormateurController.class
 Controllers\LoginUserController.class
 Controllers\AdminInterfaceController.class
 test\FxMain.class

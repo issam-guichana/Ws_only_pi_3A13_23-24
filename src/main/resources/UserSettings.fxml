@@ -53,7 +53,6 @@
                 <TextField fx:id="tfUsername" layoutX="201.0" layoutY="118.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
                 <TextField fx:id="tfEmail" layoutX="202.0" layoutY="170.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
                 <TextField fx:id="tfAge" layoutX="203.0" layoutY="220.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
-            <TextField fx:id="tfRole" layoutX="203.0" layoutY="270.0" style="-fx-background-color: transparant; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
                 <Text fill="#213e60" layoutX="46.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre nom d'utilisateur :">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
@@ -68,11 +67,6 @@
                     <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                     </font></Text>
-            <Text fill="#213e60" layoutX="100.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre fonction :">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="12.0" />
-               </font>
-            </Text>
             </children>
         </AnchorPane>
     </right>

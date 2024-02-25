@@ -35,7 +35,10 @@ public class AdminAddFormateurController implements Initializable {
     public Button bLogout;
     @FXML
     public Button bBack;
+    @FXML
     public JFXButton bGoToAddFormateur;
+    @FXML
+    public JFXButton bGoToUpdateFormateur;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,7 +68,6 @@ public class AdminAddFormateurController implements Initializable {
         }
     }
 
-
     @FXML
     public void Reset(ActionEvent event) {
         tfUsername.setText("");
@@ -82,6 +84,14 @@ public class AdminAddFormateurController implements Initializable {
         bGoToAddFormateur.getScene().setRoot(root);
     }
     @FXML
+    public void GoToUpdateFormateur(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/AdminUpdateFormateur.fxml"));
+        Parent root = loader.load();
+        AdminUpdateFormateurController lc = loader.getController();
+        bGoToUpdateFormateur.getScene().setRoot(root);
+    }
+    @FXML
     public void BackToAdminI(ActionEvent event)throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminInterface.fxml"));
@@ -89,7 +99,6 @@ public class AdminAddFormateurController implements Initializable {
         AdminInterfaceController lc = loader.getController();
         bBack.getScene().setRoot(root);
     }
-
     @FXML
     public void LogOut(ActionEvent event) throws IOException {
         try {

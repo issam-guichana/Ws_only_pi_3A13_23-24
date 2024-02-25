@@ -3,15 +3,24 @@ package Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import models.User;
+import services.UserService;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserSettingsController {
+public class UserSettingsController implements Initializable {
 
+    public TextField tfUsername;
+    public TextField tfEmail;
+    public TextField tfAge;
     @FXML
     private Button bGotoupdate;
     @FXML
@@ -24,11 +33,18 @@ public class UserSettingsController {
     private Button bLogout;
     @FXML
     private Button bBack;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        UserService us =new UserService();
+
+        tfUsername.setText(us.ChercherParId(LoginUserController.logged).getUsername());
+        tfEmail.setText(us.ChercherParId(LoginUserController.logged).getEmail());
+        tfAge.setText(String.valueOf(us.ChercherParId(LoginUserController.logged).getAge()));
+    }
     public void BackToMenu(ActionEvent event) {
         // to doooo
-
     }
-
     public void GoToUpdateProfile(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/UpdateProfile.fxml"));
@@ -50,9 +66,8 @@ public class UserSettingsController {
                 .getResource("/DeleteProfile.fxml"));
         Parent root = loader.load();
         DeleteProfileController lc = loader.getController();
-        bGotodeleteacc.getScene().setRoot(root);    }
-
-
+        bGotodeleteacc.getScene().setRoot(root);
+    }
     public void GoToPaymentMethod(ActionEvent event)throws IOException {
         //Tooo dooooo
     }

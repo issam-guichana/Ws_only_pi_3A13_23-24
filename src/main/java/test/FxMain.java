@@ -13,10 +13,10 @@ public class FxMain extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/LoginUser.fxml"));
+               .getResource("/LoginUser.fxml"));
                 //.getResource("/UpdateProfile.fxml"));
                 //.getResource("/AdminInterface.fxml"));
-                 //.getResource("/RegisterUser.fxml"));
+                 //.getResource("/azizdashboard.fxml"));
                 ///.getResource("/UserSettings.fxml"));
 
         Parent parent = loader.load();

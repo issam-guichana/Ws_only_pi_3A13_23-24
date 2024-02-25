@@ -159,7 +159,8 @@ public class LoginUserController implements Initializable {
                     } catch (IOException ex) {
                         Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
+                } else
+                JOptionPane.showMessageDialog(null, "Invalide Username Or Password ");
                 System.out.println(logged);
             }
 

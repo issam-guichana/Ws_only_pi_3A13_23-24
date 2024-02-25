@@ -1,5 +1,6 @@
 package Controllers;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import models.User;
 import services.UserService;
 import java.io.IOException;
@@ -17,7 +19,7 @@ import java.util.ResourceBundle;
 
 
 public class RegisterUserController implements Initializable {
-   @FXML
+    @FXML
     public TextField cbRole;
     @FXML
     private TextField tfUsername;
@@ -31,20 +33,21 @@ public class RegisterUserController implements Initializable {
     private Hyperlink hBackToLogin;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cbRole.setText("CLIENT");
     }
-
     @FXML
     void AddUser(ActionEvent event){
         try {
+            if (!tfEmail.getStyle().contains("red")) {
             User p = new User(tfUsername.getText(), tfEmail.getText(),tfPassword.getText(), Integer.parseInt(tfAge.getText()),cbRole.getText());
             UserService sp = new UserService();
             sp.insertOne(p);
             System.out.println("CLIENT ADDED ");
             Reset(new ActionEvent());
-            BackToLogin(new ActionEvent());
+            BackToLogin(new ActionEvent());}
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
@@ -59,6 +62,7 @@ public class RegisterUserController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
     public void BackToLogin(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/LoginUser.fxml"));
@@ -66,7 +70,6 @@ public class RegisterUserController implements Initializable {
         LoginUserController lc = loader.getController();
         hBackToLogin.getScene().setRoot(root);
     }
-
     @FXML
     public void Reset(ActionEvent event) {
         tfUsername.setText("");
@@ -74,12 +77,10 @@ public class RegisterUserController implements Initializable {
         tfPassword.setText("");
         tfAge.setText("");
     }
-
     @FXML
     private void exit(ActionEvent event){
         System.exit(0);
     }
-
     @FXML
     void initialize(){
         assert tfAge != null : "fx:id=\"tfAge\" was not injected: check your FXML file 'RegisterUser.fxml'.";
@@ -87,6 +88,5 @@ public class RegisterUserController implements Initializable {
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'RegisterUser.fxml'.";
         assert tfEmail != null : "fx:id=\"tfEmail\" was not injected: check your FXML file 'RegisterUser.fxml'.";
     }
-
 
 }

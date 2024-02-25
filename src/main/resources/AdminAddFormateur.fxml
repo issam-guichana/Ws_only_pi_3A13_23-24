@@ -32,7 +32,7 @@
                     </font>
                 </Button>
                 <JFXButton fx:id="bGoToAddFormateur" layoutX="11.0" layoutY="111.0" onAction="#GoToAddFormateur" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Ajouter un formateur" textFill="WHITE" />
-                <JFXButton fx:id="bGotouppwd" layoutX="11.0" layoutY="171.0" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="/// to dooo" textFill="WHITE" />
+                <JFXButton fx:id="bGoToUpdateFormateur" layoutX="11.0" layoutY="171.0" onAction="#GoToUpdateFormateur" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Modifier un formateur" textFill="WHITE" />
                 <JFXButton fx:id="bGotodeleteacc" layoutX="11.0" layoutY="291.0" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="//to doo " textFill="WHITE" />
                 <JFXButton fx:id="bGotopay" layoutX="12.0" layoutY="231.0" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="//to doo " textFill="WHITE" />
             </children>
@@ -46,9 +46,9 @@
                         <Font name="Comic Sans MS" size="16.0" />
                     </font>
                 </Text>
-                <TextField fx:id="tfUsername" alignment="TOP_LEFT" layoutX="203.0" layoutY="120.0" prefHeight="28.0" prefWidth="142.0" promptText="Abc" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" AnchorPane.rightAnchor="57.0" />
-                <TextField fx:id="tfEmail" alignment="TOP_LEFT" layoutX="151.19999999999996" layoutY="165.0" prefHeight="28.0" prefWidth="142.0" promptText="email@example.com" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" AnchorPane.rightAnchor="56.80000000000001" />
-                <TextField fx:id="tfAge" alignment="TOP_LEFT" layoutX="151.19999999999996" layoutY="209.0" prefHeight="28.0" prefWidth="142.0" promptText="999" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" AnchorPane.rightAnchor="56.80000000000001" />
+                <TextField fx:id="tfUsername" alignment="TOP_LEFT" layoutX="203.0" layoutY="120.0" prefHeight="28.0" prefWidth="142.0" promptText="Abc" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+                <TextField fx:id="tfEmail" alignment="TOP_LEFT" layoutX="203.19999999999996" layoutY="165.0" prefHeight="28.0" prefWidth="142.0" promptText="email@example.com" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+                <TextField fx:id="tfAge" alignment="TOP_LEFT" layoutX="204.19999999999996" layoutY="209.0" prefHeight="28.0" prefWidth="142.0" promptText="999" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
                 <TextField fx:id="cbRole" editable="false" layoutX="35.0" layoutY="67.0" prefHeight="26.0" prefWidth="102.0" visible="false" />
                 <Text fill="#213e60" layoutX="86.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom d'utilisateur :">
                     <font>

@@ -1,49 +1,68 @@
 package Controllers;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import models.User;
 import services.UserService;
 import utils.DBconnection;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.net.URL;
+import java.sql.*;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UpdateProfileController {
+public class AdminUpdateFormateurController implements Initializable {
+    @FXML
+    public TextField tfUsername;
+    @FXML
+    public TextField tfEmail;
+    @FXML
+    public TextField tfAge;
+    @FXML
+    public PasswordField tfNewPassword;
+    @FXML
+    public PasswordField tfCfPassword;
+    @FXML
+    public JFXButton bGoToAddFormateur;
+    @FXML
+    public JFXButton bGoToUpdateFormateur;
+    @FXML
+    public Button bLogout;
     @FXML
     public Button bBack;
     @FXML
-    private TextField tfUsername;
-    @FXML
-    private TextField tfEmail;
-    @FXML
-    private TextField tfAge;
-
-    @FXML
-    private Button bGotoupdate;
-    @FXML
-    private Button bGotouppwd;
-    @FXML
-    private Button bGotodeleteacc;
-    @FXML
-    private Button bGotopay;
-    @FXML
-    private Button bLogout;
+    public ComboBox<String> cbFormateur;
 
     PreparedStatement pst = null;
     ResultSet rs = null;
+    ObservableList <String> nomFormateur = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Connection cnx = DBconnection.getInstance().getCnx();
+        try {
+            Statement statement = cnx.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT username FROM user WHERE role = 'FORMATEUR' ");
+            while (resultSet.next()) {
+                nomFormateur.add(resultSet.getString(1));
+            }
+            cbFormateur.setItems(nomFormateur);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
     public void Update(ActionEvent event) {
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
@@ -59,7 +78,7 @@ public class UpdateProfileController {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation");
                 alert.setHeaderText(null);
-                alert.setContentText("Voulez-vous vraiment modifier vos données ?");
+                alert.setContentText("Voulez-vous vraiment modifier les données de cette formateur?");
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.get() == ButtonType.OK) {
@@ -88,38 +107,40 @@ public class UpdateProfileController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
-
+    @FXML
     public void Reset(ActionEvent event) {
         tfUsername.setText("");
         tfEmail.setText("");
         tfAge.setText("");
+        tfNewPassword.setText("");
+        tfCfPassword.setText("");
     }
-    public void GoToUpdateProfile(ActionEvent event) throws IOException {
+    @FXML
+    public void GoToAddFormateur(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/UpdateProfile.fxml"));
+                .getResource("/AdminAddFormateur.fxml"));
         Parent root = loader.load();
-        UpdateProfileController lc = loader.getController();
-        bGotoupdate.getScene().setRoot(root);
+        AdminAddFormateurController lc = loader.getController();
+        bGoToAddFormateur.getScene().setRoot(root);
     }
-    public void GoToResetPwd(ActionEvent event) throws IOException {
+    @FXML
+    public void GoToUpdateFormateur(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/ResetPwd.fxml"));
+                .getResource("/AdminUpdateFormateur.fxml"));
         Parent root = loader.load();
-        ResetPwdController lc = loader.getController();
-        bGotouppwd.getScene().setRoot(root);
+        AdminUpdateFormateurController lc = loader.getController();
+        bGoToUpdateFormateur.getScene().setRoot(root);
     }
-    public void GoToDeleteAcc(ActionEvent event) throws IOException{
+    @FXML
+    public void BackToAdminI(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/DeleteProfile.fxml"));
+                .getResource("/AdminInterface.fxml"));
         Parent root = loader.load();
-        DeleteProfileController lc = loader.getController();
-        bGotodeleteacc.getScene().setRoot(root);
+        AdminInterfaceController lc = loader.getController();
+        bBack.getScene().setRoot(root);
     }
-    public void GoToPaymentMethod(ActionEvent event)throws IOException {
-        //Tooo dooooo
-    }
-    public void LogOut(ActionEvent event) throws IOException{
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
         try {
             //thezek lel inscription
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
@@ -129,14 +150,10 @@ public class UpdateProfileController {
             Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void GoToSetting(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/UserSettings.fxml"));
-        Parent root = loader.load();
-        UserSettingsController lc = loader.getController();
-        bBack.getScene().setRoot(root);
-    }
+    @FXML
     public void Exit(ActionEvent event) {
         System.exit(0);
     }
+
+
 }

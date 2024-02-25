@@ -4,9 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5dd2bfbf-845e-43cd-9782-8888c4bd3fa7" name="Changes" comment="">
+    <list default="true" id="5dd2bfbf-845e-43cd-9782-8888c4bd3fa7" name="Changes" comment="CRUUUUUUUUD">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/AdminAddFormateurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/AdminAddFormateurController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/AdminInterfaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/AdminInterfaceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/LoginUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/LoginUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/RegisterUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/RegisterUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/UpdateProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/UpdateProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/UserSettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/UserSettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/FxMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/FxMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AdminAddFormateur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminAddFormateur.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AdminInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminInterface.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ResetPwd.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResetPwd.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/UserSettings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserSettings.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/azizdashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/azizdashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/AdminAddFormateur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/AdminAddFormateur.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/AdminAddFormateurController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/AdminAddFormateurController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/AdminInterfaceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/AdminInterfaceController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/RegisterUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/RegisterUserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/UpdateProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/UpdateProfileController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/UserSettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/UserSettingsController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,13 +34,27 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;issam-guichana&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="9d42da96-cb2f-4862-90dd-b9c189e10a33" />
+        <option name="url" value="https://github.com/issam-guichana/Ws_only_pi_3A13_23-24.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -32,6 +63,9 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2cMbV3HXjMEpEcIzQbxrAGg44mZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -43,7 +77,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "issam1",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/issam/Desktop/pidev",
+    "last_opened_file_path": "C:/Users/issam/Desktop/pidev ancien/Pidev_3A29_Dynamic_Developers_Desktop_JavaFx-main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,12 +104,26 @@
       <workItem from="1708650112440" duration="22234000" />
       <workItem from="1708787639606" duration="121000" />
       <workItem from="1708787788550" duration="839000" />
-      <workItem from="1708791638814" duration="422000" />
+      <workItem from="1708791638814" duration="2170000" />
+      <workItem from="1708813020996" duration="17587000" />
     </task>
+    <task id="LOCAL-00001" summary="CRUUUUUUUUD">
+      <option name="closed" value="true" />
+      <created>1708792082763</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708792082763</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="CRUUUUUUUUD" />
+    <option name="LAST_COMMIT_MESSAGE" value="CRUUUUUUUUD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
