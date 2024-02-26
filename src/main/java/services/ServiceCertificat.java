@@ -52,7 +52,7 @@ public class ServiceCertificat implements CRUD<Certificat> {
     }
 
     @Override
-    public List<Certificat> selectAll() throws SQLException {
+    public  List<Certificat> selectAll() throws SQLException {
         List<Certificat> certificats = new ArrayList<>();
         String query = "SELECT * FROM `certificat`";
         try (Statement st = cnx.createStatement();

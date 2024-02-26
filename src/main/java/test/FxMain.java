@@ -10,7 +10,7 @@ public class FxMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/AjouterCertificatFXML.fxml"));
+                .getResource("/AjouterBadgeXML.fxml"));
         Parent parent = loader.load();
 
         Scene scene = new Scene(parent);
