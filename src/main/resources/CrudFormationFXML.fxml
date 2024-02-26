@@ -1,14 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.CrudFormationFXML"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="1290.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CrudFormationFXML">
+    <children>
+        <BorderPane layoutY="-3.0" prefHeight="658.0" prefWidth="1290.0">
+            <left>
+                <VBox prefHeight="390.0" prefWidth="200.0" style="-fx-background-color: #123E60;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/Capture_d_écran_2024-02-25_193254-removebg-preview.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </VBox>
+            </left>
+            <center>
+                <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="1018.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Accordion prefHeight="486.0" prefWidth="1018.0">
+                            <panes>
+                                <TitledPane animated="false" prefHeight="418.0" prefWidth="864.0" text="Formations">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="434.0" prefWidth="834.0">
+                                            <children>
+                                                <TableView fx:id="table" prefHeight="438.0" prefWidth="614.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="IDcol" minWidth="0.0" prefWidth="0.0" text="ID" />
+                                                        <TableColumn fx:id="NomCol" prefWidth="150.0" text="nom Formation" />
+                                                        <TableColumn fx:id="DESCRIPTIONcol" prefWidth="141.0" text="Description" />
+                                                        <TableColumn fx:id="FormateurCol" prefWidth="154.0" text="Formateur" />
+                                                        <TableColumn fx:id="CATCol" prefWidth="168.0" text="Catégorie " />
+                                                    </columns>
+                                                </TableView>
+                                                <Pane layoutX="612.0" prefHeight="430.0" prefWidth="406.0" style="-fx-background-color: #E68C3A;">
+                                                    <children>
+                                                        <Label layoutX="29.0" layoutY="39.0" text="Nom Formation" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="19.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="30.0" layoutY="129.0" text="Formateur" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="23.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="43.0" layoutY="85.0" text="Description" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="21.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="nomfx" layoutX="168.0" layoutY="37.0" />
+                                                        <TextField fx:id="descriptionfx" layoutX="168.0" layoutY="85.0" />
+                                                        <TextField fx:id="formateurfx" layoutX="168.0" layoutY="134.0" />
+                                                        <Label layoutX="29.0" layoutY="186.0" text="Categorie" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="25.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <ChoiceBox fx:id="fxCategorieChoiceBox" layoutX="165.0" layoutY="189.0" prefWidth="150.0" />
+                                                        <Button fx:id="btncat11" layoutX="163.0" layoutY="236.0" mnemonicParsing="false" onAction="#AjouterCategorie" prefHeight="31.0" prefWidth="154.0" style="-fx-background-color: #3A98B9;" text="AjouterCategorie" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="15.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <Button fx:id="btnmodifier" layoutX="282.0" layoutY="292.0" mnemonicParsing="false" onAction="#updateOne" prefHeight="38.0" prefWidth="120.0" style="-fx-background-color: #3A98B9;" text="Modifier" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="16.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <Button fx:id="btnsupprimer" layoutX="53.0" layoutY="293.0" mnemonicParsing="false" onAction="#deleteOne" prefHeight="36.0" prefWidth="128.0" style="-fx-background-color: #3A98B9;" text="Supprimer" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="16.0" />
+                                                            </font>
+                                                            <graphic>
+                                                                <ImageView fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
 
+                                                                </ImageView>
+                                                            </graphic>
+                                                        </Button>
+                                                        <Button fx:id="btnajouter1" layoutX="90.0" layoutY="357.0" mnemonicParsing="false" onAction="#insertOne" prefHeight="44.0" prefWidth="143.0" style="-fx-background-color: #3c94d1;" text="Ajouter" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="21.0" />
+                                                            </font>
+                                                        </Button>
+                                                    </children>
+                                                </Pane>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                    <font>
+                                        <Font name="Century Gothic Bold Italic" size="19.0" />
+                                    </font>
+                                </TitledPane>
+                            </panes>
+                        </Accordion>
+                    </children></HBox>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>
