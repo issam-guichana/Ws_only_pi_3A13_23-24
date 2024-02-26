@@ -45,6 +45,20 @@ public class UpdateProfileController {
     PreparedStatement pst = null;
     ResultSet rs = null;
     public void Update(ActionEvent event) {
+        //controle de saisie
+        // Check if any required field is empty
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() ||  tfAge.getText().isEmpty()) {
+            showAlert("Erreur", "Veuillez remplir tout les champs.");
+            return;
+        }
+        if (tfUsername.getLength()<6){
+            showAlert("Erreur", "Votre Nom d'utilisateur doit contenir au moins 6 caractères");
+            return;
+        }
+        if (!isValidEmail(tfEmail.getText())) {
+            showAlert("Erreur", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
+            return;
+        }
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
         String sql = "Select * from user where id_user = ?";
@@ -87,6 +101,16 @@ public class UpdateProfileController {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 

@@ -40,20 +40,54 @@ public class RegisterUserController implements Initializable {
     }
     @FXML
     void AddUser(ActionEvent event){
+        //controle de saisie
+        // Check if any required field is empty
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty() || tfAge.getText().isEmpty()) {
+            showAlert("Error", "Veuillez remplir tout les champs.");
+            return;
+        }
+        if (tfUsername.getLength()<6){
+            showAlert("Error", "Votre Nom d'utilisateur doit contenir au moins 6 caractères");
+            return;
+        }
+        if (!isValidEmail(tfEmail.getText())) {
+            showAlert("Error", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
+            return;
+        }
+        if (tfPassword.getLength()<6){
+            showAlert("Error", "Votre mot de passe doit contenir au moins 6 caractères");
+            return;
+        }
+//        else if (!tfPassword.getText().equals(Cpassword)) {
+//            showAlert("Error", "les 2 password son't faux");
+//            return;
+//        }
+
+        // Validate phone number
+//        int phone ;
+//        try {
+//            phone = Integer.parseInt(phoneText);
+//        } catch (NumberFormatException e) {
+//            showAlert("Error", "Entrer un Numéro Télephone Valide");
+//            return;
+//        }
+        // Validate email format
+
         try {
-            if (!tfEmail.getStyle().contains("red")) {
             User p = new User(tfUsername.getText(), tfEmail.getText(),tfPassword.getText(), Integer.parseInt(tfAge.getText()),cbRole.getText());
             UserService sp = new UserService();
             sp.insertOne(p);
+
+            //information alert "added"
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Bienvenue");
+            alert.setContentText("Bienvenue Dans Formini.tn");
+            alert.showAndWait();
+
             System.out.println("CLIENT ADDED ");
             Reset(new ActionEvent());
-            BackToLogin(new ActionEvent());}
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur de saisie");
-            alert.setContentText("Vous avez une erreur dans la saisie de vos données!");
-            alert.show();
-        }catch (NumberFormatException e) {
+            BackToLogin(new ActionEvent());
+        } catch (SQLException | NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Vous avez une erreur dans la saisie de vos données!");
@@ -62,6 +96,17 @@ public class RegisterUserController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 
     public void BackToLogin(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
@@ -90,3 +135,20 @@ public class RegisterUserController implements Initializable {
     }
 
 }
+
+//    public void initialize() {
+//        initializeComboBoxContent();
+//    }
+
+//    private void redirectToLogin() throws IOException {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+//        Parent loginSuccessRoot = loader.load();
+//        Scene scene = id_Password.getScene(); // Get the scene from any node in the current scene
+//        scene.setRoot(loginSuccessRoot);
+//    }
+
+//    private void initializeComboBoxContent() {
+//        // Initialize  choices
+//        id_Role.getItems().addAll("Member", "Artist"); // Example Role choices
+//        id_Gender.getItems().addAll("Homme", "Femme", "Autre"); // Example gender choices
+//    }

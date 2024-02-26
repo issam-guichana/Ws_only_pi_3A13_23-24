@@ -35,7 +35,7 @@
             <Hyperlink fx:id="hForgotPwd" layoutX="130.0" layoutY="414.0" onAction="#ForgotPwd" text="Mot de passe oublié ?" />
             <Hyperlink fx:id="hRegister" layoutX="93.0" layoutY="448.0" onAction="#GoToRegister" text="Vous n'avez pas encore un compte ?" />
             <FontAwesomeIconView fill="#e68c3a" glyphName="USERS" layoutX="171.0" layoutY="134.0" size="40" />
-            <Text fill="#213e60" layoutX="104.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="zid tfarej mli7 .. yalla logini">
+            <Text fill="#213e60" layoutX="81.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connectez-vous à votre compte ">
                <font>
                   <Font size="15.0" />
                </font>

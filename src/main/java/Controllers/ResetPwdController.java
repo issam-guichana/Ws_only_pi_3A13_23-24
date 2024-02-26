@@ -45,6 +45,20 @@ public class ResetPwdController {
     PreparedStatement pst = null;
     ResultSet rs = null;
     public void UpdatePwd(ActionEvent event) {
+        //controle de saisie
+        // Check if any required field is empty
+        if (tfNewPassword.getText().isEmpty() || tfCfPassword.getText().isEmpty() || tfPassword.getText().isEmpty()) {
+            showAlert("Erreur", "Veuillez remplir tout les champs.");
+            return;
+        }
+        if (tfPassword.getLength()<6){
+            showAlert("Erreur", "Votre mot de passe doit contenir au moins 6 caractères");
+            return;
+        }
+        else if (!tfNewPassword.getText().equals(tfCfPassword.getText())) {
+            showAlert("Erreur", "Les deux mots de passe ne sont pas identiques");
+            return;
+        }
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
         String sql = "Select * from user where id_user = ?";
@@ -95,6 +109,12 @@ public class ResetPwdController {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 

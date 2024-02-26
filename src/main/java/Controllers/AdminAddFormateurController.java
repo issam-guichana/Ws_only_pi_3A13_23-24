@@ -47,18 +47,38 @@ public class AdminAddFormateurController implements Initializable {
 
     @FXML
     public void AddFormateur(ActionEvent event) {
+        //controle de saisie
+        // Check if any required field is empty
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty() || tfAge.getText().isEmpty()) {
+            showAlert("Error", "Veuillez remplir tout les champs.");
+            return;
+        }
+        if (tfUsername.getLength()<6){
+            showAlert("Error", "Votre Nom d'utilisateur doit contenir au moins 6 caractères");
+            return;
+        }
+        if (!isValidEmail(tfEmail.getText())) {
+            showAlert("Error", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
+            return;
+        }
+        if (tfPassword.getLength()<6){
+            showAlert("Error", "Votre mot de passe doit contenir au moins 6 caractères");
+            return;
+        }
         try {
             User p = new User(tfUsername.getText(), tfEmail.getText(),tfPassword.getText(), Integer.parseInt(tfAge.getText()),cbRole.getText());
             UserService sp = new UserService();
             sp.insertOne(p);
+
+            //information alert "added"
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("succès");
+            alert.setContentText("formateur ajouté avec succès");
+            alert.showAndWait();
+
             System.out.println("FORMATEUR ADDED");
             GoToAddFormateur(new ActionEvent());
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur de saisie");
-            alert.setContentText("Vous avez une erreur dans la saisie de vos données!");
-            alert.show();
-        }catch (NumberFormatException e) {
+        } catch (SQLException | NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Vous avez une erreur dans la saisie de vos données!");
@@ -66,6 +86,16 @@ public class AdminAddFormateurController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML

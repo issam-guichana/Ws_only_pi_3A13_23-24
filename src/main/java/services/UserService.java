@@ -98,9 +98,34 @@ public class UserService implements CRUD<User> {
 
         return userList;
     }
-
+//    public ArrayList<User> ChercherParUsername(String username) {
+//        ArrayList<User> listusersNames = new ArrayList<>();
+//        try {
+//
+//            PreparedStatement pre = cnx.prepareStatement ("SELECT * FROM user where username = ?");
+//
+//            pre.setString(1, username);
+//            ResultSet result = pre.executeQuery();
+//
+//            while (result.next()) {
+//                int id = result.getInt(1);
+//                String name = result.getString(2);
+//                String mail = result.getString(3);
+//                String password = result.getString(4);
+//                int age = Integer.parseInt(result.getString(5));
+//                String role = result.getString(6);
+//
+//                User ur = new User(id, name, mail, password,age, role);
+//                listusersNames.add(ur);
+//                System.out.println("Min aand el base de donnes" + listusersNames);
+//                pre.executeUpdate();
+//            }
+//        } catch (SQLException ex) {
+//            System.out.print(ex.getMessage());
+//        }
+//        return null;
+//    }
     public User ChercherParUsername(String username) {
-
         try {
             PreparedStatement pre = cnx.prepareStatement("SELECT * FROM user where username = ?");
             pre.setString(1, username);
