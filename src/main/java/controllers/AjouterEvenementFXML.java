@@ -1,14 +1,34 @@
-package Controller;
+package controllers;
 
+import controllers.UserParticipantController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import models.Evenement;
 import services.ServiceEvenement;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,6 +38,8 @@ import java.util.Date;
 import java.util.List;
 
 public class AjouterEvenementFXML {
+    @FXML
+    private Button tfListP;
 
     @FXML
     private DatePicker tfDate_event;
@@ -73,9 +95,16 @@ public class AjouterEvenementFXML {
 
     @FXML
     private TableColumn<Evenement, Date> colheure;
-
+    @FXML
+    private TextField tfimage;
     @FXML
     private TableView<Evenement> tbEvents;
+
+    @FXML
+    private Button btn_importer;
+    @FXML
+    private ImageView imageevenement;
+    private String xamppFolderPath = "C:/xampp/htdocs/img/";
 
     @FXML
     void ajouterEvenemnt(ActionEvent event) {
@@ -83,10 +112,17 @@ public class AjouterEvenementFXML {
             LocalDate localDate = tfDate_event.getValue();
             LocalTime localTime = tfheure_event.getValue();
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-            Evenement p = new Evenement(tfNom1.getText(), tfDescr1.getText(), sqlDate, localTime, Integer.parseInt(tfprix.getText()), Integer.parseInt(tfNbrP1.getText()));
+
+            // Get the image URL from the tfimage TextField
+            String imageUrl = tfimage.getText();
+
+            Evenement p = new Evenement(tfNom1.getText(), tfDescr1.getText(), sqlDate, localTime, Integer.parseInt(tfprix.getText()), Integer.parseInt(tfNbrP1.getText()), imageUrl);
 
             ServiceEvenement sp = new ServiceEvenement(tbEvents);
             sp.insertOne(p);
+
+            // Additional log for debugging
+            System.out.println("Event added successfully");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,7 +170,7 @@ public class AjouterEvenementFXML {
         }
     }
 
-    @FXML
+    @FXML  
     void updateEvenemnt(ActionEvent event) {
         // Check if there is a selected event
         Evenement selectedEvent = tbEvents.getSelectionModel().getSelectedItem();
@@ -144,7 +180,7 @@ public class AjouterEvenementFXML {
             String description = (tfDescr1.getText() != null) ? tfDescr1.getText() : "";
             LocalDate localDate = tfDate_event.getValue();
             LocalTime timeText = tfheure_event.getValue();
-
+            String image_event = (tfimage.getText() != null) ? tfimage.getText() : "";
 // Conversion de LocalDate en java.sql.Date
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
 
@@ -155,7 +191,7 @@ public class AjouterEvenementFXML {
 
 // Create Evenement object
 
-            Evenement newEvent = new Evenement(selectedEvent.getId_event(), nom_event, description, sqlDate, timeText, prix, nbrP);
+            Evenement newEvent = new Evenement(selectedEvent.getId_event(), nom_event, description, sqlDate, timeText, prix, nbrP, image_event);
             // Update in the database
             ServiceEvenement se = new ServiceEvenement();
             se.updateOne(newEvent);
@@ -178,7 +214,6 @@ public class AjouterEvenementFXML {
             alert.show();
         }
     }
-
 
 
     void afficherevent() {
@@ -214,11 +249,11 @@ public class AjouterEvenementFXML {
         assert tfNom1 != null : "fx:id=\"tfNom\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tfclear != null : "fx:id=\"tfReset\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tfSave != null : "fx:id=\"tfSave\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
-        assert tfupdate != null : "fx:id=\"tfSave\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
-        assert tfdelete != null : "fx:id=\"tfSave\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
+        assert tfupdate != null : "fx:id=\"tfupdate\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
+        assert tfdelete != null : "fx:id=\"tfdelete\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tfafficher != null : "fx:id=\"tfafficher\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
-
-
+        assert btn_importer != null : "fx:id=\"btn_importer\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
+        assert imageevenement != null : "fx:id=\"imageevenement\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         //tableau
         assert ColNom != null : "fx:id=\"ColNom\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colDescr != null : "fx:id=\"colDescr\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
@@ -254,5 +289,63 @@ public class AjouterEvenementFXML {
 
         afficherevent();
     }
-}
 
+    @FXML
+    void accederListeParticipants(ActionEvent event) {
+        try {
+            Evenement selectedEvent = tbEvents.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GererParticipantsFXML.fxml"));
+            Parent root = loader.load();
+
+
+            UserParticipantController controller = loader.getController();
+            controller.setEventId(selectedEvent.getId_event());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Liste des participants");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception
+        }
+    }
+    @FXML
+    void importerImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Pick a banner file !");
+        Stage stage = new Stage();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file != null) {
+            Path source = file.toPath();
+
+            // Save the full URL of the image
+            String imageUrl = xamppFolderPath + file.getName();
+
+            try {
+                Files.copy(source, Paths.get(imageUrl), StandardCopyOption.REPLACE_EXISTING);
+
+                // Load the image
+                Image image = new Image("file:" + imageUrl);
+
+                // Set the image to the ImageView
+                imageevenement.setImage(image);
+
+                // Set the image URL to the text field
+                tfimage.setText(imageUrl);
+
+            } catch (IOException ex) {
+                System.out.println("Could not get the image");
+                ex.printStackTrace();
+            }
+        } else {
+            System.out.println("No file selected");
+        }
+    }
+
+}

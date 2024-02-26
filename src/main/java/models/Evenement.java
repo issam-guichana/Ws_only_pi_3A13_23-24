@@ -14,22 +14,22 @@ public class Evenement {
     private int prix,id_event;
     private LocalTime heure_deb;
     private LocalDate date_event;
-
+    private String image_event;
     private List<Userparticipants> participants;
 
-    public Evenement(String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb, int prix, int nbrP){
+    public Evenement(String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb, int prix, int nbrP,String image_event){
         this.nom_event = nom_event;
         this.description = description;
         this.prix = prix;
         this.nbrP = nbrP;
         // Convert java.sql.Date to LocalDate
         this.date_event = date_event.toLocalDate();
-
+        this.image_event = image_event;
         // Set LocalTime directly
         this.heure_deb = heure_deb;
     }
 
-    public Evenement(int id_event,String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb, int prix,int nbrP) {
+    public Evenement(int id_event,String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb, int prix,int nbrP,String image_event) {
         this.nom_event = nom_event;
         this.description = description;
         this.prix = prix;
@@ -39,6 +39,7 @@ public class Evenement {
         this.id_event=id_event;
         // Set LocalTime directly
         this.heure_deb = heure_deb;
+        this.image_event = image_event;
 
     }
     public List<Userparticipants> getParticipants() {
@@ -51,6 +52,13 @@ public class Evenement {
 
     }
 
+    public String getImage_event() {
+        return image_event;
+    }
+
+    public void setImage_event(String image_event) {
+        this.image_event = image_event;
+    }
 
     public int getNbrP() {
         return nbrP;

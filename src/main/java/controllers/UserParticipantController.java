@@ -48,6 +48,7 @@ public class UserParticipantController {
 
         // Load and display participants
         loadParticipants();
+        setupButtonColumns();
     }
 
     public void setEventId(int eventId) {
@@ -98,6 +99,35 @@ public class UserParticipantController {
         // Update participant count label
         lblParticipantCount.setText("Participant Count: " + participants.size());
     }
+    private void setupButtonColumns() {
+        setupSupprimerButtonColumn();
+    }
+    private void setupSupprimerButtonColumn() {
+        TableColumn<Userparticipants, Void> supprimerColumn = new TableColumn<>("Supprimer");
+        supprimerColumn.setCellFactory(col -> new TableCell<Userparticipants, Void>() {
+            private final Button deleteButton = new Button("Supprimer");
 
+            {
+                deleteButton.setOnAction(event -> {
+                    Userparticipants up = getTableView().getItems().get(getIndex());
+                    // Action to perform when the "Supprimer" button is clicked
+                    ServiceEvenement se=new ServiceEvenement();
+                    System.out.println("Delete participant: " + up.getUserName());
+                    try {
+                        se.deletetwo(up);
+                        loadParticipants();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
 
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : deleteButton);
+            }
+        });
+        tbParticipants.getColumns().add(supprimerColumn);
+    }
 }

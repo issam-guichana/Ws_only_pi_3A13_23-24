@@ -18,11 +18,11 @@ public class ServiceEvenement implements CRUD<Evenement> {
 
     private Connection cnx;
     private TableView<Evenement> tbEvents;
+
     public ServiceEvenement(TableView<Evenement> tbEvents) {
         this.tbEvents = tbEvents;
         cnx = DBConnection.getInstance().getCnx();
     }
-
 
 
     public ServiceEvenement() {
@@ -32,8 +32,8 @@ public class ServiceEvenement implements CRUD<Evenement> {
     @Override
 
     public void insertOne(Evenement evenement) throws SQLException {
-        String req = "INSERT INTO `evenement`(`nom_event`,`description`,`date_event`, `heure_deb`, `prix`,`nbrP`) VALUES " +
-                "(?,?,?,?,?,?)";
+        String req = "INSERT INTO `evenement`(`nom_event`,`description`,`date_event`, `heure_deb`, `prix`,`nbrP`,`image_event`) VALUES " +
+                "(?,?,?,?,?,?,?)";
 
         try (PreparedStatement ps = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, evenement.getNom_event());
@@ -42,6 +42,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
             ps.setTime(4, java.sql.Time.valueOf(evenement.getHeure_deb()));
             ps.setInt(5, evenement.getPrix());
             ps.setInt(6, evenement.getNbrP());
+            ps.setString(7, evenement.getImage_event());
 
             int affectedRows = ps.executeUpdate();
 
@@ -75,10 +76,9 @@ public class ServiceEvenement implements CRUD<Evenement> {
     }
 
 
-
     public void updateOne(Evenement evenement) throws SQLException {
         try {
-            String req = "UPDATE evenement SET nom_event=?,description=?,date_event=?,heure_deb=?,prix=?,nbrP=? WHERE id_event=?";
+            String req = "UPDATE evenement SET nom_event=?,description=?,date_event=?,heure_deb=?,prix=?,nbrP=?,image_event=? WHERE id_event=?";
             PreparedStatement ps = cnx.prepareStatement(req);
 
             // Définition des valeurs des paramètres de substitution
@@ -89,7 +89,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
             ps.setInt(5, evenement.getPrix());
             ps.setInt(6, evenement.getNbrP());
             ps.setInt(7, evenement.getId_event());
-
+            ps.setString(8, evenement.getImage_event());
             // Exécution de la requête préparée
             ps.executeUpdate();
             System.out.println("Evenement modifié avec succès...");
@@ -141,6 +141,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
 
         return evenementsList;
     }
+
     public List<Userparticipants> getParticipants(int event_id) throws SQLException {
         List<Userparticipants> participants = new ArrayList<>();
 
@@ -168,8 +169,16 @@ public class ServiceEvenement implements CRUD<Evenement> {
         return participants;
     }
 
-
-
+    public void deletetwo(Userparticipants up) throws SQLException {
+        try {
+            Statement st = cnx.createStatement();
+            String req = "DELETE FROM usr_evt WHERE User_id = " + up.getUser_id() + "";
+            st.executeUpdate(req);
+            System.out.println("Participant  supperimer avec succès...");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
 
 
