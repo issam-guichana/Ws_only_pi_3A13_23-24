@@ -62,17 +62,17 @@ public class AdminUpdateFormateurController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    //////////////////////////////ne9sa 5edma update
+
     @FXML
     public void Update(ActionEvent event) {
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
-        String sql = "Select * from user where id_user = ?";
+        String sql = "Select * from user where username = ?";
         try {
             pst = cnx.prepareStatement(sql);
-            pst.setString(1, LoginUserController.logged + "");
+            pst.setString(1, cbFormateur.getValue());
             rs = pst.executeQuery();
-            int idModf = LoginUserController.logged ;
+            String forModf = cbFormateur.getValue();
 
 
             if (rs.next()) {
@@ -83,16 +83,18 @@ public class AdminUpdateFormateurController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.get() == ButtonType.OK) {
+                    int id =userService.ChercherParUsername(forModf).getId_user();
                     String username = tfUsername.getText();
                     String email = tfEmail.getText();
                     int age = Integer.parseInt(tfAge.getText());
-                    String pwd = userService.ChercherParId(idModf).getMdp();
-                    String role =userService.ChercherParId(idModf).getRole();
+                    String pwd = tfNewPassword.getText();
+                    String Cpwd = tfCfPassword.getText();
+                    String role =userService.ChercherParUsername(forModf).getRole();
 
                     //User u = new User(idModf,username,email,age);
                     //UserService us = new UserService();
-                    System.out.println("l id ta3 el user hedha "+idModf);
-                    User userModif = new User(idModf,username,email,pwd,age,role);
+                    System.out.println("l id ta3 el user hedha "+forModf);
+                    User userModif = new User(id,username,email,pwd,age,role);
                     System.out.println(userModif);
 
                     userService.updateOne(userModif);
@@ -102,6 +104,8 @@ public class AdminUpdateFormateurController implements Initializable {
                     successAlert.setHeaderText(null);
                     successAlert.setContentText(" Vos données a été modifiées avec succés.");
                     successAlert.showAndWait();
+
+                    Reset(new ActionEvent());
                 }
             }
         }catch (Exception e) {
@@ -115,6 +119,7 @@ public class AdminUpdateFormateurController implements Initializable {
         tfAge.setText("");
         tfNewPassword.setText("");
         tfCfPassword.setText("");
+        cbFormateur.setValue("");
     }
     @FXML
     public void GoToAddFormateur(ActionEvent event) throws IOException{
