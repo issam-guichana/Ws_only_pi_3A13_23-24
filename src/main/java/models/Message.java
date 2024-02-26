@@ -12,6 +12,9 @@ private String contenu;
         this.contenu=contenu;
     }
 
+    public Message(String text, int roomId) {
+    }
+
     public int getId_msg() {
         return id_msg;
     }
