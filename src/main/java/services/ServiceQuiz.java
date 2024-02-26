@@ -19,10 +19,12 @@ public class ServiceQuiz implements CRUD<Quiz> {
 
     @Override
     public void insertOne(Quiz quiz) throws SQLException {
-        String req = "INSERT INTO `quiz`(`nom_quiz`) VALUES " +
-                "('" + quiz.getNom_quiz() + "')";
-        Statement st = cnx.createStatement();
-        st.executeUpdate(req);
+        String req = "INSERT INTO `quiz`(`nom_quiz`,`image`) VALUES " +
+                "(?,?)";
+        PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setString(1, quiz.getNom_quiz());
+        ps.setString(2, quiz.getImage());
+        ps.executeUpdate();
         System.out.println("Quiz Added !");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -33,12 +35,12 @@ public class ServiceQuiz implements CRUD<Quiz> {
 
     @Override
     public void updateOne(Quiz quiz) throws SQLException {
-        String req = "UPDATE `quiz` SET `nom_quiz` = ? WHERE `id_quiz` = ?";
+        String req = "UPDATE `quiz` SET `nom_quiz`,`image` = ? WHERE `id_quiz` = ?";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setString(1, quiz.getNom_quiz());
-        ps.setInt(2, quiz.getId_quiz());
-
+        ps.setString(2, quiz.getImage());
+        ps.setInt(3, quiz.getId_quiz());
         ps.executeUpdate();
         System.out.println("Quiz Updated !");
     }
@@ -69,6 +71,7 @@ public class ServiceQuiz implements CRUD<Quiz> {
 
             p.setId_quiz(rs.getInt(("id_quiz")));
             p.setNom_quiz(rs.getString(("nom_quiz")));
+            p.setImage(rs.getString(("image")));
 
             quizList.add(p);
         }

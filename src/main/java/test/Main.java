@@ -13,7 +13,7 @@ import java.sql.SQLOutput;
 public class Main {
     public static void main(String[] args) {
         DBConnection cn1 = DBConnection.getInstance();
-        Quiz q = new Quiz(1,"TestQuiz");
+        Quiz q = new Quiz("TestQuiz","azerfdsq");
         Quiz q1 = new Quiz(2,"TestQuiz2");
         Question quest = new Question(1,"1+1?","2","1","5","4","2",q);
         Question quest1 = new Question(2,"2+2?","4","1","5","4","2",q);
@@ -24,8 +24,8 @@ public class Main {
         try {
             //squest.insertOne(quest);
             //sq.insertOne(q);
-            System.out.println(sq.selectAll());
-            //System.out.println(squest.selectAll());
+            System.out.println(q.getImage());
+            System.out.println(squest.selectAll());
             //sq.updateOne(q1);
             //sq.deleteOne(q1);
             //squest.updateOne(quest1);

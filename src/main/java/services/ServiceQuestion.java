@@ -33,16 +33,17 @@ public ServiceQuestion() {
     }
 @Override
 public void updateOne(Question quest) throws SQLException {
-        String req = "UPDATE `question` SET `id_quest` = ?,`question` = ?,`reponse` = ?,`option1` = ?,`option2` = ?,`option3` = ?,`option4` = ? WHERE `id_quiz` = ? ";
+        String req = "UPDATE `question` SET `question` = ?,`reponse` = ?,`option1` = ?,`option2` = ?,`option3` = ?,`option4` = ? WHERE `id_quiz` = ? AND `id_quest` = ? ";
         PreparedStatement ps = cnx.prepareStatement(req);
-        ps.setInt(1, quest.getId_quest());
-        ps.setString(2, quest.getQuestion());
-        ps.setString(3, quest.getReponse());
-        ps.setString(4, quest.getOption1());
-        ps.setString(5, quest.getOption2());
-        ps.setString(6, quest.getOption3());
-        ps.setString(7, quest.getOption4());
-        ps.setInt(8, quest.getQuiz().getId_quiz());
+
+        ps.setString(1, quest.getQuestion());
+        ps.setString(2, quest.getReponse());
+        ps.setString(3, quest.getOption1());
+        ps.setString(4, quest.getOption2());
+        ps.setString(5, quest.getOption3());
+        ps.setString(6, quest.getOption4());
+        ps.setInt(7, quest.getQuiz().getId_quiz());
+        ps.setInt(8, quest.getId_quest());
 
         ps.executeUpdate();
         System.out.println("Quiz Updated !");

@@ -10,14 +10,25 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Quiz;
 import services.ServiceQuiz;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +39,8 @@ import java.util.ResourceBundle;
 
 public class AjouterQuiz {
 
-
-
+    @FXML
+    private TextField path;
     @FXML
     private Button btnadd;
 
@@ -54,15 +65,18 @@ public class AjouterQuiz {
     @FXML
     private TableColumn<?, ?> quizname;
 
-
+    @FXML
+    private Button importing;
+    private String xamppFolderPath = "c:/xampp/htdocs/img/";
 
 
     @FXML
     void ajouterQuiz(ActionEvent event) {
-        btnadd.setOnAction(e->{
-            String qn=finput1.getText();
-            Quiz q=new Quiz(qn);
-            ServiceQuiz sq =new ServiceQuiz();
+        btnadd.setOnAction(e -> {
+            String qn = finput1.getText();
+            String url= path.getText();
+            Quiz q = new Quiz(qn,url);
+            ServiceQuiz sq = new ServiceQuiz();
             try {
                 sq.insertOne(q);
                 displayAllQuizInTableView();
@@ -74,6 +88,7 @@ public class AjouterQuiz {
             }
         });
     }
+
     public void displayAllQuizInTableView() {
         quizname.setCellValueFactory(new PropertyValueFactory<>("nom_quiz"));
 
@@ -84,17 +99,18 @@ public class AjouterQuiz {
             ObservableList<Quiz> ql = FXCollections.observableArrayList(quizzes);
             quizlist.setItems(ql);
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération des personnes : " + e.getMessage());
+            System.err.println("Erreur lors de la récupération des Quiz : " + e.getMessage());
         }
     }
+
     @FXML
     void refresh(ActionEvent event) {
-        btnrefresh.setOnAction(e->{
+        btnrefresh.setOnAction(e -> {
             displayAllQuizInTableView();
         });
     }
 
-   private void setupButtonColumns() {
+    private void setupButtonColumns() {
         setupAccederButtonColumn();
         setupModifierButtonColumn();
         setupSupprimerButtonColumn();
@@ -108,7 +124,6 @@ public class AjouterQuiz {
             {
                 accessButton.setOnAction(event -> {
                     Quiz quiz = getTableView().getItems().get(getIndex());
-                    // Action to perform when the "Accéder" button is clicked
                     System.out.println("Accéder to quiz: " + quiz.getNom_quiz());
                     openQuestionCRUDPage(quiz); // Call method to navigate to question CRUD page
                 });
@@ -134,7 +149,7 @@ public class AjouterQuiz {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Question CRUD Page");
+            stage.setTitle("Question Page");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace(); // Handle exception
@@ -229,10 +244,11 @@ public class AjouterQuiz {
                 deleteButton.setOnAction(event -> {
                     Quiz quiz = getTableView().getItems().get(getIndex());
                     // Action to perform when the "Supprimer" button is clicked
-                    ServiceQuiz sq=new ServiceQuiz();
+                    ServiceQuiz sq = new ServiceQuiz();
                     System.out.println("Delete quiz: " + quiz.getNom_quiz());
                     try {
                         sq.deleteOne(quiz);
+                        displayAllQuizInTableView();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -254,4 +270,34 @@ public class AjouterQuiz {
         setupButtonColumns();
     }
 
+    @FXML
+    void importimage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Pick a banner file !");
+        Stage stage = new Stage();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file != null) {
+            Path source = file.toPath();
+            String fileName = file.getName();
+            Path destination = Paths.get(xamppFolderPath + fileName);
+            String imgURL=xamppFolderPath+fileName;
+            try {
+                Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                path.setText(imgURL);
+
+            } catch (IOException ex) {
+                System.out.println("Could not get the image");
+                ex.printStackTrace();
+            }
+        } else {
+            System.out.println("No file selected");
+        }
+
+    }
 }
