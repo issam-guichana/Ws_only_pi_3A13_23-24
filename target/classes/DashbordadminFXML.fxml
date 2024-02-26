@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="544.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashbordadminFXML">
+    <children>
+        <VBox layoutY="-3.0" prefHeight="400.0" prefWidth="120.0">
+            <children>
+                <AnchorPane prefHeight="400.0" prefWidth="120.0">
+                    <children>
+                        <ImageView fitHeight="28.0" fitWidth="101.0" layoutX="10.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/logo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+        <AnchorPane layoutX="120.0" prefHeight="536.0" prefWidth="583.0" style="-fx-background-color: #D5D6F2;">
+            <children>
+                <TableView  fx:id="tabr" layoutX="28.0" layoutY="56.0" prefHeight="281.0" prefWidth="491.0">
+                    <columns>
+                        <TableColumn fx:id="nmroom" prefWidth="75.0" text="Nom_room" />
+                        <TableColumn fx:id="descroom" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="nmform" prefWidth="112.0" text="Nom_formation" />
+                        <TableColumn fx:id="formateur" prefWidth="75.0" text="Formateur" />
+                        <TableColumn fx:id="date_c_room" prefWidth="92.0" text="Date creation" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
