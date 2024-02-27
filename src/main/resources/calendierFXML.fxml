@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1040.0"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CalendarController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CalendarController">
     <children>
-        <Label layoutX="35.0" layoutY="24.0" prefHeight="56.0" prefWidth="555.0" text="Calendar" textOverrun="CLIP">
+        <Label layoutX="528.0" layoutY="45.0" prefHeight="56.0" prefWidth="233.0" text="Nos Events" textOverrun="CLIP">
             <font>
                 <Font name="Calibri" size="48.0" />
             </font>
         </Label>
-        <MenuButton fx:id="monthMenuBtn" layoutX="365.0" layoutY="144.0" mnemonicParsing="false" onAction="#monthPressed" prefHeight="26.0" prefWidth="102.0" text="Month">
+        <MenuButton fx:id="monthMenuBtn" layoutX="520.0" layoutY="144.0" mnemonicParsing="false" onAction="#monthPressed" prefHeight="26.0" prefWidth="102.0" text="Month" style="-fx-background-color: #E68C3A;">
+            <!-- Existing items and font -->
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#monthPressed" text="1" />
                 <MenuItem mnemonicParsing="false" onAction="#monthPressed" text="2" />
@@ -35,7 +41,7 @@
                 <Font name="Calibri Bold" size="14.0" />
             </font>
         </MenuButton>
-        <MenuButton fx:id="yearMenuBtn" layoutX="501.0" layoutY="144.0" mnemonicParsing="false" onAction="#yearPressed" prefHeight="26.0" prefWidth="102.0" text="Year">
+        <MenuButton fx:id="yearMenuBtn" layoutX="660.0" layoutY="144.0" mnemonicParsing="false" onAction="#yearPressed" prefHeight="26.0" prefWidth="102.0" text="Year" style="-fx-background-color: #E68C3A;">
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#yearPressed" text="2022" />
                 <MenuItem mnemonicParsing="false" onAction="#yearPressed" text="2023" />
@@ -51,7 +57,7 @@
                 <Font name="Calibri Bold" size="15.0" />
             </font>
         </MenuButton>
-        <GridPane fx:id="daysGrid" layoutX="225.0" layoutY="224.0" prefHeight="336.0" prefWidth="504.0">
+        <GridPane fx:id="daysGrid" layoutX="408.0" layoutY="237.0" prefHeight="423.0" prefWidth="504.0">
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" />
             </rowConstraints>
@@ -59,7 +65,7 @@
                 <ColumnConstraints />
             </columnConstraints>
         </GridPane>
-        <GridPane layoutX="226.0" layoutY="172.0" prefHeight="47.0" prefWidth="504.0">
+        <GridPane layoutX="408.0" layoutY="191.0" prefHeight="47.0" prefWidth="504.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -72,44 +78,145 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <children>
-                <Label alignment="CENTER" prefHeight="44.0" prefWidth="71.0" text="Sunday">
-                    <font>
-                        <Font name="Calibri" size="14.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="44.0" prefWidth="71.0" text="Monday" GridPane.columnIndex="1">
-                    <font>
-                        <Font name="Calibri" size="14.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="44.0" prefWidth="71.0" text="Tuesday" GridPane.columnIndex="2">
-                    <font>
-                        <Font name="Calibri" size="14.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="44.0" prefWidth="71.0" text="Wednesday" GridPane.columnIndex="3">
-                    <font>
-                        <Font name="Calibri" size="14.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="44.0" prefWidth="71.0" text="Thursday" GridPane.columnIndex="4">
-                    <font>
-                        <Font name="Calibri" size="14.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="44.0" prefWidth="71.0" text="Friday" GridPane.columnIndex="5">
-                    <font>
-                        <Font name="Calibri" size="14.0" />
-                    </font>
-                </Label>
-                <Label alignment="CENTER" prefHeight="44.0" prefWidth="71.0" text="Saturday" GridPane.columnIndex="6">
-                    <font>
-                        <Font name="Calibri" size="14.0" />
-                    </font>
-                </Label>
-            </children>
         </GridPane>
+        <VBox alignment="TOP_CENTER" layoutX="-21.0" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="177.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logo-removebg-preview.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="50.0" />
+                    </VBox.margin>
+                </ImageView>
+                <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Users" textFill="#e7e5e5">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8_Person_32px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Events" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8_Open_Envelope_32px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Training" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8_Box_32px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Certificats" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8_Xbox_Menu_32px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Badges" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8_Slider__32px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Quiz" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8_Search_52px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="btnSettings1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="signout" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/icons8_Sign_Out_32px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+          <Label alignment="CENTER" layoutX="406.0" layoutY="193.0" prefHeight="44.0" prefWidth="71.0" text="Dimanche">
+              <font>
+                  <Font name="Calibri" size="14.0" />
+              </font>
+          </Label>
+          <Label alignment="CENTER" layoutX="478.0" layoutY="193.0" prefHeight="44.0" prefWidth="71.0" text="Lundi">
+              <font>
+                  <Font name="Calibri" size="14.0" />
+              </font>
+          </Label>
+          <Label alignment="CENTER" layoutX="550.0" layoutY="193.0" prefHeight="44.0" prefWidth="71.0" text="Mardi">
+              <font>
+                  <Font name="Calibri" size="14.0" />
+              </font>
+          </Label>
+          <Label alignment="CENTER" layoutX="622.0" layoutY="193.0" prefHeight="44.0" prefWidth="71.0" text="Mercredi">
+              <font>
+                  <Font name="Calibri" size="14.0" />
+              </font>
+          </Label>
+          <Label alignment="CENTER" layoutX="694.0" layoutY="193.0" prefHeight="44.0" prefWidth="71.0" text="Jeudi">
+              <font>
+                  <Font name="Calibri" size="14.0" />
+              </font>
+          </Label>
+          <Label alignment="CENTER" layoutX="766.0" layoutY="193.0" prefHeight="44.0" prefWidth="71.0" text="Vendredi">
+              <font>
+                  <Font name="Calibri" size="14.0" />
+              </font>
+          </Label>
+          <Label alignment="CENTER" layoutX="838.0" layoutY="193.0" prefHeight="44.0" prefWidth="71.0" text="Samedi">
+              <font>
+                  <Font name="Calibri" size="14.0" />
+              </font>
+          </Label>
 
     </children>
+
 </AnchorPane>

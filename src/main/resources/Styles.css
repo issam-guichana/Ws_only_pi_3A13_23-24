@@ -1,0 +1,12 @@
+.badge-column {
+    -fx-background-color: #E68C3A; /* Couleur de fond pour les colonnes de badge */
+    -fx-text-fill: white; /* Couleur du texte dans les colonnes de badge */
+}
+.custom-button {
+    -fx-background-color: #213E60;
+    -fx-text-fill: #e7e5e5;
+}
+
+.custom-button:hover {
+    -fx-background-color: #E68C3A;
+}

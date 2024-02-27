@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
@@ -9,44 +10,171 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEvenementFXML">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1040.0" style="-fx-background-color: #F4F2EF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEvenementFXML">
    <children>
-      <VBox layoutY="32.0" prefHeight="495.0" prefWidth="201.0">
+      <VBox layoutX="256.0" layoutY="135.0" prefHeight="495.0" prefWidth="201.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom">
+               <font>
+                  <Font name="Ebrima Bold" size="12.0" />
+               </font></Text>
             <TextField fx:id="tfNom1" prefWidth="190.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+               <font>
+                  <Font name="Ebrima Bold" size="13.0" />
+               </font></Text>
             <TextArea fx:id="tfDescr1" prefHeight="76.0" prefWidth="175.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date event" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date event">
+               <font>
+                  <Font name="Ebrima Bold" size="15.0" />
+               </font></Text>
             <DatePicker fx:id="tfDate_event" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Heure event" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Heure event">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font></Text>
             <Spinner fx:id="tfheure_event" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prix">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font></Text>
             <TextField fx:id="tfprix" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Participants" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Participants">
+               <font>
+                  <Font name="Ebrima Bold" size="13.0" />
+               </font></Text>
             <TextField fx:id="tfNbrP1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font></Text>
             <TextField fx:id="tfimage" />
             <ImageView fx:id="imageevenement" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </VBox>
-      <Label layoutX="389.0" layoutY="14.0" styleClass="title" text="Crud-event" />
-      <ButtonBar layoutX="179.0" layoutY="650.0" prefHeight="40.0" prefWidth="632.0">
-        <buttons>
-            <Button fx:id="tfSave" minWidth="66.0" mnemonicParsing="false" onAction="#ajouterEvenemnt" prefHeight="35.0" prefWidth="218.0" styleClass="form-container" text="Save" />
-            <Button fx:id="tfupdate" mnemonicParsing="false" onAction="#updateEvenemnt" styleClass="form-container" text="Update" />
-            <Button fx:id="tfdelete" mnemonicParsing="false" onAction="#deleteEvenemnt" styleClass="form-container" text="Delete" />
-            <Button fx:id="tfclear" mnemonicParsing="false" onAction="#clearFiled" styleClass="form-container" text="clear" />
-            <Button fx:id="tfafficher" mnemonicParsing="false" onAction="#refresh" text="Afficher" />
-
-        </buttons>
+      <Label layoutX="486.0" layoutY="38.0" styleClass="title" text="Gestion des evenements">
+         <font>
+            <Font name="Dubai Medium" size="28.0" />
+         </font></Label>
+      <ButtonBar layoutX="449.0" layoutY="657.0" prefHeight="26.0" prefWidth="355.0" style="-fx-background-color: #F4F2EF;">
+         <buttons>
+            <Button fx:id="tfSave" minWidth="66.0" mnemonicParsing="false" onAction="#ajouterEvenemnt" prefHeight="29.0" prefWidth="218.0" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="Save" />
+            <Button fx:id="tfupdate" mnemonicParsing="false" onAction="#updateEvenemnt" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="Update" />
+            <Button fx:id="tfdelete" mnemonicParsing="false" onAction="#deleteEvenemnt" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="Delete" />
+            <Button fx:id="tfclear" mnemonicParsing="false" onAction="#clearFiled" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="Clear" />
+            <Button fx:id="tfafficher" mnemonicParsing="false" onAction="#refresh" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="Afficher" />
+         </buttons>
       </ButtonBar>
-      <TableView fx:id="tbEvents" layoutX="298.0" layoutY="157.0" prefHeight="200.0" prefWidth="734.0" AnchorPane.rightAnchor="7.599999999999909" AnchorPane.topAnchor="157.0">
+      <VBox alignment="TOP_CENTER" layoutX="-21.0" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="177.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo-removebg-preview.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="50.0" />
+               </VBox.margin>
+            </ImageView>
+            <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Users" textFill="#e7e5e5">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Person_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Gestion des Events" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Open_Envelope_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Training" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Box_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Certificats" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Xbox_Menu_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Badges" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Slider__32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="Quiz" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Search_52px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnSettings1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@Styles.css" text="signout" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Sign_Out_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+      <TableView fx:id="tbEvents" layoutX="298.0" layoutY="157.0" prefHeight="200.0" prefWidth="463.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="157.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="34.39999485015869" text="ID" />
             <TableColumn fx:id="ColNom" prefWidth="71.20000839233398" text="Nom" />
@@ -57,8 +185,8 @@
             <TableColumn fx:id="colNbrP" minWidth="0.0" prefWidth="151.20001220703125" text="Nbr Participants" />
          </columns>
       </TableView>
-      <Button fx:id="tfListP" layoutX="821.0" layoutY="654.0" mnemonicParsing="false" onAction="#accederListeParticipants" prefHeight="35.0" prefWidth="156.0" text="Liste participants" />
-      <Button fx:id="btn_importer" layoutX="210.0" layoutY="446.0" mnemonicParsing="false" onAction="#importerImage" text="Importer" />
+      <Button fx:id="tfListP" layoutX="888.0" layoutY="383.0" mnemonicParsing="false" onAction="#accederListeParticipants" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #213E60; -fx-text-fill: #e7e5e5;" text="Liste participants" />
+      <Button fx:id="btn_importer" layoutX="474.0" layoutY="511.0" mnemonicParsing="false" onAction="#importerImage" style="-fx-background-color: #213E60; -fx-text-fill: #e7e5e5;" text="Importer" />
 
 
    </children>

@@ -7,6 +7,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.RowConstraints;
 import models.CalendarData;
 
 import java.net.URL;
@@ -85,6 +86,9 @@ public class CalendarController implements Initializable {
         btns = new Button[daysInMonth];
         daysGrid.getChildren().clear();
 
+        // Clear existing row constraints
+        daysGrid.getRowConstraints().clear();
+
         for (int i = 0; i < daysInMonth; i++) {
             int day = i + 1;  // Day number
 
@@ -92,7 +96,10 @@ public class CalendarController implements Initializable {
             List<String> eventNames = calendarData.getEventNamesForDay(c);
 
             btns[i] = new Button(day + "");
-            btns[i].setPrefSize(daysGrid.getPrefWidth() / BUTTONS_IN_A_ROW, 1.5 * daysGrid.getPrefHeight() / LINES);
+            btns[i].setPrefSize(80, 80); // Set your desired button size here
+
+            // Customize button appearance
+            btns[i].setStyle("-fx-font-size: 18; -fx-background-color: " + (eventNames.isEmpty() ? "#F4F2EF;" : "#E68C3A;") + " -fx-text-fill: " + (eventNames.isEmpty() ? "#e68c3a;" : "#F4F2EF;"));
 
             // If there are events, set the text to include both day number and event names
             if (!eventNames.isEmpty()) {
@@ -101,19 +108,35 @@ public class CalendarController implements Initializable {
                     buttonText.append(eventName).append("\n");
                 }
                 btns[i].setText(buttonText.toString().trim());
-            } else {
-                btns[i].setText(day + "");
             }
-
 
             // Add the button to the correct position in the grid
             int row = i / BUTTONS_IN_A_ROW;
             int col = i % BUTTONS_IN_A_ROW;
             daysGrid.add(btns[i], col, row);
 
-            btns[i].setOnAction(event -> dayPressed(day));
+            // Add press-release effect
+            addPressReleaseEffect(btns[i], day);
         }
 
+        // Set the height of the first row
+        RowConstraints firstRowConstraints = new RowConstraints();
+        firstRowConstraints.setPrefHeight(120); // Set your desired height for the first row
+        daysGrid.getRowConstraints().add(0, firstRowConstraints);
+    }
+
+    private void addPressReleaseEffect(Button button, int day) {
+        button.setOnMousePressed(event -> {
+            button.setStyle("-fx-font-size: 18; -fx-background-color: #9C6744; -fx-text-fill: #F4F2EF;");
+        });
+
+        button.setOnMouseReleased(event -> {
+            c.set(Calendar.DAY_OF_MONTH, day);
+            List<String> eventNames = calendarData.getEventNamesForDay(c);
+
+            // Revert to original style
+            button.setStyle("-fx-font-size: 18; -fx-background-color: " + (eventNames.isEmpty() ? "#F4F2EF;" : "#E68C3A;") + " -fx-text-fill: " + (eventNames.isEmpty() ? "#e68c3a;" : "#F4F2EF;"));
+        });
     }
 
     private void dayPressed(int day) {
