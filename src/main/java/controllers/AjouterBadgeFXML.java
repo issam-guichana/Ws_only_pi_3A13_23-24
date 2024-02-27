@@ -52,12 +52,7 @@ public class AjouterBadgeFXML {
             System.err.println("Erreur lors de la récupération des personnes : " + e.getMessage());
         }
     }
-    @FXML
-    void refresh(ActionEvent event) {
-        btnrefresh.setOnAction(e->{
-            displayAllBadgesInTableView();
-        });
-    }
+
     @FXML
     void ajouterBadge(ActionEvent event) {
         idajouter.setOnAction(e->{

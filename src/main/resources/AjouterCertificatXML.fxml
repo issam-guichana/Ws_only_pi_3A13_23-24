@@ -25,7 +25,7 @@
                     <VBox.margin>
                         <Insets bottom="10.0" top="50.0" />
                     </VBox.margin></ImageView>
-                <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"  prefHeight="57.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Users" textFill="#e7e5e5">
+                <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Users" textFill="#e7e5e5">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -43,7 +43,7 @@
                         <Insets left="50.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"  prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Events" textFill="WHITE">
+                <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Events" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -55,7 +55,7 @@
                         <Insets left="50.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"  prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Training" textFill="WHITE">
+                <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Training" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -67,7 +67,7 @@
                         <Insets left="50.0" />
                     </padding>
                 </Button>
-                <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"  prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Certificats" textFill="WHITE">
+                <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Certificats" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -130,17 +130,23 @@
                             </font>
                         </Label>
                         <VBox layoutX="36.0" layoutY="88.0" prefHeight="209.0" prefWidth="452.0" />
-                          <ImageView fx:id="idajouter" fitHeight="57.0" fitWidth="66.0" layoutX="708.0" layoutY="495.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@images/plus.png" />
-                              </image>
-                          </ImageView>
                   <TableView fx:id="tabcertif" layoutX="10.0" layoutY="92.0" prefHeight="243.0" prefWidth="746.0">
                      <columns>
                         <TableColumn fx:id="colnomc" prefWidth="206.0" text="Certificat Name" />
                         <TableColumn fx:id="coldate" prefWidth="335.0" text="Certificat Date " />
                      </columns>
                   </TableView>
+                  <Button fx:id="idajouter" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="621.0" layoutY="27.0" mnemonicParsing="false" onAction="#ajouterCertificat" prefHeight="55.0" prefWidth="147.0" style="-fx-background-color: #E68C3A;" text="ADD" textFill="#e7e5e5">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
 
                           </children>
                 </Pane>

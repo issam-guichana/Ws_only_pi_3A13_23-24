@@ -1,8 +1,10 @@
 package controllers;
 
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -30,7 +32,7 @@ public class AjouterCertificateFXML {
     private TableColumn<?, ?> colnomc;
 
     @FXML
-    private ImageView idajouter;
+    private Button idajouter;
 
 
     @FXML
@@ -54,6 +56,77 @@ public class AjouterCertificateFXML {
     }
 
 
+    private void displayAddDialog(Certificat certificat) {
+        // Create the dialog components
+        Dialog<Certificat> dialog = new Dialog<>();
+        dialog.setTitle("Ajouter un nouveau Certificat");
+        dialog.setHeaderText("Entrez les détails du certificat");
+
+        // Set the button types
+        ButtonType addButton = new ButtonType("Ajouter", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButton, ButtonType.CANCEL);
+
+        // Create the input fields
+        TextField nomField = new TextField();
+        nomField.setPromptText("Nom du certificat");
+
+        // Date Picker for dateCertif attribute
+        DatePicker dateCertifPicker = new DatePicker();
+        dateCertifPicker.setPromptText("Date du certificat");
+
+        // Enable/disable the add button depending on whether fields are filled
+        Node addButtonNode = dialog.getDialogPane().lookupButton(addButton);
+        addButtonNode.setDisable(true);
+
+        // Do some validation (using the Java 8 lambda syntax)
+        nomField.textProperty().addListener((observable, oldValue, newValue) -> {
+            addButtonNode.setDisable(newValue.trim().isEmpty() || dateCertifPicker.getValue() == null);
+        });
+
+        dateCertifPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            addButtonNode.setDisable(newValue == null || nomField.getText().trim().isEmpty());
+        });
+
+        // Layout for the dialog
+        VBox vbox = new VBox(20);
+        vbox.getChildren().addAll(
+                new Label("Nom du certificat:"), nomField,
+                new Label("Date du certificat:"), dateCertifPicker
+        );
+        dialog.getDialogPane().setContent(vbox);
+
+        // Request focus on the nomField by default
+        Platform.runLater(nomField::requestFocus);
+
+        // Convert the result to a Certificat object when the add button is clicked
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButton) {
+                return new Certificat(nomField.getText(), Date.valueOf(dateCertifPicker.getValue()), 0);
+            }
+            return null;
+        });
+
+        // Show the dialog and wait for the user's response
+        Optional<Certificat> result = dialog.showAndWait();
+        result.ifPresent(newCertificat -> {
+            try {
+                ServiceCertificat serviceCertificat = new ServiceCertificat();
+                serviceCertificat.insertOne(newCertificat);
+                // Refresh the table view to reflect the changes
+                displayAllCertificatesInTableView();
+            } catch (SQLException e) {
+                e.printStackTrace(); // Handle exception
+            }
+        });
+    }
+
+    @FXML
+    void ajouterCertificat(ActionEvent event) {
+        idajouter.setOnAction(e->{
+           Certificat certificat = new Certificat();
+            displayAddDialog(certificat);
+        });
+    }
 
 
 
