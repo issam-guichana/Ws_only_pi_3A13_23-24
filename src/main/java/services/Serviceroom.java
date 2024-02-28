@@ -56,8 +56,17 @@ public class Serviceroom implements CRUD<Room> {
     }
 
     @Override
-    public void UpdateOne(int id_msg, String nouveauContenu) throws SQLException {
+    public void UpdateOne(int id_room, String nouveaunom) throws SQLException {
+        String req = "UPDATE room SET nouveaunom = ? WHERE id_room = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
 
+        ps.setString(1, nouveaunom);
+        ps.setInt(2, id_room);
+
+        ps.executeUpdate(); // Exécuter la requête
+
+        // Fermez la PreparedStatement après utilisation.
+        ps.close();
     }
     //@Override
     //public void Updatemessage(int id_msg, String nouveauContenu) throws SQLException {
@@ -65,17 +74,19 @@ public class Serviceroom implements CRUD<Room> {
    // }
 
     @Override
-    public void DeleteOne(int id) throws SQLException {
-        String req = "DELETE FROM room WHERE id_room = ?";
+    public void DeleteOne(int id_room) throws SQLException {
+        String req = "DELETE FROM room WHERE id_room = ?;";
         PreparedStatement ps = cnx.prepareStatement(req);
 
-        ps.setInt(1, id);
+        ps.setInt(1, id_room);
 
         ps.executeUpdate(); // Exécuter la requête
+
 
         // Fermez la PreparedStatement après utilisation.
         ps.close();
     }
+
 
 
 
