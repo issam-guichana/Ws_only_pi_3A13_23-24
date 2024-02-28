@@ -10,3 +10,10 @@
 .custom-button:hover {
     -fx-background-color: #E68C3A;
 }
+.button:hover {
+    -fx-background-color: derive(#E38C3A, 20%);
+}
+
+.button:pressed {
+    -fx-background-color: derive(#E38C3A, -20%);
+}

@@ -55,4 +55,31 @@ public class CalendarData {
 
         return new ArrayList<>();
     }
+    public Evenement getEventForDay(Calendar date) {
+        String req = "SELECT * FROM evenement WHERE date_event = ?";
+
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            java.sql.Date sqlDate = new java.sql.Date(date.getTimeInMillis());
+            ps.setDate(1, sqlDate);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                return new Evenement(
+                        resultSet.getInt("id_event"),
+                        resultSet.getString("nom_event"),
+                        resultSet.getString("description"),
+                        resultSet.getDate("date_event"),
+                        resultSet.getTime("heure_deb").toLocalTime(),
+                        resultSet.getInt("prix"),
+                        resultSet.getInt("nbrP"),
+                        resultSet.getString("image_event")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

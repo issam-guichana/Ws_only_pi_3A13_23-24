@@ -1,6 +1,9 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -8,8 +11,11 @@ import javafx.scene.layout.GridPane;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 import models.CalendarData;
+import models.Evenement;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,8 +40,19 @@ public class CalendarController implements Initializable {
     private Button[] btns;
     private final int BUTTONS_IN_A_ROW = 7;
     private final int LINES = 6;
+    private Stage mainStage;
     CalendarData calendarData = new CalendarData();
+    public void setMainStage(Stage mainStage) {
+        this.mainStage = mainStage;
+    }
+    @FXML
+    public void showCalendar() {
 
+
+        if (mainStage != null) {
+            mainStage.show(); // Show the main stage
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set default values to today's month and year
@@ -98,10 +115,13 @@ public class CalendarController implements Initializable {
             btns[i] = new Button(day + "");
             btns[i].setPrefSize(80, 80); // Set your desired button size here
 
-            // Customize button appearance
+// Customize button appearance
             btns[i].setStyle("-fx-font-size: 18; -fx-background-color: " + (eventNames.isEmpty() ? "#F4F2EF;" : "#E68C3A;") + " -fx-text-fill: " + (eventNames.isEmpty() ? "#e68c3a;" : "#F4F2EF;"));
 
-            // If there are events, set the text to include both day number and event names
+// Set the onAction handler for the button
+            btns[i].setOnAction(event -> dayPressed(day));
+
+// If there are events, set the text to include both day number and event names
             if (!eventNames.isEmpty()) {
                 StringBuilder buttonText = new StringBuilder(day + "\n");
                 for (String eventName : eventNames) {
@@ -140,16 +160,40 @@ public class CalendarController implements Initializable {
     }
 
     private void dayPressed(int day) {
-        int dayInMonth = day;
         int month = c.get(Calendar.MONTH) + 1;
         int year = c.get(Calendar.YEAR);
 
-        List<String> eventNames = calendarData.getEventNamesForDay(c);
-        System.out.println("Chosen Date: " + dayInMonth + "/" + month + "/" + year);
-        if (!eventNames.isEmpty()) {
-            for (String eventName : eventNames) {
-                System.out.println("Event: " + eventName);
-            }
+        // Set the selected date
+        c.set(Calendar.DAY_OF_MONTH, day);
+        c.set(Calendar.MONTH, month - 1);
+        c.set(Calendar.YEAR, year);
+
+        // Assuming you have a method to get event details based on the selected date
+        Evenement selectedEvent = calendarData.getEventForDay(c);
+
+        // Open the new FXML file for event details
+        openEventDetailsFXML(selectedEvent);
+    }
+    @FXML
+    private void openEventDetailsFXML(Evenement event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDetailsFXML.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller
+            EventDetailsFXML eventDetailsController = loader.getController();
+
+            // Pass event details to the controller
+            eventDetailsController.setEventDetails(event);
+            eventDetailsController.setCalendarController(this); // Set CalendarController reference
+
+            // Show the new stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Event Details");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception
         }
     }
 }

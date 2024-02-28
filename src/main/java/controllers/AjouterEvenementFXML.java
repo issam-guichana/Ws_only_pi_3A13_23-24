@@ -110,17 +110,46 @@ public class AjouterEvenementFXML {
     @FXML
     void ajouterEvenemnt(ActionEvent event) {
         try {
+            // Validate input fields
+            if (tfNom1.getText().isEmpty() || tfDescr1.getText().isEmpty() || tfDate_event.getValue() == null
+                    || tfheure_event.getValue() == null || tfprix.getText().isEmpty() || tfNbrP1.getText().isEmpty()
+                    || tfimage.getText().isEmpty()) {
+                // Display an error message if any of the fields are empty
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("Veuillez remplir tous les champs.");
+                alert.show();
+                return; // Exit the method if validation fails
+            }
+
             LocalDate localDate = tfDate_event.getValue();
             LocalTime localTime = tfheure_event.getValue();
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
 
+            // Additional validation for numeric fields
+            if (!isNumeric(tfprix.getText()) || !isNumeric(tfNbrP1.getText())) {
+                // Display an error message if price or quantity are not numeric
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("Les champs Prix et Quantité doivent être des valeurs numériques.");
+                alert.show();
+                return; // Exit the method if validation fails
+            }
+
             // Get the image URL from the tfimage TextField
             String imageUrl = tfimage.getText();
 
-            Evenement p = new Evenement(tfNom1.getText(), tfDescr1.getText(), sqlDate, localTime, Integer.parseInt(tfprix.getText()), Integer.parseInt(tfNbrP1.getText()), imageUrl);
+            Evenement p = new Evenement(tfNom1.getText(), tfDescr1.getText(), sqlDate, localTime,
+                    Integer.parseInt(tfprix.getText()), Integer.parseInt(tfNbrP1.getText()), imageUrl);
 
             ServiceEvenement sp = new ServiceEvenement(tbEvents);
             sp.insertOne(p);
+
+            // Show success message
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Succès");
+            successAlert.setContentText("L'événement a été ajouté avec succès.");
+            successAlert.show();
 
             // Additional log for debugging
             System.out.println("Event added successfully");
@@ -133,6 +162,12 @@ public class AjouterEvenementFXML {
             alert.show();
         }
     }
+
+
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
+    }
+
 
     @FXML
     void clearFiled(ActionEvent event) {
@@ -192,12 +227,10 @@ public class AjouterEvenementFXML {
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
 
             // Conversion de LocalTime en java.sql.Time
-
             int prix = Integer.parseInt((tfprix.getText() != null) ? tfprix.getText() : "0");
             int nbrP = Integer.parseInt((tfNbrP1.getText() != null) ? tfNbrP1.getText() : "0");
 
             // Create Evenement object
-
             Evenement newEvent = new Evenement(selectedEvent.getId_event(), nom_event, description, sqlDate, timeText, prix, nbrP, image_event);
             // Set the image_event property
             newEvent.setImage_event(image_event);
@@ -206,8 +239,9 @@ public class AjouterEvenementFXML {
             ServiceEvenement se = new ServiceEvenement();
             se.updateOne(newEvent);
 
-            // Refresh TableView after update
-            tbEvents.refresh();
+            // Update the corresponding object in the ObservableList
+            int index = tbEvents.getItems().indexOf(selectedEvent);
+            tbEvents.getItems().set(index, newEvent);
 
             // Show success message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
