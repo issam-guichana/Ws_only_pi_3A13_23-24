@@ -65,6 +65,20 @@ public class AdminUpdateFormateurController implements Initializable {
 
     @FXML
     public void Update(ActionEvent event) {
+        //controle de saisie
+        // Check if any required field is empty
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() ||  tfAge.getText().isEmpty()) {
+            showAlert("Erreur", "Veuillez remplir tout les champs.");
+            return;
+        }
+        if (tfUsername.getLength()<6){
+            showAlert("Erreur", "Votre Nom d'utilisateur doit contenir au moins 6 caractères");
+            return;
+        }
+        if (!isValidEmail(tfEmail.getText())) {
+            showAlert("Erreur", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
+            return;
+        }
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
         String sql = "Select * from user where username = ?";
@@ -84,17 +98,18 @@ public class AdminUpdateFormateurController implements Initializable {
 
                 if (result.get() == ButtonType.OK) {
                     int id =userService.ChercherParUsername(forModf).getId_user();
+                    String role =userService.ChercherParUsername(forModf).getRole();
+                    String gender=userService.ChercherParUsername(forModf).getGender();
+                    String image =userService.ChercherParUsername(forModf).getImage();
+                    int status =userService.ChercherParUsername(forModf).getStatus();
                     String username = tfUsername.getText();
                     String email = tfEmail.getText();
                     int age = Integer.parseInt(tfAge.getText());
                     String pwd = tfNewPassword.getText();
                     String Cpwd = tfCfPassword.getText();
-                    String role =userService.ChercherParUsername(forModf).getRole();
 
-                    //User u = new User(idModf,username,email,age);
-                    //UserService us = new UserService();
                     System.out.println("l id ta3 el user hedha "+forModf);
-                    User userModif = new User(id,username,email,pwd,age,role);
+                    User userModif = new User(id,username,email,pwd,age,role,gender,image,status);
                     System.out.println(userModif);
 
                     userService.updateOne(userModif);
@@ -111,6 +126,16 @@ public class AdminUpdateFormateurController implements Initializable {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
     @FXML
     public void Reset(ActionEvent event) {

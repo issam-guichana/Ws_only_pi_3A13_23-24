@@ -6,10 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import models.User;
 import services.UserService;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,10 +21,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserSettingsController implements Initializable {
-
+    @FXML
     public TextField tfUsername;
+    @FXML
     public TextField tfEmail;
+    @FXML
     public TextField tfAge;
+    @FXML
+    public ImageView UserImg;
     @FXML
     private Button bGotoupdate;
     @FXML
@@ -41,7 +49,12 @@ public class UserSettingsController implements Initializable {
         tfUsername.setText(us.ChercherParId(LoginUserController.logged).getUsername());
         tfEmail.setText(us.ChercherParId(LoginUserController.logged).getEmail());
         tfAge.setText(String.valueOf(us.ChercherParId(LoginUserController.logged).getAge()));
+
+        //Affichage user image !
+        File file1 = new File("D:\\progrms\\xamp\\htdocs\\PIDEV IMG\\" + us.ChercherParId(LoginUserController.logged).getImage());
+        UserImg.setImage(new Image(file1.toURI().toString()));
     }
+
     public void BackToMenu(ActionEvent event) {
         // to doooo
     }

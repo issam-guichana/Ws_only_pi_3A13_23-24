@@ -1,11 +1,15 @@
 package services;
 
+import Controllers.LoginUserController;
+import com.sun.javafx.logging.PlatformLogger;
+import com.sun.javafx.logging.PlatformLogger.Level;
 import models.User;
 import utils.DBconnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserService implements CRUD<User> {
 
@@ -16,8 +20,8 @@ public class UserService implements CRUD<User> {
 
     @Override
     public void insertOne(User user) throws SQLException {
-        String req = "INSERT INTO `user`(`id_user`,`username`, `email`, `mdp`, `age`, `role`) VALUES " +
-                "(?,?,?,?,?,?)";
+        String req = "INSERT INTO `user`(`id_user`,`username`, `email`, `mdp`, `age`, `role`, `gender`, `image`, `status`) VALUES " +
+                "(?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setInt(1, user.getId_user());
@@ -26,6 +30,9 @@ public class UserService implements CRUD<User> {
         ps.setString(4, user.getMdp());
         ps.setInt(5, user.getAge());
         ps.setString(6, user.getRole());
+        ps.setString(7, user.getGender());
+        ps.setString(8, user.getImage());
+        ps.setInt(9, user.getStatus());
 
         ps.executeUpdate();
     }
@@ -33,7 +40,7 @@ public class UserService implements CRUD<User> {
     @Override
     public void updateOne(User user) {
         try {
-        String req = "UPDATE `user` SET username = ?,email = ?,mdp = ?,age = ?,role = ? WHERE id_user = ?";
+        String req = "UPDATE `user` SET username = ?,email = ?,mdp = ?,age = ?,role = ?,gender = ?,image = ?,status = ? WHERE id_user = ?";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setString(1, user.getUsername());
@@ -41,7 +48,10 @@ public class UserService implements CRUD<User> {
         ps.setString(3, user.getMdp());
         ps.setInt(4, user.getAge());
         ps.setString(5, user.getRole());
-        ps.setInt(6, user.getId_user());
+        ps.setString(6, user.getGender());
+        ps.setString(7, user.getImage());
+        ps.setInt(8, user.getStatus());
+        ps.setInt(9, user.getId_user());
 
         ps.executeUpdate();
 
@@ -64,16 +74,6 @@ public class UserService implements CRUD<User> {
             System.out.print(ex.getMessage());
         }
     }
-   /* @Override
-    public boolean deleteOne(int id) throws SQLException {
-        String req = "delete from user where id_user=?";
-        PreparedStatement ps = this.cnx.prepareStatement(req);
-        ps.setInt(1, id.getId_user());
-        ps.executeUpdate(req);
-        System.out.println("Utlisateur est supprimée");
-        return false;
-    }*/
-
     @Override
     public List<User> selectAll() throws SQLException {
         List<User> userList = new ArrayList<>();
@@ -92,6 +92,9 @@ public class UserService implements CRUD<User> {
             u.setMdp(rs.getString((4)));
             u.setAge(rs.getInt((5)));
             u.setRole(rs.getString((6)));
+            u.setGender(rs.getString((7)));
+            u.setImage(rs.getString((8)));
+            u.setStatus(rs.getInt((9)));
 
             userList.add(u);
         }
@@ -133,7 +136,8 @@ public class UserService implements CRUD<User> {
             while (result.next()) {
                 User u = new User(result.getInt(1), result.getString(2),
                         result.getString(3), result.getString(4),
-                        result.getInt(5), result.getString(6));
+                        result.getInt(5), result.getString(6), result.getString(7)
+                        , result.getString(8), result.getInt(9));
                 return u;
             }
         } catch (SQLException ex) {
@@ -150,7 +154,8 @@ public class UserService implements CRUD<User> {
             while (result.next()) {
                 User u = new User(result.getInt(1), result.getString(2),
                         result.getString(3), result.getString(4),
-                        result.getInt(5), result.getString(6));
+                        result.getInt(5), result.getString(6), result.getString(7)
+                        , result.getString(8), result.getInt(9));
                 return u;
             }
         } catch (SQLException ex) {

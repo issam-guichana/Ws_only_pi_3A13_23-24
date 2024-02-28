@@ -1,6 +1,5 @@
 package Controllers;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,18 +8,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import models.User;
 import services.UserService;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
 public class RegisterUserController implements Initializable {
+    private String Imguser;
     @FXML
     public TextField cbRole;
+    @FXML
+    public ComboBox<String> cbGender;
+    @FXML
+    public Button UploadImg;
+    @FXML
+    public ImageView UserImg;
+    @FXML
+    public Label ImageName;
     @FXML
     private TextField tfUsername;
     @FXML
@@ -37,12 +48,15 @@ public class RegisterUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cbRole.setText("CLIENT");
+        ObservableList<String> gender = FXCollections.observableArrayList();
+        cbGender.getItems().addAll("Homme","Femme");
     }
     @FXML
     void AddUser(ActionEvent event){
         //controle de saisie
         // Check if any required field is empty
-        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty() || tfAge.getText().isEmpty()) {
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty()
+                || tfAge.getText().isEmpty() || cbGender.getValue().isEmpty()) {
             showAlert("Error", "Veuillez remplir tout les champs.");
             return;
         }
@@ -51,30 +65,24 @@ public class RegisterUserController implements Initializable {
             return;
         }
         if (!isValidEmail(tfEmail.getText())) {
-            showAlert("Error", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
+            showAlert("Error", "Entrer un Adress Email Valide\n Exemple : foulen.benfoulen@esprit.tn");
             return;
         }
         if (tfPassword.getLength()<6){
             showAlert("Error", "Votre mot de passe doit contenir au moins 6 caractères");
             return;
         }
-//        else if (!tfPassword.getText().equals(Cpassword)) {
-//            showAlert("Error", "les 2 password son't faux");
-//            return;
-//        }
-
-        // Validate phone number
-//        int phone ;
-//        try {
-//            phone = Integer.parseInt(phoneText);
-//        } catch (NumberFormatException e) {
-//            showAlert("Error", "Entrer un Numéro Télephone Valide");
-//            return;
-//        }
-        // Validate email format
-
         try {
-            User p = new User(tfUsername.getText(), tfEmail.getText(),tfPassword.getText(), Integer.parseInt(tfAge.getText()),cbRole.getText());
+            User p = new User();
+            p.setUsername(tfUsername.getText());
+            p.setEmail(tfEmail.getText());
+            p.setMdp(tfPassword.getText());
+            p.setAge(Integer.parseInt(tfAge.getText()));
+            p.setRole(cbRole.getText());
+            p.setGender(cbGender.getValue());
+            p.setImage(Imguser);
+            p.setStatus(Integer.parseInt("1"));
+
             UserService sp = new UserService();
             sp.insertOne(p);
 
@@ -96,6 +104,7 @@ public class RegisterUserController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    // Validate email format
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
@@ -106,7 +115,39 @@ public class RegisterUserController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
+    @FXML
+    public void UploadImage(ActionEvent event) throws FileNotFoundException, IOException {
+        FileChooser fc = new FileChooser();
+        //fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", listFichier));
+        File f = fc.showOpenDialog(null);
+        if (f != null) {
+            //Commentaire.setText("Image selectionnée" + f.getAbsolutePath());
+            InputStream is = null;
+            OutputStream os = null;
+            try {
+                is = new FileInputStream(new File(f.getAbsolutePath()));
+                os = new FileOutputStream(new File("D:/progrms/xamp/htdocs/PIDEV IMG/profil/" + f.getName()));
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+            } finally {
+                is.close();
+                os.close();
+            }
+            File file = new File("D:/progrms/xamp/htdocs/PIDEV IMG/profil/" + f.getName());
+                 System.out.println(file.toURI());
+            UserImg.setImage(new Image(file.toURI().toString()));
+            Imguser = f.getName();
+            System.out.println(Imguser);
+            ImageName.setText(Imguser);
+        } else if (f == null) {
+            //Commentaire.setText("Erreur chargement de l'image");
+            //Allert
+            System.out.println("Erreur !");
+        }
+    }
 
     public void BackToLogin(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
@@ -121,6 +162,8 @@ public class RegisterUserController implements Initializable {
         tfEmail.setText("");
         tfPassword.setText("");
         tfAge.setText("");
+        cbGender.setValue("");
+        UserImg.setImage(null);
     }
     @FXML
     private void exit(ActionEvent event){
@@ -133,6 +176,7 @@ public class RegisterUserController implements Initializable {
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'RegisterUser.fxml'.";
         assert tfEmail != null : "fx:id=\"tfEmail\" was not injected: check your FXML file 'RegisterUser.fxml'.";
     }
+
 
 }
 

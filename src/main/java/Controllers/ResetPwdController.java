@@ -51,7 +51,7 @@ public class ResetPwdController {
             showAlert("Erreur", "Veuillez remplir tout les champs.");
             return;
         }
-        if (tfPassword.getLength()<6){
+        if (tfNewPassword.getLength()<6){
             showAlert("Erreur", "Votre mot de passe doit contenir au moins 6 caractères");
             return;
         }
@@ -80,6 +80,9 @@ public class ResetPwdController {
                     String email = userService.ChercherParId(idModf).getEmail() ;
                     int age = userService.ChercherParId(idModf).getAge();
                     String role =userService.ChercherParId(idModf).getRole();
+                    String gender=userService.ChercherParId(idModf).getGender();
+                    String image =userService.ChercherParId(idModf).getImage();
+                    int status =userService.ChercherParId(idModf).getStatus();
 
                     String pwd = tfPassword.getText();
                     String newPwd = tfNewPassword.getText();
@@ -87,7 +90,7 @@ public class ResetPwdController {
 
                     if(pwd.equals(userService.ChercherParId(idModf).getMdp()) && newPwd.equals(CfPsw)) {
                         System.out.println("l id ta3 el user hedha " + idModf);
-                        User userModif = new User(idModf, username, email, newPwd, age, role);
+                        User userModif = new User(idModf, username, email, newPwd, age, role,gender,image,status);
                         System.out.println(userModif);
 
                         userService.updateOne(userModif);

@@ -30,8 +30,6 @@ public class AdminInterfaceController implements Initializable {
     public Button bRefresh;
     @FXML
     public JFXButton bGoToGestUser;
-
-
     @FXML
     private TableColumn<models.User, String> colUsername;
     @FXML
@@ -42,6 +40,12 @@ public class AdminInterfaceController implements Initializable {
     private TableColumn<models.User, String >colPassword;
     @FXML
     private TableColumn<models.User, String> colRole;
+    @FXML
+    public TableColumn<models.User, String> colGender;
+    @FXML
+    public TableColumn<models.User, String> colImage;
+    @FXML
+    public TableColumn<models.User, String> colStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,6 +59,10 @@ public class AdminInterfaceController implements Initializable {
         colPassword.setCellValueFactory(new PropertyValueFactory<>("mdp"));
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
         colRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        colImage.setCellValueFactory(new PropertyValueFactory<>("image"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
         try {
             oblist.addAll(us.selectAll());
         } catch (SQLException e) {

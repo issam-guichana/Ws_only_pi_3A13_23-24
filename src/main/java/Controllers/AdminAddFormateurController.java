@@ -1,18 +1,21 @@
 package Controllers;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import models.User;
 import services.UserService;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -30,7 +33,6 @@ public class AdminAddFormateurController implements Initializable {
     public PasswordField tfPassword;
     @FXML
     public TextField cbRole;
-
     @FXML
     public Button bLogout;
     @FXML
@@ -39,10 +41,21 @@ public class AdminAddFormateurController implements Initializable {
     public JFXButton bGoToAddFormateur;
     @FXML
     public JFXButton bGoToUpdateFormateur;
+    @FXML
+    public ComboBox<String> cbGender;
+    @FXML
+    public Button UploadImg;
+    @FXML
+    public ImageView UserImg;
+    @FXML
+    public Label ImageName;
+    private String Imguser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cbRole.setText("FORMATEUR");
+        ObservableList<String> gender = FXCollections.observableArrayList();
+        cbGender.getItems().addAll("Homme","Femme");
     }
 
     @FXML
@@ -66,7 +79,15 @@ public class AdminAddFormateurController implements Initializable {
             return;
         }
         try {
-            User p = new User(tfUsername.getText(), tfEmail.getText(),tfPassword.getText(), Integer.parseInt(tfAge.getText()),cbRole.getText());
+            User p = new User();
+            p.setUsername(tfUsername.getText());
+            p.setEmail(tfEmail.getText());
+            p.setMdp(tfPassword.getText());
+            p.setAge(Integer.parseInt(tfAge.getText()));
+            p.setRole(cbRole.getText());
+            p.setGender(cbGender.getValue());
+            p.setImage(Imguser);
+            p.setStatus(Integer.parseInt("1"));
             UserService sp = new UserService();
             sp.insertOne(p);
 
@@ -97,6 +118,39 @@ public class AdminAddFormateurController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    @FXML
+    public void UploadImage(ActionEvent event) throws FileNotFoundException, IOException {
+        FileChooser fc = new FileChooser();
+        //fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", listFichier));
+        File f = fc.showOpenDialog(null);
+        if (f != null) {
+            //Commentaire.setText("Image selectionnée" + f.getAbsolutePath());
+            InputStream is = null;
+            OutputStream os = null;
+            try {
+                is = new FileInputStream(new File(f.getAbsolutePath()));
+                os = new FileOutputStream(new File("D:/progrms/xamp/htdocs/PIDEV IMG/profil/" + f.getName()));
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+            } finally {
+                is.close();
+                os.close();
+            }
+            File file = new File("D:/progrms/xamp/htdocs/PIDEV IMG/profil/" + f.getName());
+            System.out.println(file.toURI());
+            UserImg.setImage(new Image(file.toURI().toString()));
+            Imguser = f.getName();
+            System.out.println(Imguser);
+            ImageName.setText(Imguser);
+        } else if (f == null) {
+            //Commentaire.setText("Erreur chargement de l'image");
+            //Allert
+            System.out.println("Erreur !");
+        }
+    }
 
     @FXML
     public void Reset(ActionEvent event) {
@@ -104,6 +158,8 @@ public class AdminAddFormateurController implements Initializable {
         tfEmail.setText("");
         tfPassword.setText("");
         tfAge.setText("");
+        cbGender.setValue("");
+        UserImg.setImage(null);
     }
     @FXML
     public void GoToAddFormateur(ActionEvent event) throws IOException {
@@ -144,6 +200,7 @@ public class AdminAddFormateurController implements Initializable {
     public void Exit(ActionEvent event) {
         System.exit(0);
     }
+
     @FXML
     void initialize(){
         assert tfAge != null : "fx:id=\"tfAge\" was not injected: check your FXML file 'AdminAddFormateur.fxml'.";

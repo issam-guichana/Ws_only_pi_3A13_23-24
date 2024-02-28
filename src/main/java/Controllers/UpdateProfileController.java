@@ -82,11 +82,12 @@ public class UpdateProfileController {
                     int age = Integer.parseInt(tfAge.getText());
                     String pwd = userService.ChercherParId(idModf).getMdp();
                     String role =userService.ChercherParId(idModf).getRole();
+                    String gender=userService.ChercherParId(idModf).getGender();
+                    String image =userService.ChercherParId(idModf).getImage();
+                    int status =userService.ChercherParId(idModf).getStatus();
 
-                    //User u = new User(idModf,username,email,age);
-                    //UserService us = new UserService();
                     System.out.println("l id ta3 el user hedha "+idModf);
-                    User userModif = new User(idModf,username,email,pwd,age,role);
+                    User userModif = new User(idModf,username,email,pwd,age,role,gender,image,status);
                     System.out.println(userModif);
 
                     userService.updateOne(userModif);
