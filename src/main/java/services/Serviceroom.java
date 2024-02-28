@@ -17,12 +17,13 @@ public class Serviceroom implements CRUD<Room> {
         cnx = DBConnection.getInstance().getCnx();
     }
     public void InsertOne(Room room) throws SQLException {
-        String req = "INSERT INTO `room` (`nom_room`,`formation_id`) VALUES (?,?)";
+        String req = "INSERT INTO `room` (`nom_room`,`formation_id`,`description`) VALUES (?,?,?)";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         //  ps.setInt(1, room.getId_room());
         ps.setString(1, room.getNom_room(""));
         ps.setInt(2, room.getFormation_id());
+        ps.setString(3, room.getDescription());
 
         //  ps.setString(2, msg.getContenu());
 

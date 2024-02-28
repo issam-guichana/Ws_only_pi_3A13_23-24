@@ -81,7 +81,7 @@
                 </AnchorPane>
             </children>
         </VBox>
-        <ListView fx:id="listpart" layoutX="161.0" layoutY="110.0" prefHeight="250.0" prefWidth="157.0" style="-fx-background-radius: 10px;" />
+        <ListView fx:id="listpart" layoutX="161.0" layoutY="110.0" prefHeight="224.0" prefWidth="157.0" style="-fx-background-radius: 10px;" />
         <Separator layoutX="336.0" layoutY="29.0" orientation="VERTICAL" prefHeight="357.0" prefWidth="14.0" />
         <Label layoutX="199.0" layoutY="29.0" text="Participants" textFill="#060372">
             <font>
@@ -101,13 +101,13 @@
                 <Image url="@Images/envoyer.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="363.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="352.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/discuter.png" />
+                <Image url="@Images/chat-a-bulles.png" />
             </image>
         </ImageView>
-        <ListView fx:id="nom_room" layoutX="398.0" layoutY="31.0" prefHeight="20.0" prefWidth="165.0" />
-        <Button layoutX="177.0" layoutY="368.0" mnemonicParsing="false" style="-fx-background-color: #D5D6F2; -fx-background-radius: 10px;" text="Bloquer des particpants" textFill="#213e60">
+        <ListView fx:id="nom_room" layoutX="381.0" layoutY="39.0" prefHeight="20.0" prefWidth="165.0" />
+        <Button layoutX="177.0" layoutY="356.0" mnemonicParsing="false" style="-fx-background-color: #D5D6F2; -fx-background-radius: 10px;" text="Bloquer des particpants" textFill="#213e60">
             <font>
                 <Font name="System Bold" size="10.0" />
             </font>

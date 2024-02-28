@@ -1,7 +1,6 @@
 package controllers;
-import java.awt.*;
-import java.awt.Label;
-import java.awt.TextField;
+
+
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -20,6 +19,9 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import models.Room;
 import services.Serviceroom;
+
+
+
 
 public class DashbordadminFXML implements Initializable {
 
@@ -47,10 +49,10 @@ public class DashbordadminFXML implements Initializable {
     private TableView<ObservableList<String>> tabr;
 
     @FXML
-    private TextField descriptionroom;
+    private TextField  decsproom;
 
     @FXML
-    private TextField nomroom;
+    private TextField nameroom;
 
     @FXML
     private ComboBox<String> nomform;
@@ -164,7 +166,48 @@ public class DashbordadminFXML implements Initializable {
     void ajoutroom(ActionEvent event) throws SQLException {
 
 
-    }
+            try {
+
+
+                try
+                        (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
+                    String selectedNomForm = nomform.getValue();
+
+                    // Prepare a statement to retrieve the id_form corresponding to the selected nom_form
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_form` FROM `formation` WHERE `nom_form`=?");
+                    preparedStatement.setString(1, selectedNomForm);
+
+                    // Execute the query
+                    ResultSet resultSet = preparedStatement.executeQuery();
+
+                    // Check if a result is found
+                    if (resultSet.next()) {
+                        int idForm = resultSet.getInt("id_form");
+
+                        // Check if nomroom is not null
+                        if (nameroom.getText() != null && !nameroom.getText().isEmpty() && decsproom.getText() != null ) {
+                            // Create the Room object with the retrieved id_form
+                            Room r = new Room(nameroom.getText(),idForm,decsproom.getText());
+
+                            // Call the service to insert the room
+                            Serviceroom sp = new Serviceroom();
+                            sp.InsertOne(r);
+                        } else {
+                            System.out.println("Error: nom_room cannot be null or empty.");
+                        }
+                    } else {
+                        // Handle case where no result is found for the selected nom_form
+                        System.out.println("No id_form found for the selected nom_form: " + selectedNomForm);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } finally {
+
+            }
+        }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

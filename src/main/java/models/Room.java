@@ -28,8 +28,13 @@ public class Room {
     public Room() {
     }
 
-    public Room(String text, Object value) {
+    public Room(String nom_room, int formation_id,String description ) {
+        this.nom_room= nom_room;
+        this.formation_id= formation_id;
+        this.description=description;
     }
+
+
 
     public int getId_room() {
         return id_room;
