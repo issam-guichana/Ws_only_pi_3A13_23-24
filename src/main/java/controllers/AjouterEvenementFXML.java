@@ -83,7 +83,8 @@ public class AjouterEvenementFXML {
 
     @FXML
     private TableColumn<Evenement, Integer> colId;
-
+    @FXML
+    private TableColumn<Evenement, String> colimg;
     @FXML
     private TableColumn<Evenement, Integer> colNbrP;
 
@@ -141,6 +142,7 @@ public class AjouterEvenementFXML {
         tfprix.setText(null);
         tfDescr1.setText(null);
         tfNbrP1.setText(null);
+        tfimage.setText(null);
     }
 
     private LocalTime defaultValue() {
@@ -148,6 +150,7 @@ public class AjouterEvenementFXML {
     }
 
     @FXML
+
     void deleteEvenemnt(ActionEvent event) {
         Evenement selectedEvent = tbEvents.getSelectionModel().getSelectedItem();
         if (selectedEvent == null) {
@@ -165,12 +168,16 @@ public class AjouterEvenementFXML {
             se.deleteOne(selectedEvent);
             tbEvents.refresh(); // Refresh TableView after deletion
             System.out.println("Event deleted successfully...");
+
+            // Call the refresh function to update the table after deletion
+            refresh(null);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML  
+    @FXML
     void updateEvenemnt(ActionEvent event) {
         // Check if there is a selected event
         Evenement selectedEvent = tbEvents.getSelectionModel().getSelectedItem();
@@ -181,17 +188,20 @@ public class AjouterEvenementFXML {
             LocalDate localDate = tfDate_event.getValue();
             LocalTime timeText = tfheure_event.getValue();
             String image_event = (tfimage.getText() != null) ? tfimage.getText() : "";
-// Conversion de LocalDate en java.sql.Date
+            // Conversion de LocalDate en java.sql.Date
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
 
-// Conversion de LocalTime en java.sql.Time
+            // Conversion de LocalTime en java.sql.Time
 
             int prix = Integer.parseInt((tfprix.getText() != null) ? tfprix.getText() : "0");
             int nbrP = Integer.parseInt((tfNbrP1.getText() != null) ? tfNbrP1.getText() : "0");
 
-// Create Evenement object
+            // Create Evenement object
 
             Evenement newEvent = new Evenement(selectedEvent.getId_event(), nom_event, description, sqlDate, timeText, prix, nbrP, image_event);
+            // Set the image_event property
+            newEvent.setImage_event(image_event);
+
             // Update in the database
             ServiceEvenement se = new ServiceEvenement();
             se.updateOne(newEvent);
@@ -224,7 +234,7 @@ public class AjouterEvenementFXML {
         colheure.setCellValueFactory(new PropertyValueFactory<>("heure_deb"));
         colPrix.setCellValueFactory(new PropertyValueFactory<>("prix"));
         colNbrP.setCellValueFactory(new PropertyValueFactory<>("nbrP"));
-
+        colimg.setCellValueFactory(new PropertyValueFactory<>("image_event"));
         try {
             ServiceEvenement se = new ServiceEvenement();
             List<Evenement> events = se.selectAll();
@@ -255,6 +265,7 @@ public class AjouterEvenementFXML {
         assert btn_importer != null : "fx:id=\"btn_importer\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert imageevenement != null : "fx:id=\"imageevenement\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         //tableau
+
         assert ColNom != null : "fx:id=\"ColNom\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colDescr != null : "fx:id=\"colDescr\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert coldate != null : "fx:id=\"coldate\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
@@ -262,6 +273,7 @@ public class AjouterEvenementFXML {
         assert colId != null : "fx:id=\"colId\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colPrix != null : "fx:id=\"colLieu\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colNbrP != null : "fx:id=\"colNbrP\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
+        assert colimg != null : "fx:id=\"Colimg\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tbEvents != null : "fx:id=\"tbEvents\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         SpinnerValueFactory<LocalTime> factory = new SpinnerValueFactory<LocalTime>() {
             {
@@ -286,25 +298,49 @@ public class AjouterEvenementFXML {
         };
 
         tfheure_event.setValueFactory(factory);
+        ColNom.setCellValueFactory(new PropertyValueFactory<>("nom_event"));
+        coldate.setCellValueFactory(new PropertyValueFactory<>("date_event"));
+
+        tbEvents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                setFieldsFromSelectedEvent(newSelection);
+            }
+        });
 
         afficherevent();
+
     }
 
     @FXML
     void accederListeParticipants(ActionEvent event) {
         try {
             Evenement selectedEvent = tbEvents.getSelectionModel().getSelectedItem();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GererParticipantsFXML.fxml"));
-            Parent root = loader.load();
 
+            if (selectedEvent == null) {
+                // If no event is selected, show the list of all participants
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GererParticipantsFXML.fxml"));
+                Parent root = loader.load();
 
-            UserParticipantController controller = loader.getController();
-            controller.setEventId(selectedEvent.getId_event());
+                UserParticipantController controller = loader.getController();
+                controller.setEventId(0); // Pass a special value to indicate all participants
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste des participants");
-            stage.show();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Liste des participants");
+                stage.show();
+            } else {
+                // If an event is selected, show participants for that event
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GererParticipantsFXML.fxml"));
+                Parent root = loader.load();
+
+                UserParticipantController controller = loader.getController();
+                controller.setEventId(selectedEvent.getId_event());
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Liste des participants");
+                stage.show();
+            }
         } catch (IOException e) {
             e.printStackTrace(); // Handle exception
         }
@@ -346,6 +382,18 @@ public class AjouterEvenementFXML {
         } else {
             System.out.println("No file selected");
         }
+    }
+    private void setFieldsFromSelectedEvent(Evenement selectedEvent) {
+        // Set the text of your TextFields based on the selected event
+        tfNom1.setText(selectedEvent.getNom_event());
+        tfDescr1.setText(selectedEvent.getDescription());
+        tfprix.setText(String.valueOf(selectedEvent.getPrix()));
+        tfDate_event.setValue(selectedEvent.getDate_event());
+        LocalTime selectedTime = selectedEvent.getHeure_deb();
+        tfheure_event.getValueFactory().setValue(selectedTime);
+        tfNbrP1.setText(String.valueOf(selectedEvent.getNbrP()));
+        tfimage.setText(selectedEvent.getImage_event());
+
     }
 
 }

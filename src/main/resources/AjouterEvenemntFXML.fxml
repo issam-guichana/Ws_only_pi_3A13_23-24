@@ -17,11 +17,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1040.0" style="-fx-background-color: #F4F2EF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEvenementFXML">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1240.0" style="-fx-background-color: #F4F2EF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterEvenementFXML">
    <children>
       <VBox layoutX="256.0" layoutY="135.0" prefHeight="495.0" prefWidth="201.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom Event">
                <font>
                   <Font name="Ebrima Bold" size="12.0" />
                </font></Text>
@@ -174,7 +174,7 @@
             </Button>
          </children>
       </VBox>
-      <TableView fx:id="tbEvents" layoutX="298.0" layoutY="157.0" prefHeight="200.0" prefWidth="463.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="157.0">
+      <TableView fx:id="tbEvents" layoutX="438.0" layoutY="167.0" prefHeight="200.0" prefWidth="749.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="167.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="34.39999485015869" text="ID" />
             <TableColumn fx:id="ColNom" prefWidth="71.20000839233398" text="Nom" />
@@ -183,6 +183,7 @@
             <TableColumn fx:id="colheure" prefWidth="106.39996337890625" text="Heure event" />
             <TableColumn fx:id="colPrix" prefWidth="107.199951171875" text="Prix" />
             <TableColumn fx:id="colNbrP" minWidth="0.0" prefWidth="151.20001220703125" text="Nbr Participants" />
+            <TableColumn fx:id="colimg" prefWidth="156.8000030517578" text="Image" />
          </columns>
       </TableView>
       <Button fx:id="tfListP" layoutX="888.0" layoutY="383.0" mnemonicParsing="false" onAction="#accederListeParticipants" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #213E60; -fx-text-fill: #e7e5e5;" text="Liste participants" />

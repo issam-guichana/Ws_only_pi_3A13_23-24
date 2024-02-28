@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import models.Userparticipants;
 import services.ServiceEvenement;
-
+import models.Evenement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,8 +53,19 @@ public class UserParticipantController {
 
     public void setEventId(int eventId) {
         this.eventId = eventId;
-        loadParticipants(); // Ensure that participants are loaded when the event ID is set
+        // Fetch the selected event based on the eventId
+        try {
+            ServiceEvenement se = new ServiceEvenement();
+            this.selectedEvent = se.selectOne(eventId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+
+        loadParticipants();
     }
+
+
 
     private void loadParticipants() {
         try {
@@ -80,6 +91,16 @@ public class UserParticipantController {
 
         if (searchText.isEmpty()) {
             // If search text is empty, display all participants
+            if (selectedEvent == null) {
+                // Fetch all participants
+                try {
+                    ServiceEvenement se = new ServiceEvenement();
+                    allParticipants = se.getParticipants(0); // Pass 0 to indicate all participants
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Handle exception
+                }
+            }
             filteredParticipants = allParticipants;
         } else {
             // Filter participants based on the search text
@@ -91,6 +112,10 @@ public class UserParticipantController {
         System.out.println("rechercher...");
         updateTableView(filteredParticipants);
     }
+    private Evenement selectedEvent;
+
+
+
 
     private void updateTableView(List<Userparticipants> participants) {
         ObservableList<Userparticipants> participantList = FXCollections.observableArrayList(participants);

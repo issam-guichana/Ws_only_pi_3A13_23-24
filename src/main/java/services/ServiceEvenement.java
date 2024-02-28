@@ -132,7 +132,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
 
                 // Assuming column 6 is heure_deb (LocalTime)
                 e.setHeure_deb(rs.getObject(4, LocalTime.class));
-
+                e.setImage_event(rs.getString(8));
                 e.setNbrP(rs.getInt(7));
 
                 evenementsList.add(e);
@@ -145,14 +145,23 @@ public class ServiceEvenement implements CRUD<Evenement> {
     public List<Userparticipants> getParticipants(int event_id) throws SQLException {
         List<Userparticipants> participants = new ArrayList<>();
 
-        // Query to fetch participants for the given event including event_name
-        String query = "SELECT up.user_id, up.userName, up.event_id, e.nom_event " +
-                "FROM usr_evt up " +
-                "JOIN evenement e ON up.event_id = e.id_event " +
-                "WHERE up.event_id = ?";
+        // Check if event_id is provided, if not, fetch all participants
+        String query;
+        if (event_id > 0) {
+            query = "SELECT up.user_id, up.userName, up.event_id, e.nom_event " +
+                    "FROM usr_evt up " +
+                    "JOIN evenement e ON up.event_id = e.id_event " +
+                    "WHERE up.event_id = ?";
+        } else {
+            query = "SELECT up.user_id, up.userName, up.event_id, e.nom_event " +
+                    "FROM usr_evt up " +
+                    "JOIN evenement e ON up.event_id = e.id_event";
+        }
 
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setInt(1, event_id);
+            if (event_id > 0) {
+                ps.setInt(1, event_id);
+            }
 
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {
@@ -165,6 +174,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
                 }
             }
         }
+
         System.out.println("getParticipants");
         return participants;
     }
@@ -178,6 +188,30 @@ public class ServiceEvenement implements CRUD<Evenement> {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    public Evenement selectOne(int eventId) throws SQLException {
+        Evenement selectedEvent = null;
+
+        String query = "SELECT * FROM evenement WHERE id_event = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, eventId);
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    selectedEvent = new Evenement();
+                    selectedEvent.setId_event(resultSet.getInt(1));
+                    selectedEvent.setNom_event(resultSet.getString(5));
+                    selectedEvent.setDescription(resultSet.getString(2));
+                    selectedEvent.setPrix(resultSet.getInt(6));
+                    selectedEvent.setDate_event(resultSet.getObject(3, LocalDate.class));
+                    selectedEvent.setHeure_deb(resultSet.getObject(4, LocalTime.class));
+                    selectedEvent.setImage_event(resultSet.getString(8));
+                    selectedEvent.setNbrP(resultSet.getInt(7));
+                }
+            }
+        }
+
+        return selectedEvent;
     }
 }
 
