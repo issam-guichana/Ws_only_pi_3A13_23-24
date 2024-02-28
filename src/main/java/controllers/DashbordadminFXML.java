@@ -36,6 +36,8 @@ public class DashbordadminFXML implements Initializable {
     private TableColumn<String, String> date_c_room;
     @FXML
     private TableColumn<ObservableList<String>,String> descroom;
+    @FXML
+    private TableColumn<ObservableList<String>,String> idroom;
 
     @FXML
     private TableColumn<ObservableList<String>,String> formateur;
@@ -237,7 +239,7 @@ public class DashbordadminFXML implements Initializable {
 
             // Retrieve data from the 'user' table
             ResultSet resultSet = statement
-                    .executeQuery("select r.id_room,r.nom_room,f.nom_form,r.date_c_room,r.description,u.username from room r Join formation f ON r.formation_id=f.id_form join user u ON f.user_id=u.id_user and u.role='formateur';");
+                    .executeQuery("select r.id_room,r.nom_room,f.nom_form,r.date_c_room,r.description,u.username from room r Join formation f ON r.formation_id=f.id_form and r.status='Active' join user u ON f.user_id=u.id_user and u.role='formateur';");
             ObservableList<ObservableList<String>> oblist = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -256,10 +258,12 @@ public class DashbordadminFXML implements Initializable {
             throw new RuntimeException(e);
         }
 // Bind columns to their respective data properties
-        nmroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
-        nmform.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
-        formateur.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
-        descroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
+        idroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
+
+        nmroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
+        nmform.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
+        formateur.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
+        descroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(4)));
 
         TableColumn<ObservableList<String>, Void> modifierColumn = setupModifierButtonColumn();
         tabr.getColumns().add(modifierColumn);

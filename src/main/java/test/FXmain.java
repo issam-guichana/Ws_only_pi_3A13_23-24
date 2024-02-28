@@ -19,8 +19,11 @@ public class FXmain extends Application {
         //  FXMLLoader loader = new FXMLLoader(getClass()
         //        .getResource("/AjouterroomFXML.fxml"));
 
+       // FXMLLoader loader = new FXMLLoader(getClass()
+         //       .getResource("/DashbordadminFXML.fxml"));
+
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/DashbordadminFXML.fxml"));
+                .getResource("/DashbordmsgFXML.fxml"));
 
         // FXMLLoader loader = new FXMLLoader(getClass()
         //  .getResource("/AjoutermsgFXML.fxml"));
@@ -37,7 +40,7 @@ public class FXmain extends Application {
 
         Scene scene = new Scene(parent);
 
-        stage.setTitle("Ajouter room ");
+        stage.setTitle("Formini.TN ");
         // stage.setTitle("Ajouter message ");
         stage.setScene(scene);
 

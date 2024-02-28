@@ -69,7 +69,8 @@ public class Servicemessage implements CRUD<Message> {
 
     @Override
     public void DeleteOne(int id_msg) throws SQLException {
-        String req = "DELETE FROM message WHERE id_msg = ?";
+        //String req = "DELETE FROM message WHERE id_msg = ?";
+        String req ="UPDATE message SET status='Supprimer' WHERE id_msg = ?";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setInt(1, id_msg);

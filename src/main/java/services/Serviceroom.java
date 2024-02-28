@@ -76,8 +76,10 @@ public class Serviceroom implements CRUD<Room> {
 
     @Override
     public void DeleteOne(int id_room) throws SQLException {
-        String req = "DELETE FROM room WHERE id_room = ?;";
-        PreparedStatement ps = cnx.prepareStatement(req);
+        //String req = "DELETE FROM room WHERE id_room = ?;";
+
+        String req ="UPDATE room SET status='Désactiver' WHERE id_room = ?";
+                PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setInt(1, id_room);
 

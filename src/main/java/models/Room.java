@@ -10,13 +10,16 @@ public class Room {
     private String description;
     private Date date_c_creation;
 
+    private String status;
 
-    public Room(int id_room,String  nom_room, int formation_id, Date date_c_creation , String description) {
+
+    public Room(int id_room,String  nom_room, int formation_id, Date date_c_creation , String description, String status) {
         this.id_room = id_room;
         this.nom_room= nom_room;
         this.formation_id= formation_id;
         this.date_c_creation=date_c_creation;
         this.description=description;
+        this.status=status;
     }
     public Room(String  nom_room, int formation_id ) {
 

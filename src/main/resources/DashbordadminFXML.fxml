@@ -15,30 +15,86 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="599.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashbordadminFXML">
+<AnchorPane prefHeight="599.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashbordadminFXML">
     <children>
-        <VBox layoutY="-3.0" prefHeight="599.0" prefWidth="131.0">
+        <VBox layoutY="89.0" prefHeight="507.0" prefWidth="171.0">
          <children>
-                <AnchorPane prefHeight="600.0" prefWidth="131.0" style="-fx-background-color: #213E60;">
-                    <children>
-                        <ImageView fitHeight="38.0" fitWidth="136.0" layoutX="7.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Images/logo_blanc.png" />
-                            </image>
-                        </ImageView>
-                    </children>
+                <AnchorPane prefHeight="507.0" prefWidth="169.0" style="-fx-background-color: #213E60; -fx-border-radius: 0 50 0 0;" styleClass="sidebbar" stylesheets="@sidebaradmin.css">
+               <children>
+                  <Label layoutX="6.0" layoutY="43.0" prefHeight="35.0" prefWidth="147.0" style="-fx-background-color: #f4f2ef; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="#213e60" textOverrun="WORD_ELLIPSIS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="27.0" layoutY="51.0" text="Bienvenue Admin" textFill="#213e60">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="20.0" fitWidth="27.0" layoutX="17.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/utilisateur-de-profil.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="62.0" layoutY="142.0" text="Users" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="15.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/messager.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="60.0" layoutY="193.0" text="Discussions" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="15.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/education.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="62.0" layoutY="245.0" text="Formations" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="15.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/quiz.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="71.0" layoutY="299.0" text="Quiz" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="72.0" layoutY="346.0" text="Events" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="10.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/evenement.png" />
+                     </image>
+                  </ImageView>
+               </children>
                 </AnchorPane>
          </children>
         </VBox>
-        <AnchorPane layoutX="131.0" layoutY="-3.0" prefHeight="599.0" prefWidth="670.0" style="-fx-background-color: #D5D6F2;">
+        <AnchorPane layoutX="173.0" layoutY="-3.0" prefHeight="599.0" prefWidth="726.0" style="-fx-background-color: #f4f2ef;">
             <children>
-                <TableView fx:id="tabr" layoutX="29.0" layoutY="288.0" prefHeight="281.0" prefWidth="582.0" style="-fx-border-color: #213E60; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+                <TableView fx:id="tabr" layoutX="47.0" layoutY="304.0" prefHeight="281.0" prefWidth="661.0" style="-fx-border-color: #213E60; -fx-border-radius: 10px; -fx-background-radius: 10px;">
                     <columns>
                         <TableColumn fx:id="nmroom" prefWidth="75.0" text="Nom_room" />
                         <TableColumn fx:id="descroom" prefWidth="75.0" text="Description" />
                         <TableColumn fx:id="nmform" prefWidth="112.0" text="Nom_formation" />
                         <TableColumn fx:id="formateur" prefWidth="75.0" text="Formateur" />
                         <TableColumn fx:id="date_c_room" prefWidth="92.0" text="Date creation" />
+                  <TableColumn fx:id="idroom" prefWidth="75.0" text="ID" />
                     </columns>
                 </TableView>
             <GridPane layoutX="47.0" layoutY="108.0" prefHeight="138.0" prefWidth="253.0">
@@ -72,20 +128,25 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="38.0" fitWidth="39.0" layoutX="59.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="38.0" fitWidth="39.0" layoutX="62.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/tableau-de-bord.png" />
                </image>
             </ImageView>
-            <TextField  fx:id="nameroom" layoutX="340.0" layoutY="119.0" />
+            <TextField fx:id="nameroom" layoutX="322.0" layoutY="119.0" prefHeight="25.0" prefWidth="239.0" />
             <ComboBox fx:id="nomform" layoutX="323.0" layoutY="152.0" prefHeight="25.0" prefWidth="239.0" />
-            <TextField  fx:id="decsproom" layoutX="368.0" layoutY="198.0" />
-            <Button layoutX="401.0" layoutY="230.0" mnemonicParsing="false" onAction="#ajoutroom" style="-fx-background-position: center;" text="Appuyer pour ajouter un chat" textAlignment="JUSTIFY" textFill="#213e60">
+            <TextField fx:id="decsproom" layoutX="322.0" layoutY="187.0" prefHeight="25.0" prefWidth="239.0" />
+            <Button layoutX="230.0" layoutY="227.0" mnemonicParsing="false" onAction="#ajoutroom" style="-fx-background-position: center;" text="Appuyer pour ajouter un chat" textAlignment="JUSTIFY" textFill="#213e60">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
             </children>
         </AnchorPane>
+            <ImageView fitHeight="38.0" fitWidth="147.0" layoutX="12.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@Images/logo.png" />
+                </image>
+            </ImageView>
     </children>
 </AnchorPane>

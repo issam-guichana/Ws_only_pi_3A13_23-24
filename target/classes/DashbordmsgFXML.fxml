@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.DashbordmsgFXML"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="552.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashbordmsgFXML">
+   <children>
+      <VBox layoutY="1.0" prefHeight="552.0" prefWidth="143.0" style="-fx-background-color: #213E60;" />
+      <TableView fx:id="tabm" layoutX="191.0" layoutY="144.0" prefHeight="200.0" prefWidth="462.0">
+        <columns>
+          <TableColumn fx:id="cnmsg" prefWidth="123.0" text="Contenu Message" />
+          <TableColumn fx:id="nmroom" prefWidth="127.0" text="Nom Room" />
+            <TableColumn fx:id="emet" prefWidth="75.0" text="Emmetteur" />
+        </columns>
+      </TableView>
+      <Label layoutX="296.0" layoutY="53.0" text="Bienvenue Admin au tableau de bord Messages" />
+   </children>
 </AnchorPane>
