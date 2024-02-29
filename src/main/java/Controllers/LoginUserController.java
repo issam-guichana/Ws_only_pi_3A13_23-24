@@ -72,6 +72,15 @@ public class LoginUserController implements Initializable {
 
                 UserService us = new UserService();
                 User u = us.ChercherParUsername(tfUsername.getText());
+                if (us.ChercherParUsername(tfUsername.getText()).getStatus() == 0){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("compte désactivé");
+                    alert.setHeaderText("désolé");
+                    alert.setContentText("Votre compte est désactivé, veuillez contacter l'administrateur");
+                    alert.showAndWait();
+                    Reset();
+                    return;
+                }
                 // controle de saisie
                 if (tfUsername.getText().compareTo("") == 0 || tfPassword.getText().compareTo("") == 0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -182,4 +191,9 @@ public class LoginUserController implements Initializable {
     private void Exit(ActionEvent event){
         System.exit(0);
     }
+    private void Reset(){
+        tfUsername.setText(null);
+        tfPassword.setText(null);
+    }
+
 }

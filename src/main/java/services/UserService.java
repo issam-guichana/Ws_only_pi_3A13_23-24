@@ -1,15 +1,12 @@
 package services;
 
-import Controllers.LoginUserController;
-import com.sun.javafx.logging.PlatformLogger;
-import com.sun.javafx.logging.PlatformLogger.Level;
 import models.User;
 import utils.DBconnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 public class UserService implements CRUD<User> {
 
@@ -101,33 +98,6 @@ public class UserService implements CRUD<User> {
 
         return userList;
     }
-//    public ArrayList<User> ChercherParUsername(String username) {
-//        ArrayList<User> listusersNames = new ArrayList<>();
-//        try {
-//
-//            PreparedStatement pre = cnx.prepareStatement ("SELECT * FROM user where username = ?");
-//
-//            pre.setString(1, username);
-//            ResultSet result = pre.executeQuery();
-//
-//            while (result.next()) {
-//                int id = result.getInt(1);
-//                String name = result.getString(2);
-//                String mail = result.getString(3);
-//                String password = result.getString(4);
-//                int age = Integer.parseInt(result.getString(5));
-//                String role = result.getString(6);
-//
-//                User ur = new User(id, name, mail, password,age, role);
-//                listusersNames.add(ur);
-//                System.out.println("Min aand el base de donnes" + listusersNames);
-//                pre.executeUpdate();
-//            }
-//        } catch (SQLException ex) {
-//            System.out.print(ex.getMessage());
-//        }
-//        return null;
-//    }
     public User ChercherParUsername(String username) {
         try {
             PreparedStatement pre = cnx.prepareStatement("SELECT * FROM user where username = ?");
@@ -163,4 +133,27 @@ public class UserService implements CRUD<User> {
         }
         return null;
     }
+
+    public void updateStatus(User user) {
+        try {
+            String req = "UPDATE `user` SET username = ?, email = ?, mdp = ?, age = ?, role = ?, gender = ?, image = ?, status = (CASE WHEN status = 1 THEN 0 ELSE 1 END) WHERE id_user = ?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getMdp());
+            ps.setInt(4, user.getAge());
+            ps.setString(5, user.getRole());
+            ps.setString(6, user.getGender());
+            ps.setString(7, user.getImage());
+            ps.setInt(8, user.getId_user());
+
+            ps.executeUpdate();
+
+            System.out.println("Status modified");
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+
 }

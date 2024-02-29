@@ -21,8 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DeleteProfileController {
-   @FXML
-   private Button bDelacc;
     @FXML
     private Button bGotoupdate;
     @FXML
@@ -40,7 +38,7 @@ public class DeleteProfileController {
 
     PreparedStatement pst = null;
     ResultSet rs = null;
-
+    @FXML
     public void DeleteAcc(ActionEvent event) {
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
@@ -65,7 +63,7 @@ public class DeleteProfileController {
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                     successAlert.setTitle("Succ�s");
                     successAlert.setHeaderText(null);
-                    successAlert.setContentText(" l'utilisateur " + idSupp + " a �t� supprim�es avec succ�s.");
+                    successAlert.setContentText(" l'utilisateur " + idSupp + " a été supprimées avec succés.");
                     successAlert.showAndWait();
                 }
             }
@@ -73,7 +71,56 @@ public class DeleteProfileController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    @FXML
+    public void DesactivateAcc(ActionEvent event) {
+        UserService userService= new UserService();
+        Connection cnx = DBconnection.getInstance().getCnx();
+        String sql = "Select * from user where id_user = ?";
 
+        try {
+            pst = cnx.prepareStatement(sql);
+            pst.setString(1, LoginUserController.logged + "");
+            rs = pst.executeQuery();
+            int idSupp = LoginUserController.logged ;
+
+
+            if (rs.next()) {
+                User user = new User();
+                user.setId_user(rs.getInt("id_user"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setMdp(rs.getString("mdp"));
+                user.setAge(rs.getInt("age"));
+                user.setRole(rs.getString("role"));
+                user.setGender(rs.getString("gender"));
+                user.setImage(rs.getString("image"));
+
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText(null);
+                alert.setContentText("Voulez-vous vraiment désactiver votre compte?");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+
+                    int currentStatus = Integer.parseInt(String.valueOf(user.getStatus()));
+                    int newStatus = (currentStatus == 1) ? 0 : 1;
+                    user.setStatus(newStatus);
+                    userService.updateStatus(user);
+                    LogOut(new ActionEvent());
+
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Succ�s");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("Votre compte a �t� d�sactiv�s avec succ�s.");
+                    successAlert.showAndWait();
+                }
+            }
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 
     public void GoToSetting(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
@@ -120,5 +167,6 @@ public class DeleteProfileController {
     public void Exit(ActionEvent event) {
         System.exit(0);
     }
+
 
 }

@@ -46,10 +46,12 @@ public class AdminInterfaceController implements Initializable {
     public TableColumn<models.User, String> colImage;
     @FXML
     public TableColumn<models.User, String> colStatus;
+    UserService us = new UserService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Refresh(new ActionEvent());
+        setupStatusButtonColumn();
     }
     public void Refresh(ActionEvent event) {
         UserService us = new UserService();
@@ -70,6 +72,46 @@ public class AdminInterfaceController implements Initializable {
         }
         tabUsers.setItems(oblist);
     }
+    private void setupStatusButtonColumn() {
+        TableColumn<models.User, Void> StatusColumn = new TableColumn<>("TestStat");
+        StatusColumn.setCellFactory(col -> new TableCell<models.User, Void>() {
+            private final Button StatusButton = new Button("TestStat");
+
+            {
+                StatusButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    // Toggle the status of the user
+                    int currentStatus = Integer.parseInt(String.valueOf(user.getStatus()));
+                    int newStatus = (currentStatus == 1) ? 0 : 1; // Toggle between 0 and 1
+                    user.setStatus(Integer.parseInt(String.valueOf(newStatus)));
+
+                    us.updateStatus(user);
+                    // Update the UI to reflect the status change
+
+                    StatusButton.setText(String.valueOf(newStatus));
+                    Refresh(new ActionEvent());
+                });
+            }
+         @Override
+            protected void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setGraphic(null);
+            } else {
+                models.User user = getTableView().getItems().get(getIndex());
+               // StatusButton.setText(String.valueOf(user.getStatus()));
+                if (String.valueOf(user.getStatus()).equals("1"))
+                    StatusButton.setText("Désactiver");
+                else StatusButton.setText("Activer");
+                setGraphic(StatusButton);
+                Refresh(new ActionEvent());
+            }
+         }
+        });
+            tabUsers.getColumns().add(StatusColumn);
+    }
+
+
     @FXML
     public void GoToGestUser(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()

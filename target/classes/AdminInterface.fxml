@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminInterfaceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminInterfaceController">
     <left>
         <AnchorPane prefHeight="400.0" prefWidth="197.0" style="-fx-background-color: #D8D1BD;" BorderPane.alignment="CENTER">
             <children>
@@ -34,7 +34,7 @@
         </AnchorPane>
     </left>
     <right>
-        <AnchorPane prefHeight="432.0" prefWidth="659.0" style="-fx-background-color: #F4F2EF;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="402.0" prefWidth="738.0" style="-fx-background-color: #F4F2EF;" BorderPane.alignment="CENTER">
             <children>
                 <Text fill="#213e60" layoutX="149.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous êtes le bienvenu en tant qu'administrateur" textAlignment="CENTER" wrappingWidth="207.68438720703125">
                     <font>
@@ -46,16 +46,16 @@
                         <FontAwesomeIconView fill="#e68c3a" glyphName="CLOSE" size="20" />
                     </graphic>
                 </Button>
-            <TableView fx:id="tabUsers" layoutX="9.0" layoutY="81.0" prefHeight="240.0" prefWidth="618.0" AnchorPane.bottomAnchor="82.20000000000005" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="81.0">
+            <TableView fx:id="tabUsers" layoutX="13.0" layoutY="82.0" prefHeight="238.0" prefWidth="697.0">
               <columns>
                 <TableColumn fx:id="colUsername" prefWidth="107.99999272823334" text="Nom d'utilisateur" />
-                <TableColumn fx:id="colEmail" prefWidth="80.79998016357422" text="E-mail" />
-                  <TableColumn fx:id="colAge" prefWidth="41.5999755859375" text="Age" />
+                <TableColumn fx:id="colEmail" prefWidth="68.79998779296875" text="E-mail" />
+                  <TableColumn fx:id="colAge" prefWidth="53.60003662109375" text="Age" />
                   <TableColumn fx:id="colPassword" prefWidth="85.59999084472656" text="mot de passe" />
                   <TableColumn fx:id="colRole" prefWidth="71.2000732421875" text="Role" />
-                  <TableColumn fx:id="colGender" prefWidth="70.4000244140625" text="Genre" />
-                  <TableColumn fx:id="colImage" prefWidth="76.00003051757812" text="Image" />
-                  <TableColumn fx:id="colStatus" prefWidth="84.0" text="Status" />
+                  <TableColumn fx:id="colGender" prefWidth="58.39996337890625" text="Genre" />
+                  <TableColumn fx:id="colImage" prefWidth="84.00006103515625" text="Image" />
+                  <TableColumn fx:id="colStatus" prefWidth="46.4000244140625" text="Status" />
               </columns>
             </TableView>
             <Button layoutX="103.0" layoutY="363.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="91.0" style="-fx-background-color: #E68C3A;" text="//to do" textFill="WHITE" AnchorPane.bottomAnchor="15.199999999999989">

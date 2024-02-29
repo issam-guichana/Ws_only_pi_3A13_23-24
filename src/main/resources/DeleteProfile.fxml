@@ -39,7 +39,7 @@
     <right>
         <AnchorPane prefHeight="400.0" prefWidth="469.0" style="-fx-background-color: #F4F2EF;" BorderPane.alignment="CENTER">
             <children>
-                <Text fill="#213e60" layoutX="99.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Supprimer votre compte">
+                <Text fill="#213e60" layoutX="40.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Désactiver ou supprimer votre compte">
                     <font>
                         <Font name="Comic Sans MS" size="18.0" />
                     </font>
@@ -49,23 +49,28 @@
                         <FontAwesomeIconView fill="#e68c3a" glyphName="CLOSE" size="20" />
                     </graphic>
                 </Button>
-            <Text fill="#213e60" layoutX="52.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Souhaites-tu vraiment supprimer ton compte?">
+            <Text fill="#213e60" layoutX="52.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Souhaites-tu vraiment supprimer ton compte?">
                <font>
                   <Font name="Comic Sans MS" size="14.0" />
                </font>
             </Text>
-            <Text fill="#213e60" layoutX="74.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ce compte sera supprimé immédiatement. ">
+            <Text fill="#213e60" layoutX="74.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ce compte sera supprimé immédiatement. ">
                <font>
                   <Font name="Comic Sans MS" size="13.0" />
                </font>
             </Text>
-            <FontAwesomeIconView fill="#e68c3a" glyphName="EXCLAMATION_TRIANGLE" layoutX="42.0" layoutY="169.0" size="20" />
-            <Text fill="#213e60" layoutX="79.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous ne pouvez pas annuler cette action.">
+            <FontAwesomeIconView fill="#e68c3a" glyphName="EXCLAMATION_TRIANGLE" layoutX="42.0" layoutY="158.0" size="20" />
+            <Text fill="#213e60" layoutX="79.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous ne pouvez pas annuler cette action.">
                <font>
                   <Font name="Comic Sans MS" size="13.0" />
                </font>
             </Text>
-            <Button fx:id="bDelacc" layoutX="132.0" layoutY="261.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="24.0" prefWidth="138.0" style="-fx-background-color: #E68C3A;" text="Supprimer mon compte" textFill="WHITE">
+            <Button fx:id="bDelacc" layoutX="116.0" layoutY="284.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="18.0" prefWidth="170.0" style="-fx-background-color: #E68C3A;" text="Supprimer mon compte" textFill="WHITE">
+               <font>
+                  <Font name="Candara" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="bDesactivate" layoutX="131.0" layoutY="226.0" mnemonicParsing="false" onAction="#DesactivateAcc" prefHeight="24.0" prefWidth="137.0" style="-fx-background-color: #E68C3A;" text="Désactiver mon compte" textFill="WHITE">
                <font>
                   <Font name="Candara" size="12.0" />
                </font>
