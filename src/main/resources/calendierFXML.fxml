@@ -161,7 +161,14 @@
                         </HBox>
                     </children>
                 </Pane>
-                <Pane prefHeight="98.0" prefWidth="135.0" />
+                <Pane prefHeight="98.0" prefWidth="135.0">
+               <children>
+                  <ImageView fitHeight="61.0" fitWidth="76.0" layoutX="47.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/utilisateur.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
             </children>
 
         </HBox>

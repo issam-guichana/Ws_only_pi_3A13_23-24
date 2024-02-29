@@ -113,7 +113,7 @@ public class CalendarController implements Initializable {
             List<String> eventNames = calendarData.getEventNamesForDay(c);
 
             btns[i] = new Button(day + "");
-            btns[i].setPrefSize(80, 80); // Set your desired button size here
+            btns[i].setPrefSize(130, 80);// Set your desired button size here
 
             // Customize button appearance
             btns[i].setStyle("-fx-font-size: 18; -fx-background-color: " + (eventNames.isEmpty() ? "#D8D1BDFF;" : "#E68C3A;") +
@@ -193,7 +193,7 @@ public class CalendarController implements Initializable {
 
         if (selectedEvent == null) {
             // No event found, show an alert
-            showAlert("No Event", "No event details available for the selected date.");
+            showAlert("No Event", "No event  available for the selected date.");
         } else {
             // Open the new FXML file for event details
             openEventDetailsFXML(selectedEvent);

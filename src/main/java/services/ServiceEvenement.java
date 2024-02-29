@@ -214,6 +214,17 @@ public class ServiceEvenement implements CRUD<Evenement> {
 
         return selectedEvent;
     }
+    public boolean isEventNameUnique(Evenement newEvent) throws SQLException {
+        List<Evenement> events = selectAll();
+
+        for (Evenement event : events) {
+            if (event.getNom_event().equalsIgnoreCase(newEvent.getNom_event())) {
+                return false; // Event name is not unique
+            }
+        }
+
+        return true; // Event name is unique
+    }
 }
 
 

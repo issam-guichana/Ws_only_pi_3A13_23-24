@@ -122,6 +122,7 @@ public class AjouterEvenementFXML {
                 return; // Exit the method if validation fails
             }
 
+
             LocalDate localDate = tfDate_event.getValue();
             LocalTime localTime = tfheure_event.getValue();
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
@@ -143,16 +144,26 @@ public class AjouterEvenementFXML {
                     Integer.parseInt(tfprix.getText()), Integer.parseInt(tfNbrP1.getText()), imageUrl);
 
             ServiceEvenement sp = new ServiceEvenement(tbEvents);
-            sp.insertOne(p);
 
-            // Show success message
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Succès");
-            successAlert.setContentText("L'événement a été ajouté avec succès.");
-            successAlert.show();
+            if (sp.isEventNameUnique(p)) {
+                // Insert the event if the name is unique
+                sp.insertOne(p);
 
-            // Additional log for debugging
-            System.out.println("Event added successfully");
+                // Show success message
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Succès");
+                successAlert.setContentText("L'événement a été ajouté avec succès.");
+                successAlert.show();
+
+                // Additional log for debugging
+                System.out.println("Event added successfully");
+            } else {
+                // Display an error message if the event name is not unique
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("Le nom de l'événement doit être unique.");
+                alert.show();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,6 +173,7 @@ public class AjouterEvenementFXML {
             alert.show();
         }
     }
+
 
 
     private boolean isNumeric(String str) {
