@@ -105,6 +105,7 @@ public class AjouterQuestion {
         idQuizName.setText("Quizzzz: " + quiz.getNom_quiz());
         Image image = new Image("file:" + quiz.getImage());
         idimage.setImage(image);
+        displayAllQuestionsInTableView();
     }
 
     public void displayAllQuestionsInTableView(){
@@ -113,7 +114,7 @@ public class AjouterQuestion {
 
         try {
             ServiceQuestion serviceQuestion = new ServiceQuestion();
-            List<Question> questions = serviceQuestion.selectAll();
+            List<Question> questions = serviceQuestion.selectQuestionByQuiz(quiz);
             ObservableList<Question> ql = FXCollections.observableArrayList(questions);
             questTab.setItems(ql);
         } catch (SQLException e) {
@@ -282,11 +283,14 @@ public class AjouterQuestion {
         setupModifierButtonColumn();
         setupSupprimerButtonColumn();
     }
+    @FXML
+    void goBack(ActionEvent event) {
+
+    }
 
     @FXML
     public void initialize() {
         setupButtonColumns();
-        displayAllQuestionsInTableView();
         ObservableList<String> items = FXCollections.observableArrayList("choix1", "choix2", "choix3", "choix4");
         idbr.setItems(items);
 

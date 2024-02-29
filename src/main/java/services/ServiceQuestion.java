@@ -61,9 +61,10 @@ public void deleteOne(Question quest) throws SQLException {
 
         }
 
+
     @Override
-public List<Question> selectAll() throws SQLException {
-        List<Question> quizList = new ArrayList<>();
+    public List<Question> selectAll() throws SQLException {
+        List<Question> questionList = new ArrayList<>();
 
         String req = "SELECT * FROM `question`";
         Statement st = cnx.createStatement();
@@ -73,22 +74,49 @@ public List<Question> selectAll() throws SQLException {
         while (rs.next()){
             Question p = new Question();
 
-        p.setId_quest(rs.getInt(("id_quest")));
-        p.setQuestion(rs.getString(("question")));
-        p.setOption1(rs.getString(("option1")));
-        p.setOption2(rs.getString(("option2")));
-        p.setOption3(rs.getString(("option3")));
-        p.setOption4(rs.getString(("option4")));
-        p.setReponse(rs.getString(("reponse")));
+            p.setId_quest(rs.getInt(("id_quest")));
+            p.setQuestion(rs.getString(("question")));
+            p.setOption1(rs.getString(("option1")));
+            p.setOption2(rs.getString(("option2")));
+            p.setOption3(rs.getString(("option3")));
+            p.setOption4(rs.getString(("option4")));
+            p.setReponse(rs.getString(("reponse")));
 
-        int quizId = rs.getInt("id_quiz");
-        ServiceQuiz sq=new ServiceQuiz();
-        Quiz quiz = sq.getQuizById(quizId);
-        p.setQuiz(quiz);
+            int quizId = rs.getInt("id_quiz");
+            ServiceQuiz sq=new ServiceQuiz();
+            Quiz quiz = sq.getQuizById(quizId);
+            p.setQuiz(quiz);
 
-        quizList.add(p);
+            questionList.add(p);
         }
 
-        return quizList;
+        return questionList;
+    }
+    public List<Question> selectQuestionByQuiz(Quiz quiz) throws SQLException {
+        List<Question> questionList = new ArrayList<>();
+
+        String req = "SELECT * FROM `question` WHERE `id_quiz`= "+quiz.getId_quiz();
+        Statement st = cnx.createStatement();
+
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()){
+            Question p = new Question();
+
+            p.setId_quest(rs.getInt(("id_quest")));
+            p.setQuestion(rs.getString(("question")));
+            p.setOption1(rs.getString(("option1")));
+            p.setOption2(rs.getString(("option2")));
+            p.setOption3(rs.getString(("option3")));
+            p.setOption4(rs.getString(("option4")));
+            p.setReponse(rs.getString(("reponse")));
+            p.setQuiz(quiz);
+
+            questionList.add(p);
         }
+
+        return questionList;
+    }
+
+
 }

@@ -1,33 +1,36 @@
 /* Side Bar */
-#sidebar {
-    -fx-background-color: linear-gradient(to bottom, #2a578d, #1B2D46); /* Gradient background */
-
-}
+/*#sidebar {*!*/
+/*    -fx-background-color: linear-gradient(to bottom, #2a578d, #1B2D46); !* Gradient background *!*/
+/*    -fx-background-radius: 8;*/
+/*}*/
 
 /* Sidebar items (buttons, links, etc.) */
-.sidebar-item {
-    -fx-padding: 10px 20px; /* Adjust padding as needed */
-    -fx-text-fill: white; /* Text color */
-    -fx-font-size: 16px; /* Font size */
-    -fx-font-weight: bold; /* Font weight */
-    -fx-cursor: hand; /* Cursor on hover */
-    -fx-background-radius: 8;
-    -fx-background-color: rgba(182, 182, 177, 0.68);
-}
+/*.sidebar-item {*/
+/*    -fx-padding: 10px 20px; !* Adjust padding as needed *!*/
+/*    -fx-text-fill: white; !* Text color *!*/
+/*    -fx-font-size: 16px; !* Font size *!*/
+/*    -fx-font-weight: bold; !* Font weight *!*/
+/*    -fx-cursor: hand; !* Cursor on hover *!*/
+/*    -fx-background-radius: 8;*/
+/*    -fx-background-color: rgba(182, 182, 177, 0);*/
+/*}*/
+/*.sidebar-item:hover{*/
+/*    -fx-background-color: rgba(182, 182, 177, 0.56);*/
+/*}*/
 
-/* Logout button */
-.logout-button {
-    -fx-background-color: #fa4300; /* Button background color */
-    -fx-text-fill: #FFFFFF; /* Button text color */
-    -fx-font-size: 16px; /* Font size */
-    -fx-padding: 10px 20px; /* Adjust padding as needed */
-    -fx-alignment: center; /* Center text */
-}
+/*!* Logout button *!*/
+/*.logout-button {*/
+/*    -fx-background-color: #fa4300; !* Button background color *!*/
+/*    -fx-text-fill: #FFFFFF; !* Button text color *!*/
+/*    -fx-font-size: 16px; !* Font size *!*/
+/*    -fx-padding: 10px 20px; !* Adjust padding as needed *!*/
+/*    -fx-alignment: center; !* Center text *!*/
+/*}*/
 
-/* Logout button hover effect */
-.logout-button:hover {
-    -fx-background-color: #ff662e; /* Button background color on hover */
-}
+/*!* Logout button hover effect *!*/
+/*.logout-button:hover {*/
+/*    -fx-background-color: #ff662e; !* Button background color on hover *!*/
+/*}*/
 /* Buttons */
 .button-add, .button-import {
     -fx-background-color: #E68C3A;
@@ -39,14 +42,16 @@
 }
 
 /* Background */
-.root {
-    -fx-background-color: #F4F2EF;
+.root{
+
+    -fx-background-color:white;
+
 }
 
 /* Inputs */
 .text-field {
-    -fx-background-color: #D8D1BD;
-    -fx-prompt-text-fill: white;
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: #b4b4b4;
 }
 
 /* Table */
@@ -60,11 +65,18 @@
 .refresh-btn{
     -fx-background-color: transparant;
 }
-
+.quiz-add-container {
+    -fx-background-color: #213e60;
+    -fx-background-radius: 8;
+}
 
 
 .input-label {
     -fx-font-size: 14px;
     -fx-text-fill: #213E60;
     -fx-padding: 5px;
+}
+.quiz-container{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
 }

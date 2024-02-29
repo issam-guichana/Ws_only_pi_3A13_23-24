@@ -12,7 +12,7 @@ public class FxMain extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader= new FXMLLoader(getClass().getResource("/AjouterQuiz.fxml"));
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/UserQuiz.fxml"));
         Parent parent=loader.load();
 
         Scene scene =new Scene(parent);

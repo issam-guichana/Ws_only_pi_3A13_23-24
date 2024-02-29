@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="550.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserQuiz">
+   <children>
+      <VBox layoutX="261.0" layoutY="14.0" prefHeight="560.0" prefWidth="698.0" style="-fx-background-color: #213E60;" styleClass="quiz-container" stylesheets="@css/styles.css">
+         <effect>
+            <DropShadow height="18.07" radius="12.1975" width="32.72">
+               <color>
+                  <Color opacity="0.5381679534912109" />
+               </color>
+            </DropShadow>
+         </effect>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="-6.0" prefHeight="579.0" prefWidth="256.0" style="-fx-background-color: #213E60;">
+         <children>
+            <ImageView fitHeight="177.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/logo-removebg-preview.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="50.0" />
+               </VBox.margin>
+            </ImageView>
+            <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Users" textFill="#e7e5e5">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/icons8_Person_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Events" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/icons8_Open_Envelope_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Training" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/icons8_Box_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Certificats" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/icons8_Xbox_Menu_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Badges" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/icons8_Slider__32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Quiz" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/icons8_Search_52px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnSettings1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="signout" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/icons8_Sign_Out_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+      <Text fx:id="ftext11" fill="WHITE" layoutX="495.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Search">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <TextField fx:id="finput11" layoutX="553.0" layoutY="81.0" prefHeight="25.0" prefWidth="164.0" promptText="Search..." styleClass="text-field" />
+      <Text fill="WHITE" layoutX="594.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Quiz" textAlignment="CENTER">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Text>
+
+      <HBox alignment="CENTER" layoutX="504.0" layoutY="540.0" spacing="10">
+         <Button fx:id="previousButton" onAction="#handlePreviousButtonClick" text="Previous" />
+         <Label fx:id="pageLabel" text="Page 1" />
+         <Button fx:id="nextButton" onAction="#handleNextButtonClick" text="Next" />
+      </HBox>
+      <HBox fx:id="quizContainer" layoutX="268.0" layoutY="111.0" prefHeight="425.0" prefWidth="681.0" style="-fx-background-color: #2A578DFF;" styleClass="quiz-container" stylesheets="@css/styles.css">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+         </padding>
+         <effect>
+            <DropShadow blurType="GAUSSIAN">
+               <color>
+                  <Color opacity="0.8931297659873962" />
+               </color>
+            </DropShadow>
+         </effect>
+      </HBox>
+
+   </children>
+</AnchorPane>
