@@ -58,7 +58,7 @@ public class Serviceroom implements CRUD<Room> {
 
     @Override
     public void UpdateOne(int id_room, String nouveaunom) throws SQLException {
-        String req = "UPDATE room SET nouveaunom = ? WHERE id_room = ?";
+        String req = "UPDATE room SET nom_room = ? WHERE id_room = ?";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setString(1, nouveaunom);

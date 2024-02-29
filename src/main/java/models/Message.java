@@ -5,23 +5,48 @@ private int id_msg;
 private String contenu;
 
 private String sender;
-
+private int id_room;
     public Message() {
     }
 
-    public Message(int id_msg, String contenu,String sender) {
+    public Message(int id_msg, String contenu,String sender,int id_room) {
         this.id_msg = id_msg;
         this.contenu=contenu;
         this.sender=sender;
+        this.id_room = id_room;
     }
 
-    public Message(String text, int roomId) {
+    public int getId_room() {
+        return id_room;
     }
 
-    public Message(String content, String sender) {
+    public void setId_room(int id_room) {
+        this.id_room = id_room;
+    }
+
+    public Message(int id_msg, String contenu) {
+        this.id_msg = id_msg;
+        this.contenu=contenu;
+
+    }
+
+
+    public Message(String contenu, String sender) {
 
         this.contenu=contenu;
         this.sender=sender;
+    }
+    public Message(String contenu,int id_room) {
+
+        this.contenu=contenu;
+
+        this.id_room = id_room;
+    }
+    public Message(String contenu, String sender,int id_room) {
+
+        this.contenu=contenu;
+        this.sender=sender;
+        this.id_room = id_room;
     }
 
     public String getSender() {
@@ -32,11 +57,7 @@ private String sender;
         this.sender = sender;
     }
 
-    public Message(int idMsg, String contenu) {
 
-        this.id_msg = id_msg;
-        this.contenu=contenu;
-    }
 
     public int getId_msg() {
         return id_msg;

@@ -30,12 +30,7 @@
             </image>
         </ImageView>
         <TextField layoutX="178.0" layoutY="315.0" prefHeight="27.0" prefWidth="408.0" promptText="Rechercher..." style="-fx-background-radius: 50px; -fx-border-color: #213E60; -fx-border-radius: 50px;" />
-        <TextField fx:id="sendmsg" layoutX="674.0" layoutY="549.0" prefHeight="27.0" prefWidth="419.0" style="-fx-background-color: white; -fx-border-color: #213E60; -fx-border-radius: 20px;" />
-        <ImageView fitHeight="20.0" fitWidth="23.0" layoutX="1056.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@Images/envoyer.png" />
-            </image>
-        </ImageView>
+        <TextField fx:id="sendmsg" layoutX="681.0" layoutY="549.0" prefHeight="40.0" prefWidth="527.0" style="-fx-background-color: white; -fx-border-color: #213E60; -fx-border-radius: 20px;" />
         <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="696.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/chat-a-bulles.png" />
@@ -187,11 +182,31 @@
             </AnchorPane>
          </children>
       </VBox>
-      <TableView fx:id="listmsg" layoutX="681.0" layoutY="187.0" prefHeight="284.0" prefWidth="427.0">
+      <TableView fx:id="listmsg" layoutX="681.0" layoutY="187.0" prefHeight="284.0" prefWidth="527.0">
         <columns>
           <TableColumn fx:id="emet" prefWidth="75.0" text="Emmeteur" />
-          <TableColumn fx:id="cnmsg" prefWidth="279.0" text="Contenu" />
+          <TableColumn fx:id="cnmsg" prefWidth="369.0" text="Contenu" />
         </columns>
       </TableView>
+      <Button layoutX="1134.0" layoutY="559.0" mnemonicParsing="false" onAction="#sendmsg" style="-fx-background-color: #E68c3a; -fx-background-radius: 20px;" text="Envoyer" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Button>
+      <Button layoutX="681.0" layoutY="493.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="183.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #213e60;" text="Bienvenue dans mon espace!" textFill="#213e60">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="872.0" layoutY="493.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="162.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #213e60;" text="Je suis à votre disposition" textFill="#213e60">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="1046.0" layoutY="493.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="162.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #213e60;" text="Veuillez intéragir Svp" textFill="#213e60">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

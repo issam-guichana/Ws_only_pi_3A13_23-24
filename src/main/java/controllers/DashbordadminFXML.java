@@ -3,21 +3,30 @@ package controllers;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
 
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import models.Room;
+import services.Servicemessage;
 import services.Serviceroom;
 
 
@@ -63,62 +72,9 @@ public class DashbordadminFXML implements Initializable {
     private Label nomRoomField;
     private Label descriptionField;
 
-    private  TableColumn<ObservableList<String> , Void>setupModifierButtonColumn() {
-        // Create the button column
-        TableColumn<ObservableList<String>, Void> modifierColumn = new TableColumn<>("Modifier");
-
-        // Set the cell factory to create buttons for each cell in the column
-        modifierColumn.setCellFactory(new Callback<>() {
-            @Override
-            public TableCell<ObservableList<String>, Void> call(TableColumn<ObservableList<String>, Void> param) {
-                return new TableCell<>() {
-                    private final Button modifyButton = new Button("Modifier");
 
 
-                    {
-                        modifyButton.setOnAction(event -> {
-                            // Get the row index
-                            int index = getIndex();
 
-                            // Handle the button click event
-                            System.out.println("Modifier clicked for row: " + index);
-
-                            // Assuming you have the necessary data to populate the modification form
-                            String nomRoom = tabr.getItems().get(index).get(0); // Get the room name
-                            String description = tabr.getItems().get(index).get(3); // Get the room description
-
-                            // Show the modification form
-                            //  showModifyRoomForm(nomRoom, description);
-                        });
-                    }
-
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(modifyButton);
-                        }
-                    }
-                };
-            }
-        });
-
-          return modifierColumn;
-    }
-    @FXML
-    private void showModifyRoomForm(String nomRoom, String description) {
-        // Populate the modification form fields
-        // Assuming you have TextField fields named "nomRoomField" and "descriptionField"
-
-
-        nomRoomField.setText(nomRoom);
-        descriptionField.setText(description);
-
-        // Show the modification pane
-        modifyRoomPane.setVisible(true);
-    }
 
     private TableColumn<ObservableList<String>, Void> setupDeleteButtonColumn() {
         TableColumn<ObservableList<String>, Void> supprimerColumn = new TableColumn<>("Supprimer");
@@ -139,6 +95,7 @@ public class DashbordadminFXML implements Initializable {
                     try{
 //int idRoom = Integer.parseInt(rowData.get(0));
                         sq.DeleteOne(idRoom);
+                        dispalyallrooms();
                         // Refresh the table view after deletion if needed
                         //displayAllRoomsInTableView(); // Define this method to update the table view
                     } catch (SQLException e) {
@@ -194,6 +151,9 @@ public class DashbordadminFXML implements Initializable {
                             // Call the service to insert the room
                             Serviceroom sp = new Serviceroom();
                             sp.InsertOne(r);
+                            dispalyallrooms();
+
+
                         } else {
                             System.out.println("Error: nom_room cannot be null or empty.");
                         }
@@ -201,6 +161,8 @@ public class DashbordadminFXML implements Initializable {
                         // Handle case where no result is found for the selected nom_form
                         System.out.println("No id_form found for the selected nom_form: " + selectedNomForm);
                     }
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -209,13 +171,113 @@ public class DashbordadminFXML implements Initializable {
             }
         }
 
+    private void setupModifierButtonColumn() {
+        TableColumn<ObservableList<String>, Void> modifierColumn = new TableColumn<>("Modifier");
+        modifierColumn.setCellFactory(col -> new TableCell<ObservableList<String>, Void>() {
+            private final Button modifyButton = new Button("Modifier");
+
+            {
+                modifyButton.setOnAction(event -> {
+                    int index = getIndex();
+                    if (index >= 0 && index < tabr.getItems().size()) {
+                        ObservableList<String> rowData = tabr.getItems().get(index);
+                        String idRoom = rowData.get(0);
+                        String nomRoom = rowData.get(1); // Assuming nom_room is at index 1
+
+                        // Action to perform when the "Modifier" button is clicked
+                        System.out.println("Modify room with id: " + idRoom);
+                        System.out.println("Current nom_room: " + nomRoom);
+
+                        // Call method to display modify dialog
+                       displayModifyDialog(idRoom, nomRoom);
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : modifyButton);
+            }
+        });
+        tabr.getColumns().add(modifierColumn);
+    }
+    private void displayModifyDialog(String idRoom, String currentNomRoom) {
+        // Create the custom dialog
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Modifier le nom de la salle");
+
+        // Set the button types
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        // Create the grid layout for the dialog content
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        // Add labels and text fields to the grid
+        TextField newNomRoomTextField = new TextField();
+        newNomRoomTextField.setText(currentNomRoom);
+        grid.add(new Label("Nouveau nom de la salle:"), 0, 0);
+        grid.add(newNomRoomTextField, 1, 0);
+
+        // Set the grid as the dialog content
+        dialog.getDialogPane().setContent(grid);
+
+        // Convert the result to a pair when the OK button is clicked
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == ButtonType.OK) {
+                return new Pair<>(idRoom, newNomRoomTextField.getText());
+            }
+            return null;
+        });
+
+        // Show the dialog and wait for user input
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+
+        // Process the result when the dialog is closed
+        result.ifPresent(newNomRoom -> {
+            // Update the database with the new nom_room
+            try {
+                int idRoomInt = Integer.parseInt(newNomRoom.getKey());
+                String newNomRoomValue = newNomRoom.getValue();
+
+                // Perform update operation using idRoomInt and newNomRoomValue
+                // Example:
+                Serviceroom sr =new Serviceroom();
+                 sr.UpdateOne(idRoomInt, newNomRoomValue);
+                dispalyallrooms();
+
+                // Display confirmation to the user
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Modification réussie");
+                alert.setHeaderText(null);
+                alert.setContentText("Le nom de la salle a été modifié avec succès !");
+                alert.showAndWait();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                // Handle conversion error
+                // Display error message or log the error
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle database error
+            // Display error message or log the error
+        }
+        });
+    }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void setupButtonColumns() {
 
+        setupModifierButtonColumn();
+
+    }
+
+    public void dispalyallrooms() {
         try
-        (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")){
+                (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")){
             Statement statement = connection.createStatement();
             // Retrieve data from the 'formation' table
             ResultSet resultSet = statement.executeQuery("SELECT `nom_form` FROM `formation`");
@@ -239,7 +301,9 @@ public class DashbordadminFXML implements Initializable {
 
             // Retrieve data from the 'user' table
             ResultSet resultSet = statement
-                    .executeQuery("select r.id_room,r.nom_room,f.nom_form,r.date_c_room,r.description,u.username from room r Join formation f ON r.formation_id=f.id_form and r.status='Active' join user u ON f.user_id=u.id_user and u.role='formateur';");
+                    .executeQuery("select r.id_room,r.nom_room,f.nom_form,r.date_c_room,r.description from room r Join formation f ON r.formation_id=f.id_form and r.status='Active' ;");
+
+            //join user u ON f.user_id=u.id_user and u.role='formateur'
             ObservableList<ObservableList<String>> oblist = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -247,7 +311,7 @@ public class DashbordadminFXML implements Initializable {
                 row.add(resultSet.getString("id_room"));
                 row.add(resultSet.getString("nom_room"));
                 row.add(resultSet.getString("nom_form"));
-                row.add(resultSet.getString("username"));
+               // row.add(resultSet.getString("username"));
                 row.add(resultSet.getString("description"));
                 //row.add(resultSet.getString("date_c_room"));
                 oblist.add(row);
@@ -262,11 +326,19 @@ public class DashbordadminFXML implements Initializable {
 
         nmroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
         nmform.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
-        formateur.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
-        descroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(4)));
+        //formateur.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
+        descroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
 
-        TableColumn<ObservableList<String>, Void> modifierColumn = setupModifierButtonColumn();
-        tabr.getColumns().add(modifierColumn);
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        dispalyallrooms();
+        setupButtonColumns();
+       //TableColumn<ObservableList<String>, Void> modifierColumn = setupModifierButtonColumn();
+      // tabr.getColumns().add(modifierColumn);
         TableColumn<ObservableList<String>, Void> deleteColumn = setupDeleteButtonColumn();
         tabr.getColumns().add(deleteColumn);
 

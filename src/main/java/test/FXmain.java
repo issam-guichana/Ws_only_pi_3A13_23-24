@@ -19,10 +19,10 @@ public class FXmain extends Application {
         //  FXMLLoader loader = new FXMLLoader(getClass()
         //        .getResource("/AjouterroomFXML.fxml"));
 
-       // FXMLLoader loader = new FXMLLoader(getClass()
-         //       .getResource("/DashbordadminFXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/DashbordadminFXML.fxml"));
 
-       // FXMLLoader loader = new FXMLLoader(getClass()
+       //FXMLLoader loader = new FXMLLoader(getClass()
          //       .getResource("/DashbordmsgFXML.fxml"));
 
      //   FXMLLoader loader = new FXMLLoader(getClass()
@@ -34,8 +34,8 @@ public class FXmain extends Application {
         // FXMLLoader loader = new FXMLLoader(getClass()
         //  .getResource("/AjoutermsgFXML.fxml"));
 
-        FXMLLoader loader = new FXMLLoader(getClass()
-               .getResource("/AjoutermsgformateurFXML.fxml"));
+//        FXMLLoader loader = new FXMLLoader(getClass()
+  //             .getResource("/AjoutermsgformateurFXML.fxml"));
 
         //FXMLLoader loader = new FXMLLoader(getClass()
         //      .getResource("/Listroom.fxml"));

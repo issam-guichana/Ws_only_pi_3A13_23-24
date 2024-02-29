@@ -19,12 +19,19 @@ public class Servicemessage implements CRUD<Message> {
 
 
     public void InsertOne(Message msg) throws SQLException {
-        //  this.msg = msg;
-        String req = "INSERT INTO `message`(`id_msg`, `contenu`) VALUES " +
-                "("+msg.getId_msg()+",'"+msg.getContenu()+"')";
-        Statement st = cnx.createStatement();
-        st.executeUpdate(req);
-        System.out.println("Person Added !");
+        String req = "INSERT INTO `message` (`contenu`, `room_id`) VALUES (?, ?)";
+
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(req)) {
+            // Set the values for the parameters
+            preparedStatement.setString(1, msg.getContenu());
+           // preparedStatement.setString(2, msg.getSender());
+            preparedStatement.setInt(2, msg.getId_room());
+
+            // Execute the update
+            preparedStatement.executeUpdate();
+
+            System.out.println("Message Added!");
+        }
 
     }
 
