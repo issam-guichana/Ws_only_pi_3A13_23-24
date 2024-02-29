@@ -15,39 +15,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterBadgeFXML">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="708.0" prefWidth="1148.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterBadgeFXML">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="263.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" prefHeight="775.0" prefWidth="253.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="83.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="86.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logo-removebg-preview.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" top="50.0" />
                </VBox.margin></ImageView>
-            <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="256.0" style="-fx-background-color: #213E60;" text="Users" textFill="#e7e5e5">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8_Person_32px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
+       
+               <Label alignment="CENTER" prefHeight="52.0" prefWidth="218.0" style="-fx-background-color: white; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Bienvenue Admin" textFill="#213e60">
                <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Events" textFill="WHITE">
+                  <Font name="System Bold" size="20.0" />
+               </font></Label>
+
+
+
+            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Utilisateur" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,7 +49,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Training" textFill="WHITE">
+            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Evénements" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -77,7 +64,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Certificats" textFill="WHITE">
+            <Button fx:id="idbtnform" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#accederCertif" prefHeight="69.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Formations" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -92,7 +79,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Badges" textFill="WHITE">
+            <Button fx:id="idbtncertif" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Certificats" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -107,7 +94,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Quiz" textFill="WHITE">
+            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Badges" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -122,7 +109,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnSettings1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Discussion" textFill="WHITE">
+            <Button fx:id="btnSettings1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Quiz" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -137,7 +124,22 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnSettings11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="signout" textFill="WHITE">
+            <Button fx:id="btnSettings111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Discussion" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Sign_Out_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSettings11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Se déconnecter" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -154,95 +156,97 @@
             </Button>
          </children>
       </VBox>
-      <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
+      <StackPane layoutX="258.0" prefHeight="708.0" prefWidth="893.0" style="-fx-background-color: #02030A;">
          <children>
             <Pane fx:id="pnlCustomer" prefHeight="200.0" prefWidth="200.0" />
             <Pane fx:id="pnlOrders" prefHeight="200.0" prefWidth="200.0" />
-            <Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" />
-            <Pane fx:id="pnlOverview" prefHeight="576.0" prefWidth="800.0" style="-fx-background-color: #F4F2EF;">
+            <Pane fx:id="pnlMenus" prefHeight="673.0" prefWidth="793.0">
                <children>
-                  <Label layoutX="68.0" layoutY="37.0" prefHeight="35.0" prefWidth="362.0" text="Badge Details">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" layoutX="55.0" layoutY="100.0" prefHeight="123.0" prefWidth="683.0" spacing="50.0" style="-fx-background-color: #F4F2EF;">
+                  <Pane fx:id="pnlOverview" layoutX="-5.0" layoutY="-1.0" prefHeight="708.0" prefWidth="899.0" style="-fx-background-color: #F4F2EF;">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="123.0" prefWidth="167.0">
-                           <children>
-                              <Label prefHeight="38.0" prefWidth="98.0" text="Bronze" textFill="#2a73ff">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Total Badges" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="123.0" prefWidth="161.0">
-                           <children>
-                              <Label text="3" textFill="#26bfbc">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Top Badges" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="123.0" prefWidth="124.0">
-                           <children>
-                              <Label text="0" textFill="#fa5f7e">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="17.0" prefWidth="80.0" text="Top Trainig" textFill="#141414" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label text="0" textFill="#de0000">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label text="TOP" textFill="#1b1b1b" />
-                           </children>
-                        </VBox>
-                        <Button fx:id="idajouter" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#ajouterBadge" prefHeight="55.0" prefWidth="241.0" style="-fx-background-color: #E68C3A;" text="ADD" textFill="#e7e5e5">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
+                        <Label layoutX="68.0" layoutY="37.0" prefHeight="35.0" prefWidth="362.0" text="Badge Details">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="30.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/ajouter-un-bouton.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <VBox layoutX="50.0" layoutY="245.0" prefHeight="294.0" prefWidth="713.0">
-                     <children>
-                        <TableView fx:id="tabbadge" prefHeight="333.0" prefWidth="719.0" stylesheets="@style.css">
-                           <columns>
-                              <TableColumn fx:id="colnom" prefWidth="183.0" text="Nom" />
-                              <TableColumn fx:id="coltype" prefWidth="123.0" text="Type" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </VBox>
-
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" layoutX="55.0" layoutY="100.0" prefHeight="139.0" prefWidth="768.0" spacing="50.0" style="-fx-background-color: #F4F2EF;">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="123.0" prefWidth="167.0">
+                                 <children>
+                                    <Label prefHeight="63.0" prefWidth="116.0" text="Bronze" textFill="#2a73ff">
+                                       <font>
+                                          <Font name="System Bold" size="26.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Total Badges" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="123.0" prefWidth="161.0">
+                                 <children>
+                                    <Label text="3" textFill="#26bfbc">
+                                       <font>
+                                          <Font name="System Bold" size="26.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Top Badges" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="123.0" prefWidth="124.0">
+                                 <children>
+                                    <Label text="0" textFill="#fa5f7e">
+                                       <font>
+                                          <Font name="System Bold" size="26.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="17.0" prefWidth="80.0" text="Top Trainig" textFill="#141414" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="0" textFill="#de0000">
+                                       <font>
+                                          <Font name="System Bold" size="26.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="TOP" textFill="#1b1b1b" />
+                                 </children>
+                              </VBox>
+                              <Button fx:id="idajouter" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#ajouterBadge" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: #E68C3A;" text="ADD" textFill="#e7e5e5">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="50.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/ajouter-un-bouton.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
-
-      
-                  </Pane>
+                        </HBox>
+                        <VBox layoutX="40.0" layoutY="309.0" prefHeight="294.0" prefWidth="713.0">
+                           <children>
+                              <TableView fx:id="tabbadge" prefHeight="343.0" prefWidth="713.0" stylesheets="@style.css">
+                                 <columns>
+                                    <TableColumn fx:id="colnom" prefWidth="183.0" text="Nom" />
+                                    <TableColumn fx:id="coltype" prefWidth="123.0" text="Type" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+            
+                                             </children>
+            
+                        
+                                          </Pane>
+               </children></Pane>
          </children>
       </StackPane>
    </children>

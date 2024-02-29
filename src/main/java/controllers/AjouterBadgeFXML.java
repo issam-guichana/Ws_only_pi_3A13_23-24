@@ -5,20 +5,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import models.Badge;
 import services.ServiceBadge;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class AjouterBadgeFXML {
     @FXML
-    private Button btnrefresh;
+    private Button idbtncertif;
+
 
     @FXML
     private TableColumn<Badge, String> colnom;
@@ -37,6 +43,7 @@ public class AjouterBadgeFXML {
 
     @FXML
     private TableView<Badge> tabbadge;
+
     public void displayAllBadgesInTableView() {
         colnom.setCellValueFactory(new PropertyValueFactory<>("nomBadge"));
         coltype.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -55,12 +62,13 @@ public class AjouterBadgeFXML {
 
     @FXML
     void ajouterBadge(ActionEvent event) {
-        idajouter.setOnAction(e->{
+        idajouter.setOnAction(e -> {
             Badge badge = new Badge();
             displayAddDialog(badge);
         });
     }
-    private void displayAddDialog(Badge badge){
+
+    private void displayAddDialog(Badge badge) {
         // Create the dialog components
         Dialog<Badge> dialog = new Dialog<>();
         dialog.setTitle("Ajouter un nouveau Badge");
@@ -119,10 +127,12 @@ public class AjouterBadgeFXML {
         });
 
     }
+
     private void setupButtonColumns() {
         setupModifierButtonColumn();
         setupSupprimerButtonColumn();
     }
+
     private void setupModifierButtonColumn() {
         TableColumn<Badge, Void> modifierColumn = new TableColumn<>("Modifier");
         modifierColumn.setCellFactory(col -> new TableCell<Badge, Void>() {
@@ -145,6 +155,7 @@ public class AjouterBadgeFXML {
         });
         tabbadge.getColumns().add(modifierColumn);
     }
+
     private void displayModifyDialog(Badge badge) {
         // Create the dialog components
         Dialog<Badge> dialog = new Dialog<>();
@@ -201,6 +212,7 @@ public class AjouterBadgeFXML {
             }
         });
     }
+
     private void setupSupprimerButtonColumn() {
         TableColumn<Badge, Void> supprimerColumn = new TableColumn<>("Supprimer");
         supprimerColumn.setCellFactory(col -> new TableCell<Badge, Void>() {
@@ -210,7 +222,7 @@ public class AjouterBadgeFXML {
                 deleteButton.setOnAction(event -> {
                     Badge badge = getTableView().getItems().get(getIndex());
                     // Action to perform when the "Supprimer" button is clicked
-                    ServiceBadge sq=new ServiceBadge();
+                    ServiceBadge sq = new ServiceBadge();
                     System.out.println("Delete Badge " + badge.getNomBadge());
                     try {
                         sq.deleteOne(badge);
@@ -229,11 +241,25 @@ public class AjouterBadgeFXML {
         });
         tabbadge.getColumns().add(supprimerColumn);
     }
+
     @FXML
     public void initialize() {
         displayAllBadgesInTableView();
         setupButtonColumns();
 
+    }
+
+    @FXML
+    void accederCertif(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("/AjouterCertificatXML.fxml"));
+            Parent root = loader.load();
+            AjouterCertificateFXML lc = loader.getController();
+            idbtncertif.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
