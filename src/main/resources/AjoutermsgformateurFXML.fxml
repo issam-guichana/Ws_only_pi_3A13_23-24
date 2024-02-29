@@ -1,116 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjoutermsgformateurFXML">
+<AnchorPane prefHeight="623.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjoutermsgformateurFXML">
     <children>
-        <VBox layoutY="-1.0" prefHeight="400.0" prefWidth="143.0">
-            <children>
-                <AnchorPane prefHeight="400.0" prefWidth="76.0" style="-fx-background-color: #213E60;">
-                    <children>
-                        <ImageView fitHeight="43.0" fitWidth="117.0" layoutX="13.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Images/logo.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="22.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Images/evenement.png" />
-                            </image>
-                        </ImageView>
-                        <Label layoutX="56.0" layoutY="272.0" text="Evenements" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="22.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Images/messager.png" />
-                            </image>
-                        </ImageView>
-                        <Label layoutX="53.0" layoutY="220.0" text="Discussions" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="60.0" layoutY="318.0" text="Profile" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="22.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Images/utilisateur-de-profil.png" />
-                            </image>
-                        </ImageView>
-                        <Label layoutX="58.0" layoutY="123.0" text="General" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="22.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Images/bouton-daccueil.png" />
-                            </image>
-                        </ImageView>
-                        <Label layoutX="57.0" layoutY="168.0" text="Formations" textFill="#f2f2f2">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="22.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Images/education.png" />
-                            </image>
-                        </ImageView>
-                        <Label layoutX="43.0" layoutY="35.0" text="FORMINI." textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
-            </children>
-        </VBox>
-        <ListView fx:id="listpart" layoutX="161.0" layoutY="110.0" prefHeight="224.0" prefWidth="157.0" style="-fx-background-radius: 10px;" />
-        <Separator layoutX="336.0" layoutY="29.0" orientation="VERTICAL" prefHeight="357.0" prefWidth="14.0" />
-        <Label layoutX="199.0" layoutY="29.0" text="Participants" textFill="#060372">
+        <Separator layoutX="540.0" layoutY="142.0" orientation="VERTICAL" prefHeight="465.0" prefWidth="14.0" />
+        <Label layoutX="155.0" layoutY="280.0" text="Participants" textFill="#060372">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="161.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="108.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/silhouette-dutilisateurs-multiples.png" />
             </image>
         </ImageView>
-        <TextField layoutX="168.0" layoutY="73.0" prefHeight="17.0" prefWidth="143.0" promptText="Rechercher..." style="-fx-background-radius: 50px;" />
-        <ListView fx:id="listmsg" layoutX="363.0" layoutY="73.0" prefHeight="259.0" prefWidth="200.0" style="-fx-background-radius: 10px; -fx-background-color: #D5D6F2;" />
-        <TextField fx:id="sendmsg" layoutX="363.0" layoutY="353.0" onAction="#sendmsg" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #D5D6F2;" />
-        <ImageView fitHeight="20.0" fitWidth="23.0" layoutX="535.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
+        <TextField layoutX="119.0" layoutY="329.0" prefHeight="27.0" prefWidth="306.0" promptText="Rechercher..." style="-fx-background-radius: 50px; -fx-border-color: #213E60; -fx-border-radius: 50px;" />
+        <ListView fx:id="listmsg" layoutX="675.0" layoutY="178.0" prefHeight="308.0" prefWidth="419.0" style="-fx-border-radius: 20px; -fx-background-color: white; -fx-border-color: #213E60; -fx-background-radius: 20px;" />
+        <TextField fx:id="sendmsg" layoutX="674.0" layoutY="549.0" prefHeight="27.0" prefWidth="419.0" style="-fx-background-color: white; -fx-border-color: #213E60; -fx-border-radius: 20px;" />
+        <ImageView fitHeight="20.0" fitWidth="23.0" layoutX="1056.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/envoyer.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="352.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="696.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/chat-a-bulles.png" />
             </image>
         </ImageView>
-        <ListView fx:id="nom_room" layoutX="381.0" layoutY="39.0" prefHeight="20.0" prefWidth="165.0" />
-        <Button layoutX="177.0" layoutY="356.0" mnemonicParsing="false" style="-fx-background-color: #D5D6F2; -fx-background-radius: 10px;" text="Bloquer des particpants" textFill="#213e60">
-            <font>
-                <Font name="System Bold" size="10.0" />
-            </font>
-        </Button>
+      <Label layoutX="753.0" layoutY="132.0" text="Nom Discussion" textFill="#213e60">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="listpart" layoutX="120.0" layoutY="381.0" prefHeight="210.0" prefWidth="306.0" style="-fx-background-color: white; -fx-border-color: bleu; -fx-border-radius: 20px;">
+        <columns>
+          <TableColumn fx:id="cpartic" prefWidth="75.0" text="Membres" />
+        </columns>
+      </TableView>
+      <Label layoutX="159.0" layoutY="143.0" text="Choisir discussion" textFill="#213e60">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="selectroom" layoutX="119.0" layoutY="186.0" prefHeight="27.0" prefWidth="210.0" style="-fx-background-color: #ffffff; -fx-border-color: #213E60; -fx-border-radius: 10px;" />
+      <Separator layoutX="165.0" layoutY="251.0" prefHeight="8.0" prefWidth="383.0" />
+      <Button layoutX="413.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #e68c3a; -fx-background-radius: 10px;" text="Consulter" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="20.0" fitWidth="23.0" layoutX="384.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/selection-des-candidats.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="105.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/choisir.png" />
+         </image>
+      </ImageView>
+      <HBox layoutX="-12.0" prefHeight="98.0" prefWidth="1280.0" style="-fx-background-color: #213E60;">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="64.0" fitWidth="200.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/logo-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="388.0">
+               <children>
+                  <TextField layoutX="26.0" layoutY="30.0" prefHeight="40.0" prefWidth="235.0" promptText="Tapez ici" styleClass="transparent" stylesheets="style1.css">
+                     <font>
+                        <Font name="Cambria" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="268.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@style1.css" text="Recherche" textFill="#213e60">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="125.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                     <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Evenements" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="132.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                     <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Formations" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="135.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                     <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Certifs" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="135.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                     <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Badges" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="135.0" />
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

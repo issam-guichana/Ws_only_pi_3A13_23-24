@@ -8,8 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class AjoutermsgformateurFXML implements Initializable {
 
@@ -23,13 +22,21 @@ public class AjoutermsgformateurFXML implements Initializable {
     private ListView<?> listmsg;
 
     @FXML
-    private ListView<String> listpart;
+    private ComboBox<String> selectroom;
+
+  //  @FXML
+    //private ListView<String> listpart;
 
     @FXML
     private ListView<?> nom_room;
 
     @FXML
     private TextField sendmsg;
+
+    @FXML
+    private TableColumn<?, ?> cpartic;
+    @FXML
+    private TableView<String> listpart;
 
 
     @FXML
@@ -48,6 +55,23 @@ public class AjoutermsgformateurFXML implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try
+                (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")){
+            Statement statement = connection.createStatement();
+            // Retrieve data from the 'formation' table
+            ResultSet resultSet = statement.executeQuery("SELECT `nom_room` FROM `room`");
+            ObservableList<String> nomformationList = FXCollections.observableArrayList();
+            // Populate the ComboBox with data from the 'nom_formation' column
+            while (resultSet.next()) {
+                nomformationList.add(resultSet.getString(1));
+            }
+            selectroom.setItems(nomformationList); // Set items to ComboBox
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error initializing AjouterroomFXML", e);
+        }
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
