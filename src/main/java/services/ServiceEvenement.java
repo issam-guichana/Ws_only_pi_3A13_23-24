@@ -78,7 +78,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
 
     public void updateOne(Evenement evenement) throws SQLException {
         try {
-            String req = "UPDATE evenement SET nom_event=?,description=?,date_event=?,heure_deb=?,prix=?,nbrP=?,image_event=? WHERE id_event=?";
+            String req = "UPDATE evenement SET nom_event=?, description=?, date_event=?, heure_deb=?, prix=?, nbrP=?, image_event=? WHERE id_event=?";
             PreparedStatement ps = cnx.prepareStatement(req);
 
             // Définition des valeurs des paramètres de substitution
@@ -88,8 +88,9 @@ public class ServiceEvenement implements CRUD<Evenement> {
             ps.setObject(4, evenement.getHeure_deb());
             ps.setInt(5, evenement.getPrix());
             ps.setInt(6, evenement.getNbrP());
-            ps.setInt(7, evenement.getId_event());
-            ps.setString(8, evenement.getImage_event());
+            ps.setString(7, evenement.getImage_event());
+            ps.setInt(8, evenement.getId_event());
+
             // Exécution de la requête préparée
             ps.executeUpdate();
             System.out.println("Evenement modifié avec succès...");

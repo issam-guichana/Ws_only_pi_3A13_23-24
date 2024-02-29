@@ -1,18 +1,23 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import models.Evenement;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class EventDetailsFXML implements Initializable  {
+public class EventDetailsFXML implements Initializable {
     @FXML
     private Button backButton;
     @FXML
@@ -37,28 +42,14 @@ public class EventDetailsFXML implements Initializable  {
 
     @FXML
     private Label nbrp;
-    private Stage currentStage;
 
     public void setCalendarController(CalendarController calendarController) {
         this.calendarController = calendarController;
     }
-    public void setCurrentStage(Stage currentStage) {
-        this.currentStage = currentStage;
-    }
+
+
     @FXML
-    private void goBackToCalendar() {
-        System.out.println("goBackToCalendar method called."); // Add this line for debugging
 
-        // Close the current stage
-        if (currentStage != null) {
-            currentStage.close();
-        }
-
-        // Show the main calendar stage
-        if (calendarController != null) {
-            calendarController.showCalendar();
-        }
-    }
     public void setEventDetails(Evenement event) {
         if (event != null) {
             // Set the image only if it is not null
@@ -81,5 +72,26 @@ public class EventDetailsFXML implements Initializable  {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    public void goToCalendar(javafx.event.ActionEvent actionEvent) {
+        try {
+            // Close the current stage
+            Stage currentStage = (Stage) backButton.getScene().getWindow();
+            currentStage.close();
+
+            // Get the reference to the original CalendarController
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/calendierFXML.fxml"));
+            Parent root = loader.load();
+            CalendarController calendarController = loader.getController();
+
+            // Additional actions or data passing can be done here
+
+            // Replace the content of the current stage
+            currentStage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
 

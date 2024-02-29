@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -53,7 +54,6 @@ public class CalendarController implements Initializable {
             mainStage.show(); // Show the main stage
         }
     }
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set default values to today's month and year
         int initialMonth = c.get(Calendar.MONTH) + 1;
@@ -66,7 +66,7 @@ public class CalendarController implements Initializable {
         c.set(Calendar.YEAR, initialYear);
 
         _monthChosen = true;
-        _yearChosen = true;
+        _yearChosen = true; // Set these flags to true initially
         numberOfDaysInMonth();
     }
 
@@ -77,7 +77,7 @@ public class CalendarController implements Initializable {
         int month = Integer.parseInt(btn.getText());
         c.set(Calendar.MONTH, month - 1);
         _monthChosen = true;
-        numberOfDaysInMonth();
+        numberOfDaysInMonth(); // Refresh the buttons
     }
 
     @FXML
@@ -87,7 +87,7 @@ public class CalendarController implements Initializable {
         int year = Integer.parseInt(btn.getText());
         _yearChosen = true;
         c.set(Calendar.YEAR, year);
-        numberOfDaysInMonth();
+        numberOfDaysInMonth(); // Refresh the buttons
     }
 
     private void numberOfDaysInMonth() {
@@ -115,13 +115,17 @@ public class CalendarController implements Initializable {
             btns[i] = new Button(day + "");
             btns[i].setPrefSize(80, 80); // Set your desired button size here
 
-// Customize button appearance
-            btns[i].setStyle("-fx-font-size: 18; -fx-background-color: " + (eventNames.isEmpty() ? "#F4F2EF;" : "#E68C3A;") + " -fx-text-fill: " + (eventNames.isEmpty() ? "#e68c3a;" : "#F4F2EF;"));
-
-// Set the onAction handler for the button
+            // Customize button appearance
+            btns[i].setStyle("-fx-font-size: 18; -fx-background-color: " + (eventNames.isEmpty() ? "#D8D1BDFF;" : "#E68C3A;") +
+                    " -fx-text-fill: " + (eventNames.isEmpty() ? "#e68c3a;" : "#D8D1BDFF;") +
+                    " -fx-border-color: #E68C3A;" +
+                    " -fx-effect: dropshadow( three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 1);" +
+                    " -fx-faint-focus-color: transparent;" +
+                    " -fx-focus-color: transparent;");
+            // Set the onAction handler for the button
             btns[i].setOnAction(event -> dayPressed(day));
 
-// If there are events, set the text to include both day number and event names
+            // If there are events, set the text to include both day number and event names
             if (!eventNames.isEmpty()) {
                 StringBuilder buttonText = new StringBuilder(day + "\n");
                 for (String eventName : eventNames) {
@@ -141,11 +145,14 @@ public class CalendarController implements Initializable {
 
         // Set the height of the first row
         RowConstraints firstRowConstraints = new RowConstraints();
-        firstRowConstraints.setPrefHeight(120); // Set your desired height for the first row
+        firstRowConstraints.setPrefHeight(80); // Set your desired height for the first row
         daysGrid.getRowConstraints().add(0, firstRowConstraints);
     }
 
     private void addPressReleaseEffect(Button button, int day) {
+        // Store the original style
+        String originalStyle = button.getStyle();
+
         button.setOnMousePressed(event -> {
             button.setStyle("-fx-font-size: 18; -fx-background-color: #9C6744; -fx-text-fill: #F4F2EF;");
         });
@@ -155,7 +162,20 @@ public class CalendarController implements Initializable {
             List<String> eventNames = calendarData.getEventNamesForDay(c);
 
             // Revert to original style
-            button.setStyle("-fx-font-size: 18; -fx-background-color: " + (eventNames.isEmpty() ? "#F4F2EF;" : "#E68C3A;") + " -fx-text-fill: " + (eventNames.isEmpty() ? "#e68c3a;" : "#F4F2EF;"));
+            button.setStyle(originalStyle);
+
+            // Set focus to false
+            button.setFocusTraversable(false);
+        });
+
+        // Add hover effect
+        button.setOnMouseEntered(event -> {
+            button.setStyle("-fx-font-size: 18; -fx-background-color: #AE8251; -fx-text-fill: #F4F2EF;");
+        });
+
+        button.setOnMouseExited(event -> {
+            // Revert to original style on exit
+            button.setStyle(originalStyle);
         });
     }
 
@@ -168,11 +188,24 @@ public class CalendarController implements Initializable {
         c.set(Calendar.MONTH, month - 1);
         c.set(Calendar.YEAR, year);
 
-        // Assuming you have a method to get event details based on the selected date
+        // Check if there is an event for the selected day
         Evenement selectedEvent = calendarData.getEventForDay(c);
 
-        // Open the new FXML file for event details
-        openEventDetailsFXML(selectedEvent);
+        if (selectedEvent == null) {
+            // No event found, show an alert
+            showAlert("No Event", "No event details available for the selected date.");
+        } else {
+            // Open the new FXML file for event details
+            openEventDetailsFXML(selectedEvent);
+        }
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
     @FXML
     private void openEventDetailsFXML(Evenement event) {
@@ -196,4 +229,5 @@ public class CalendarController implements Initializable {
             e.printStackTrace(); // Handle exception
         }
     }
+
 }

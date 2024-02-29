@@ -9,12 +9,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
-<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserParticipantController">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #D8D1BD;" fx:controller="controllers.UserParticipantController">
     <VBox alignment="CENTER" spacing="10" prefHeight="400" prefWidth="600" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Label text="Participants" style="-fx-font-size: 18px;" />
         <HBox spacing="10">
             <TextField fx:id="tfSearch" promptText="Enter Name or ID" />
-            <Button text="Search" onAction="#searchParticipants" />
+            <Button  fx:id="searchButton" onAction="#searchParticipants" stylesheets="@Styles.css">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="20">
+                        <image>
+                            <Image url="@images/icons8_Search_52px.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
         <TableView fx:id="tbParticipants" prefHeight="300">
             <columns>

@@ -178,6 +178,7 @@ public class AjouterEvenementFXML {
         tfDescr1.setText(null);
         tfNbrP1.setText(null);
         tfimage.setText(null);
+        imageevenement.setImage(null);
     }
 
     private LocalTime defaultValue() {
@@ -259,7 +260,7 @@ public class AjouterEvenementFXML {
         }
     }
 
-
+@FXML
     void afficherevent() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id_event"));
         ColNom.setCellValueFactory(new PropertyValueFactory<>("nom_event"));
@@ -428,6 +429,22 @@ public class AjouterEvenementFXML {
         tfNbrP1.setText(String.valueOf(selectedEvent.getNbrP()));
         tfimage.setText(selectedEvent.getImage_event());
 
+        // Set the image to the ImageView
+        String imageUrl = selectedEvent.getImage_event();
+        System.out.println("Image URL: " + imageUrl); // Print URL for debugging
+
+        try {
+            // Load the image
+            Image image = new Image("file:" + imageUrl);
+            System.out.println("Image Loaded Successfully"); // Debugging statement
+
+            // Set the image to the ImageView
+            imageevenement.setImage(image);
+
+        } catch (Exception ex) {
+            System.out.println("Could not load the image");
+            ex.printStackTrace();
+        }
     }
 
 }
