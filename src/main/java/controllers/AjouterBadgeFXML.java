@@ -36,12 +36,6 @@ public class AjouterBadgeFXML {
     private Button idajouter;
 
     @FXML
-    private Button idmodifier;
-
-    @FXML
-    private Button idsupprimer;
-
-    @FXML
     private TableView<Badge> tabbadge;
 
     public void displayAllBadgesInTableView() {
@@ -81,8 +75,25 @@ public class AjouterBadgeFXML {
         // Create the input fields
         TextField nomField = new TextField();
         nomField.setPromptText("Nom du badge");
+
+        // Add a TextFormatter to allow only alphabetic characters and limit length to 15
+        nomField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("[a-zA-Z]*") && change.getControlNewText().length() <= 15) {
+                return change;
+            }
+            return null;
+        }));
+
         TextField typeField = new TextField();
         typeField.setPromptText("Type du badge");
+
+        // Add a TextFormatter to allow only alphabetic characters and limit length to 15
+        typeField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("[a-zA-Z]*") && change.getControlNewText().length() <= 15) {
+                return change;
+            }
+            return null;
+        }));
 
         // Enable/disable the add button depending on whether fields are filled
         Node addButtonNode = dialog.getDialogPane().lookupButton(addButton);
@@ -90,11 +101,11 @@ public class AjouterBadgeFXML {
 
         // Do some validation (using the Java 8 lambda syntax)
         nomField.textProperty().addListener((observable, oldValue, newValue) -> {
-            addButtonNode.setDisable(newValue.trim().isEmpty() || typeField.getText().trim().isEmpty());
+            addButtonNode.setDisable(newValue.trim().isEmpty() || typeField.getText().trim().isEmpty() || isDuplicate(newValue.trim(), typeField.getText()));
         });
 
         typeField.textProperty().addListener((observable, oldValue, newValue) -> {
-            addButtonNode.setDisable(newValue.trim().isEmpty() || nomField.getText().trim().isEmpty());
+            addButtonNode.setDisable(newValue.trim().isEmpty() || nomField.getText().trim().isEmpty() || isDuplicate(nomField.getText(), newValue.trim()));
         });
 
         // Layout for the dialog
@@ -125,8 +136,32 @@ public class AjouterBadgeFXML {
                 e.printStackTrace(); // Handle exception
             }
         });
-
     }
+
+    // Method to check for duplicates
+    private boolean isDuplicate(String nom, String type) {
+        try {
+            ServiceBadge serviceBadge = new ServiceBadge();
+            List<Badge> existingBadges = serviceBadge.selectAll() ;// Assuming this method exists to get all badges
+
+            for (Badge badge : existingBadges) {
+                if (badge.getNomBadge().equalsIgnoreCase(nom) || badge.getType().equalsIgnoreCase(type)) {
+                    // Display a warning dialog
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Badge déjà existant");
+                    alert.setContentText("Le nom ou le type du badge existe déjà. Veuillez entrer un nom ou un type différent.");
+                    alert.showAndWait();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle exception
+        }
+        return false;
+    }
+
+
 
     private void setupButtonColumns() {
         setupModifierButtonColumn();

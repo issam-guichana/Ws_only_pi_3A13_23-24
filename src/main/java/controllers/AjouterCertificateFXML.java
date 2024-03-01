@@ -6,7 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -16,6 +18,7 @@ import models.Certificat;
 import services.ServiceBadge;
 import services.ServiceCertificat;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -38,6 +41,8 @@ public class AjouterCertificateFXML {
     @FXML
     private TableView<Certificat> tabcertif;
 
+    @FXML
+    private Button idbtnBadge;
 
     public void displayAllCertificatesInTableView() {
         colnomc.setCellValueFactory(new PropertyValueFactory<>("nomCertif"));
@@ -123,7 +128,7 @@ public class AjouterCertificateFXML {
     @FXML
     void ajouterCertificat(ActionEvent event) {
         idajouter.setOnAction(e->{
-           Certificat certificat = new Certificat();
+            Certificat certificat = new Certificat();
             displayAddDialog(certificat);
         });
     }
@@ -262,4 +267,16 @@ public class AjouterCertificateFXML {
 
     }
 
+    @FXML
+    void accederBadge(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("/AjouterBadgeXML.fxml"));
+            Parent root = loader.load();
+            AjouterBadgeFXML lc = loader.getController();
+            idbtnBadge.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

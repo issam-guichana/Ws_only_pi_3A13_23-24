@@ -64,7 +64,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="idbtnform" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#accederCertif" prefHeight="69.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Formations" textFill="WHITE">
+            <Button fx:id="idbtnform" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Formations" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -79,7 +79,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="idbtncertif" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Certificats" textFill="WHITE">
+            <Button fx:id="idbtncertif" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#accederCertif" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Certificats" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>

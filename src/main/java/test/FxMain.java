@@ -9,8 +9,11 @@ import javafx.stage.Stage;
 public class FxMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/AjouterBadgeXML.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterBadgeXML.fxml"));
+
+
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageBadgeXML.fxml"));
+
         Parent parent = loader.load();
 
         Scene scene = new Scene(parent);
