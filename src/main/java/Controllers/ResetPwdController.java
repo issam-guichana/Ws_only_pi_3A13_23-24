@@ -30,6 +30,8 @@ public class ResetPwdController {
     public PasswordField tfCfPassword;
     public Button bBack;
     @FXML
+    public Button btn_Gestion_User;
+    @FXML
     private Button bSave;
     @FXML
     private Button bGotoupdate;
@@ -100,6 +102,8 @@ public class ResetPwdController {
                         successAlert.setHeaderText(null);
                         successAlert.setContentText(" Vos données a été modifies avec succés.");
                         successAlert.showAndWait();
+
+                        Reset();
                     }else {
                         Alert alert1 = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("ERROR");
@@ -160,17 +164,17 @@ public class ResetPwdController {
             Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void GoToSetting(ActionEvent event) throws IOException {
+    @FXML
+    public void Gestion_User(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/UserSettings.fxml"));
         Parent root = loader.load();
         UserSettingsController lc = loader.getController();
-        bBack.getScene().setRoot(root);
-
+        btn_Gestion_User.getScene().setRoot(root);
     }
-
-    public void Exit(ActionEvent event) {
-        System.exit(0);
+    public void Reset() {
+        tfPassword.setText("");
+        tfNewPassword.setText("");
+        tfCfPassword.setText("");
     }
-
 }

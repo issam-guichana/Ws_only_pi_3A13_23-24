@@ -18,6 +18,7 @@ import services.UserService;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,14 +35,6 @@ public class AdminAddFormateurController implements Initializable {
     @FXML
     public TextField cbRole;
     @FXML
-    public Button bLogout;
-    @FXML
-    public Button bBack;
-    @FXML
-    public JFXButton bGoToAddFormateur;
-    @FXML
-    public JFXButton bGoToUpdateFormateur;
-    @FXML
     public ComboBox<String> cbGender;
     @FXML
     public Button UploadImg;
@@ -50,6 +43,14 @@ public class AdminAddFormateurController implements Initializable {
     @FXML
     public Label ImageName;
     private String Imguser;
+    @FXML
+    public Button btn_Logout;
+    @FXML
+    public Button btn_Update_Formateur;
+    @FXML
+    public Button btn_Add_Formateur;
+    @FXML
+    public Button btn_Afficher_users;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,22 +63,24 @@ public class AdminAddFormateurController implements Initializable {
     public void AddFormateur(ActionEvent event) {
         //controle de saisie
         // Check if any required field is empty
-        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty() || tfAge.getText().isEmpty()) {
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty()
+                || tfAge.getText().isEmpty() || isDuplicate(tfUsername.getText())) {
             showAlert("Error", "Veuillez remplir tout les champs.");
             return;
         }
-        if (tfUsername.getLength()<6){
-            showAlert("Error", "Votre Nom d'utilisateur doit contenir au moins 6 caractères");
+        if (tfUsername.getLength()<5){
+            showAlert("Erreur", "Votre Nom d'utilisateur doit contenir au moins 6 caractères");
             return;
         }
         if (!isValidEmail(tfEmail.getText())) {
-            showAlert("Error", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
+            showAlert("Erreur", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
             return;
         }
         if (tfPassword.getLength()<6){
-            showAlert("Error", "Votre mot de passe doit contenir au moins 6 caractères");
+            showAlert("Erreur", "Votre mot de passe doit contenir au moins 6 caractères");
             return;
         }
+
         try {
             User p = new User();
             p.setUsername(tfUsername.getText());
@@ -98,14 +101,12 @@ public class AdminAddFormateurController implements Initializable {
             alert.showAndWait();
 
             System.out.println("FORMATEUR ADDED");
-            GoToAddFormateur(new ActionEvent());
+            Reset(new ActionEvent());
         } catch (SQLException | NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setContentText("Vous avez une erreur dans la saisie de vos données!");
             alert.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
     private boolean isValidEmail(String email) {
@@ -152,6 +153,27 @@ public class AdminAddFormateurController implements Initializable {
         }
     }
 
+    private boolean isDuplicate(String nom) {
+        try {
+            UserService userService = new UserService();
+            List<User> existingUSER = userService.selectAll() ;// Assuming this method exists to get all badges
+
+            for (User user : existingUSER) {
+                if (user.getUsername().equalsIgnoreCase(nom)) {
+                    // Display a warning dialog
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Nom d'utilisateur déjà existant");
+                    alert.setContentText("Le nom utilisateur existe déjà. Veuillez entrer un nom utilisateur différent.");
+                    alert.showAndWait();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle exception
+        }
+        return false;
+    }
     @FXML
     public void Reset(ActionEvent event) {
         tfUsername.setText("");
@@ -162,45 +184,43 @@ public class AdminAddFormateurController implements Initializable {
         UserImg.setImage(null);
     }
     @FXML
-    public void GoToAddFormateur(ActionEvent event) throws IOException {
+    public void Add_Formateur(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminAddFormateur.fxml"));
         Parent root = loader.load();
         AdminAddFormateurController lc = loader.getController();
-        bGoToAddFormateur.getScene().setRoot(root);
+        btn_Add_Formateur.getScene().setRoot(root);
     }
+
     @FXML
-    public void GoToUpdateFormateur(ActionEvent event) throws IOException{
+    public void Update_Formateur(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminUpdateFormateur.fxml"));
         Parent root = loader.load();
         AdminUpdateFormateurController lc = loader.getController();
-        bGoToUpdateFormateur.getScene().setRoot(root);
+        btn_Update_Formateur.getScene().setRoot(root);
     }
     @FXML
-    public void BackToAdminI(ActionEvent event)throws IOException {
+    public void Display_Users(ActionEvent event)throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminInterface.fxml"));
         Parent root = loader.load();
         AdminInterfaceController lc = loader.getController();
-        bBack.getScene().setRoot(root);
+        btn_Afficher_users.getScene().setRoot(root);
     }
+
     @FXML
-    public void LogOut(ActionEvent event) throws IOException {
+    public void Lougout(ActionEvent event) {
         try {
-            //thezek lel inscription
+            //taawed thezzek lel inscription
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
             Parent root = loader.load();
-            bLogout.getScene().setRoot(root);
+            btn_Logout.getScene().setRoot(root);
+
         } catch (IOException ex) {
             Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    @FXML
-    public void Exit(ActionEvent event) {
-        System.exit(0);
-    }
-
     @FXML
     void initialize(){
         assert tfAge != null : "fx:id=\"tfAge\" was not injected: check your FXML file 'AdminAddFormateur.fxml'.";

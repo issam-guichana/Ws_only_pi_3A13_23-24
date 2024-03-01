@@ -20,12 +20,10 @@ public class FxMain extends Application {
                 ///.getResource("/UserSettings.fxml"));
 
         Parent parent = loader.load();
-
         Scene scene = new Scene(parent);
-
-        stage.setTitle("Ajouter User");
+        stage.setTitle("Formini.tn");
         stage.setScene(scene);
-
+        stage.setResizable(true);
         stage.show();
     }
 }

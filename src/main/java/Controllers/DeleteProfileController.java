@@ -22,6 +22,8 @@ import java.util.logging.Logger;
 
 public class DeleteProfileController {
     @FXML
+    public Button btn_Gestion_User;
+    @FXML
     private Button bGotoupdate;
     @FXML
     private Button bGotouppwd;
@@ -122,13 +124,6 @@ public class DeleteProfileController {
         }
     }
 
-    public void GoToSetting(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/UserSettings.fxml"));
-        Parent root = loader.load();
-        UserSettingsController lc = loader.getController();
-        bBack.getScene().setRoot(root);
-    }
     public void GoToUpdateProfile(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/UpdateProfile.fxml"));
@@ -164,9 +159,12 @@ public class DeleteProfileController {
         }
     }
 
-    public void Exit(ActionEvent event) {
-        System.exit(0);
+    @FXML
+    public void Gestion_User(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/UserSettings.fxml"));
+        Parent root = loader.load();
+        UserSettingsController lc = loader.getController();
+        btn_Gestion_User.getScene().setRoot(root);
     }
-
-
 }

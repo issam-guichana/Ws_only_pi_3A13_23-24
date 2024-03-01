@@ -4,31 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5dd2bfbf-845e-43cd-9782-8888c4bd3fa7" name="Changes" comment="tbar9ich">
+    <list default="true" id="5dd2bfbf-845e-43cd-9782-8888c4bd3fa7" name="Changes" comment="User_Status">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/AdminAddFormateurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/AdminAddFormateurController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/AdminInterfaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/AdminInterfaceController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/AdminUpdateFormateurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/AdminUpdateFormateurController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/DeleteProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/DeleteProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/LoginUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/LoginUserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/RegisterUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/RegisterUserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ResetPwdController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ResetPwdController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/UpdateProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/UpdateProfileController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/UserSettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/UserSettingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/FxMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/FxMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/AdminAddFormateur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminAddFormateur.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/AdminInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminInterface.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AdminUpdateFormateur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminUpdateFormateur.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DeleteProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DeleteProfile.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/LoginUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/LoginUser.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/RegisterUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/RegisterUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ResetPwd.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ResetPwd.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/UpdateProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UpdateProfile.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/UserSettings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserSettings.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/AdminAddFormateur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/AdminAddFormateur.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/AdminInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/AdminInterface.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/AdminAddFormateurController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/AdminAddFormateurController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/AdminInterfaceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/AdminInterfaceController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/DeleteProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/DeleteProfileController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/LoginUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/LoginUserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/RegisterUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/RegisterUserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/ResetPwdController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/ResetPwdController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/UpdateProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/UpdateProfileController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/UserSettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/UserSettingsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DeleteProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DeleteProfile.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LoginUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LoginUser.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/RegisterUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RegisterUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ResetPwd.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ResetPwd.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/UserSettings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserSettings.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/test/FxMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/test/FxMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +53,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
+        <option value="JavaFXApplication" />
       </list>
     </option>
   </component>
@@ -87,7 +102,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "issam",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/issam/Desktop/pidev/src/main/java/images/profil",
+    "last_opened_file_path": "C:/Users/issam/Desktop/pidev/src/main/resources/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -99,6 +114,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\issam\Desktop\pidev\src\main\resources\images" />
+      <recent name="C:\Users\issam\Desktop\pidev\src\main\resources" />
       <recent name="C:\Users\issam\Desktop\pidev\src\main\java\images\profil" />
     </key>
   </component>
@@ -123,7 +140,8 @@
       <workItem from="1708813020996" duration="17587000" />
       <workItem from="1708882306012" duration="11256000" />
       <workItem from="1708906442891" duration="9638000" />
-      <workItem from="1708983557236" duration="19418000" />
+      <workItem from="1708983557236" duration="46164000" />
+      <workItem from="1709221348694" duration="15596000" />
     </task>
     <task id="LOCAL-00001" summary="CRUUUUUUUUD">
       <option name="closed" value="true" />
@@ -157,7 +175,23 @@
       <option name="project" value="LOCAL" />
       <updated>1708982422613</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="zedet 3 attributs">
+      <option name="closed" value="true" />
+      <created>1709082279638</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709082279638</updated>
+    </task>
+    <task id="LOCAL-00006" summary="User_Status">
+      <option name="closed" value="true" />
+      <created>1709172465256</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709172465256</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,7 +202,9 @@
     <MESSAGE value="bar9ech" />
     <MESSAGE value="controle de saisie" />
     <MESSAGE value="tbar9ich" />
-    <option name="LAST_COMMIT_MESSAGE" value="tbar9ich" />
+    <MESSAGE value="zedet 3 attributs" />
+    <MESSAGE value="User_Status" />
+    <option name="LAST_COMMIT_MESSAGE" value="User_Status" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

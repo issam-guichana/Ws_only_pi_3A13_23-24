@@ -30,6 +30,8 @@ public class UserSettingsController implements Initializable {
     @FXML
     public ImageView UserImg;
     @FXML
+    public Button btn_Gestion_User;
+    @FXML
     private Button bGotoupdate;
     @FXML
     private Button bGotouppwd;
@@ -55,9 +57,6 @@ public class UserSettingsController implements Initializable {
         UserImg.setImage(new Image(file1.toURI().toString()));
     }
 
-    public void BackToMenu(ActionEvent event) {
-        // to doooo
-    }
     public void GoToUpdateProfile(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/UpdateProfile.fxml"));
@@ -95,7 +94,12 @@ public class UserSettingsController implements Initializable {
             Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Exit(ActionEvent event) {
-        System.exit(0);
+    @FXML
+    public void Gestion_User(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/UserSettings.fxml"));
+        Parent root = loader.load();
+        UserSettingsController lc = loader.getController();
+        btn_Gestion_User.getScene().setRoot(root);
     }
 }

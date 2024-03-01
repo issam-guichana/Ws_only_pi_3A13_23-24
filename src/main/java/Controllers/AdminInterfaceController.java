@@ -23,13 +23,10 @@ import java.util.logging.Logger;
 
 public class AdminInterfaceController implements Initializable {
     @FXML
-    public Button bLogout;
-    @FXML
     public TableView <User>tabUsers;
     @FXML
     public Button bRefresh;
-    @FXML
-    public JFXButton bGoToGestUser;
+
     @FXML
     private TableColumn<models.User, String> colUsername;
     @FXML
@@ -46,6 +43,14 @@ public class AdminInterfaceController implements Initializable {
     public TableColumn<models.User, String> colImage;
     @FXML
     public TableColumn<models.User, String> colStatus;
+    @FXML
+    public Button btn_Logout;
+    @FXML
+    public Button btn_Update_Formateur;
+    @FXML
+    public Button btn_Add_Formateur;
+    @FXML
+    public Button btn_Afficher_users;
     UserService us = new UserService();
 
     @Override
@@ -63,7 +68,7 @@ public class AdminInterfaceController implements Initializable {
         colRole.setCellValueFactory(new PropertyValueFactory<>("role"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         colImage.setCellValueFactory(new PropertyValueFactory<>("image"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        //colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         try {
             oblist.addAll(us.selectAll());
@@ -73,9 +78,9 @@ public class AdminInterfaceController implements Initializable {
         tabUsers.setItems(oblist);
     }
     private void setupStatusButtonColumn() {
-        TableColumn<models.User, Void> StatusColumn = new TableColumn<>("TestStat");
+        TableColumn<models.User, Void> StatusColumn = new TableColumn<>("Status");
         StatusColumn.setCellFactory(col -> new TableCell<models.User, Void>() {
-            private final Button StatusButton = new Button("TestStat");
+            private final Button StatusButton = new Button("");
 
             {
                 StatusButton.setOnAction(event -> {
@@ -113,28 +118,41 @@ public class AdminInterfaceController implements Initializable {
 
 
     @FXML
-    public void GoToGestUser(ActionEvent event) throws IOException {
+    public void Add_Formateur(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminAddFormateur.fxml"));
         Parent root = loader.load();
         AdminAddFormateurController lc = loader.getController();
-        bGoToGestUser.getScene().setRoot(root);
+        btn_Add_Formateur.getScene().setRoot(root);
     }
 
-   @FXML
-    public void LogOut(ActionEvent event) {
-       try {
-           //taawed thezzek lel inscription
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
-           Parent root = loader.load();
-           bLogout.getScene().setRoot(root);
-
-       } catch (IOException ex) {
-           Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
-       }
+    @FXML
+    public void Update_Formateur(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/AdminUpdateFormateur.fxml"));
+        Parent root = loader.load();
+        AdminUpdateFormateurController lc = loader.getController();
+        btn_Update_Formateur.getScene().setRoot(root);
     }
     @FXML
-    public void Exit(ActionEvent event) {
-        System.exit(0);
+    public void Display_Users(ActionEvent event)throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/AdminInterface.fxml"));
+        Parent root = loader.load();
+        AdminInterfaceController lc = loader.getController();
+        btn_Afficher_users.getScene().setRoot(root);
+    }
+
+    @FXML
+    public void Lougout(ActionEvent event) {
+        try {
+            //taawed thezzek lel inscription
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
+            Parent root = loader.load();
+            btn_Logout.getScene().setRoot(root);
+
+        } catch (IOException ex) {
+            Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -5,10 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import models.User;
 import services.UserService;
 import utils.DBconnection;
@@ -21,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.sql.*;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -130,9 +127,9 @@ public class LoginUserController implements Initializable {
                             //tfUsername.getText().equals("issam") && tfPassword.getText().equals("azerty")
                 else if (u.getRole().equals("ADMIN")) {
                     FXMLLoader loader = new FXMLLoader(getClass()
-                            .getResource("/AdminInterface.fxml"));
+                            .getResource("/AdminMainInterface.fxml"));
                     Parent root = loader.load();
-                    AdminInterfaceController rc = loader.getController();
+                     AdminMainInterfaceController rc = loader.getController();
                     bLogin.getScene().setRoot(root);
                 }
                 // ****************** kif yod5el si l client *********************
@@ -156,17 +153,10 @@ public class LoginUserController implements Initializable {
                         Parent root = loader.load();
                         UserSettingsController ctrl = loader.getController();
                         bLogin.getScene().setRoot(root);
-//                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                        alert.setTitle("Bienvenue dans votre Interface");
-//                        alert.setHeaderText("Vous etes le bienvenue");
-//                        alert.setContentText("Vous étes" + u.getUsername() + " " + u.getMdp());
-//                        alert.showAndWait();
                     } catch (IOException ex) {
                         Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-//                else
-//                JOptionPane.showMessageDialog(null,"Nom d'utilisateur ou mot de passe invalide ");
                 System.out.println(logged);
             }
         } catch (Exception e) {

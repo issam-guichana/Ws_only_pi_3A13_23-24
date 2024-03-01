@@ -17,6 +17,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,15 +35,15 @@ public class AdminUpdateFormateurController implements Initializable {
     @FXML
     public PasswordField tfCfPassword;
     @FXML
-    public JFXButton bGoToAddFormateur;
-    @FXML
-    public JFXButton bGoToUpdateFormateur;
-    @FXML
-    public Button bLogout;
-    @FXML
-    public Button bBack;
-    @FXML
     public ComboBox<String> cbFormateur;
+    @FXML
+    public Button btn_Logout;
+    @FXML
+    public Button btn_Update_Formateur;
+    @FXML
+    public Button btn_Add_Formateur;
+    @FXML
+    public Button btn_Afficher_users;
 
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -67,7 +68,7 @@ public class AdminUpdateFormateurController implements Initializable {
     public void Update(ActionEvent event) {
         //controle de saisie
         // Check if any required field is empty
-        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() ||  tfAge.getText().isEmpty()) {
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() ||  tfAge.getText().isEmpty() || isDuplicate(tfUsername.getText())) {
             showAlert("Erreur", "Veuillez remplir tout les champs.");
             return;
         }
@@ -79,6 +80,7 @@ public class AdminUpdateFormateurController implements Initializable {
             showAlert("Erreur", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
             return;
         }
+
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
         String sql = "Select * from user where username = ?";
@@ -137,6 +139,27 @@ public class AdminUpdateFormateurController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    private boolean isDuplicate(String nom) {
+        try {
+            UserService userService = new UserService();
+            List<User> existingUSER = userService.selectAll() ;// Assuming this method exists to get all badges
+
+            for (User user : existingUSER) {
+                if (user.getUsername().equalsIgnoreCase(nom)) {
+                    // Display a warning dialog
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Nom d'utilisateur déjà existant");
+                    alert.setContentText("Le nom utilisateur existe déjà. Veuillez entrer un nom utilisateur différent.");
+                    alert.showAndWait();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle exception
+        }
+        return false;
+    }
     @FXML
     public void Reset(ActionEvent event) {
         tfUsername.setText("");
@@ -147,44 +170,42 @@ public class AdminUpdateFormateurController implements Initializable {
         cbFormateur.setValue("");
     }
     @FXML
-    public void GoToAddFormateur(ActionEvent event) throws IOException{
+    public void Add_Formateur(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminAddFormateur.fxml"));
         Parent root = loader.load();
         AdminAddFormateurController lc = loader.getController();
-        bGoToAddFormateur.getScene().setRoot(root);
+        btn_Add_Formateur.getScene().setRoot(root);
     }
+
     @FXML
-    public void GoToUpdateFormateur(ActionEvent event) throws IOException{
+    public void Update_Formateur(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminUpdateFormateur.fxml"));
         Parent root = loader.load();
         AdminUpdateFormateurController lc = loader.getController();
-        bGoToUpdateFormateur.getScene().setRoot(root);
+        btn_Update_Formateur.getScene().setRoot(root);
     }
     @FXML
-    public void BackToAdminI(ActionEvent event) throws IOException{
+    public void Display_Users(ActionEvent event)throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/AdminInterface.fxml"));
         Parent root = loader.load();
         AdminInterfaceController lc = loader.getController();
-        bBack.getScene().setRoot(root);
+        btn_Afficher_users.getScene().setRoot(root);
     }
+
     @FXML
-    public void LogOut(ActionEvent event) throws IOException {
+    public void Lougout(ActionEvent event) {
         try {
-            //thezek lel inscription
+            //taawed thezzek lel inscription
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
             Parent root = loader.load();
-            bLogout.getScene().setRoot(root);
+            btn_Logout.getScene().setRoot(root);
+
         } catch (IOException ex) {
             Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    @FXML
-    public void Exit(ActionEvent event) {
-        System.exit(0);
-    }
-
 
 }

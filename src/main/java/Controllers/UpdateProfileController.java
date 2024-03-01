@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,8 @@ import java.util.logging.Logger;
 public class UpdateProfileController {
     @FXML
     public Button bBack;
+    @FXML
+    public Button btn_Gestion_User;
     @FXML
     private TextField tfUsername;
     @FXML
@@ -47,7 +51,7 @@ public class UpdateProfileController {
     public void Update(ActionEvent event) {
         //controle de saisie
         // Check if any required field is empty
-        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() ||  tfAge.getText().isEmpty()) {
+        if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() ||  tfAge.getText().isEmpty() || isDuplicate(tfUsername.getText())) {
             showAlert("Erreur", "Veuillez remplir tout les champs.");
             return;
         }
@@ -59,6 +63,7 @@ public class UpdateProfileController {
             showAlert("Erreur", "Entrer un Adress Email Valide\n Exemple : foulen@esprit.tn");
             return;
         }
+
         UserService userService= new UserService();
         Connection cnx = DBconnection.getInstance().getCnx();
         String sql = "Select * from user where id_user = ?";
@@ -113,8 +118,27 @@ public class UpdateProfileController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    private boolean isDuplicate(String nom) {
+        try {
+            UserService userService = new UserService();
+            List<User> existingUSER = userService.selectAll() ;// Assuming this method exists to get all badges
 
-
+            for (User user : existingUSER) {
+                if (user.getUsername().equalsIgnoreCase(nom)) {
+                    // Display a warning dialog
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Nom d'utilisateur déjà existant");
+                    alert.setContentText("Le nom utilisateur existe déjà. Veuillez entrer un nom utilisateur différent.");
+                    alert.showAndWait();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle exception
+        }
+        return false;
+    }
     public void Reset(ActionEvent event) {
         tfUsername.setText("");
         tfEmail.setText("");
@@ -154,14 +178,12 @@ public class UpdateProfileController {
             Logger.getLogger(LoginUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void GoToSetting(ActionEvent event) throws IOException {
+    @FXML
+    public void Gestion_User(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/UserSettings.fxml"));
         Parent root = loader.load();
         UserSettingsController lc = loader.getController();
-        bBack.getScene().setRoot(root);
-    }
-    public void Exit(ActionEvent event) {
-        System.exit(0);
+        btn_Gestion_User.getScene().setRoot(root);
     }
 }

@@ -2,75 +2,185 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DeleteProfileController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DeleteProfileController">
     <left>
-        <AnchorPane prefHeight="400.0" prefWidth="197.0" style="-fx-background-color: #D8D1BD;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="552.0" prefWidth="210.0" style="-fx-background-color: #213E60;" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fitHeight="50.0" fitWidth="190.0" layoutX="4.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../../../../img/logo.png" />
-                    </image>
-                </ImageView>
-                <Button fx:id="bBack" layoutX="-3.0" mnemonicParsing="false" onAction="#GoToSetting" style="-fx-background-color: TRANSPARANT;">
-                    <graphic>
-                        <FontAwesomeIconView fill="#e68c3a" glyphName="ARROW_LEFT" size="20" />
-                    </graphic>
-                </Button>
-                <Button fx:id="bLogout" layoutX="51.0" layoutY="362.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="24.0" prefWidth="96.0" style="-fx-background-color: #E68C3A;" text="Se déconnecter" textFill="WHITE">
+                <Button fx:id="bLogout" layoutX="51.0" layoutY="499.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="28.0" prefWidth="96.0" style="-fx-background-color: #E68C3A;" stylesheets="@style1.css" text="Se déconnecter" textFill="WHITE">
                     <font>
                         <Font name="Candara" size="12.0" />
                     </font>
+                    <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                    </styleClass>
                 </Button>
-                <JFXButton fx:id="bGotoupdate" layoutX="11.0" layoutY="111.0" onAction="#GoToUpdateProfile" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Modifier vos informations" textFill="WHITE" />
-                <JFXButton fx:id="bGotouppwd" layoutX="11.0" layoutY="171.0" onAction="#GoToResetPwd" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Modifier votre mot de passe" textFill="WHITE" />
-                <JFXButton fx:id="bGotodeleteacc" layoutX="11.0" layoutY="291.0" onAction="#GoToDeleteAcc" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Supprimer votre compte" textFill="WHITE" />
-                <JFXButton fx:id="bGotopay" layoutX="12.0" layoutY="231.0" onAction="#GoToPaymentMethod" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" text="Les détails du paiement" textFill="WHITE" />
+                <JFXButton fx:id="bGotoupdate" layoutX="11.0" layoutY="111.0" onAction="#GoToUpdateProfile" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" stylesheets="@style1.css" text="Modifier vos informations" textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                    </styleClass></JFXButton>
+                <JFXButton fx:id="bGotouppwd" layoutX="11.0" layoutY="171.0" onAction="#GoToResetPwd" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" stylesheets="@style1.css" text="Modifier votre mot de passe" textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="search-button" />
+                        <String fx:value="shadow" />
+                    </styleClass></JFXButton>
+                <JFXButton fx:id="bGotodeleteacc" layoutX="11.0" layoutY="291.0" onAction="#GoToDeleteAcc" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" stylesheets="@style1.css" text="Supprimer votre compte" textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="search-button" />
+                        <String fx:value="shadow" />
+                    </styleClass></JFXButton>
+                <JFXButton fx:id="bGotopay" layoutX="12.0" layoutY="231.0" onAction="#GoToPaymentMethod" prefHeight="35.0" prefWidth="176.0" style="-fx-background-color: #E68C3A;" stylesheets="@style1.css" text="Les détails du paiement" textFill="WHITE">
+                    <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                    </styleClass></JFXButton>
             </children>
         </AnchorPane>
     </left>
     <right>
-        <AnchorPane prefHeight="400.0" prefWidth="469.0" style="-fx-background-color: #F4F2EF;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="650.0" prefWidth="792.0" BorderPane.alignment="CENTER">
             <children>
-                <Text fill="#213e60" layoutX="99.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Supprimer votre compte">
+                <Text fill="#213e60" layoutX="170.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Désactiver ou supprimer votre compte">
                     <font>
-                        <Font name="Comic Sans MS" size="18.0" />
+                        <Font name="Comic Sans MS" size="24.0" />
                     </font>
                 </Text>
-                <Button fx:id="bExit" layoutX="370.0" layoutY="1.0" mnemonicParsing="false" onAction="#Exit" style="-fx-background-color: transparant;">
-                    <graphic>
-                        <FontAwesomeIconView fill="#e68c3a" glyphName="CLOSE" size="20" />
-                    </graphic>
-                </Button>
-            <Text fill="#213e60" layoutX="52.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Souhaites-tu vraiment supprimer ton compte?">
+            <Text fill="#213e60" layoutX="195.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Souhaites-tu vraiment supprimer ton compte?">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#213e60" layoutX="248.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ce compte sera supprimé immédiatement. ">
                <font>
                   <Font name="Comic Sans MS" size="14.0" />
                </font>
             </Text>
-            <Text fill="#213e60" layoutX="74.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ce compte sera supprimé immédiatement. ">
+            <FontAwesomeIconView fill="#e68c3a" glyphName="EXCLAMATION_TRIANGLE" layoutX="204.0" layoutY="274.0" size="25" />
+            <Text fill="#213e60" layoutX="253.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous ne pouvez pas annuler cette action.">
                <font>
-                  <Font name="Comic Sans MS" size="13.0" />
+                  <Font name="Comic Sans MS" size="14.0" />
                </font>
             </Text>
-            <FontAwesomeIconView fill="#e68c3a" glyphName="EXCLAMATION_TRIANGLE" layoutX="42.0" layoutY="169.0" size="20" />
-            <Text fill="#213e60" layoutX="79.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous ne pouvez pas annuler cette action.">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-            </Text>
-            <Button fx:id="bDelacc" layoutX="132.0" layoutY="261.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="24.0" prefWidth="138.0" style="-fx-background-color: #E68C3A;" text="Supprimer mon compte" textFill="WHITE">
+            <Button fx:id="bDelacc" layoutX="289.0" layoutY="463.0" mnemonicParsing="false" onAction="#DeleteAcc" prefHeight="35.0" prefWidth="170.0" style="-fx-background-color: #E68C3A;" stylesheets="@style1.css" text="Supprimer mon compte" textFill="WHITE">
                <font>
                   <Font name="Candara" size="12.0" />
                </font>
+               <styleClass>
+                  <String fx:value="search-button" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </Button>
+            <Button fx:id="bDesactivate" layoutX="305.0" layoutY="392.0" mnemonicParsing="false" onAction="#DesactivateAcc" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #E68C3A;" stylesheets="@style1.css" text="Désactiver mon compte" textFill="WHITE">
+               <font>
+                  <Font name="Candara" size="12.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="search-box" />
+                  <String fx:value="shadow" />
+               </styleClass>
             </Button>
             </children>
         </AnchorPane>
     </right>
+   <top>
+
+           <HBox prefHeight="98.0" prefWidth="985.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                   <Pane prefHeight="200.0" prefWidth="200.0">
+                       <children>
+                           <ImageView fitHeight="72.0" fitWidth="223.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@images/logo-removebg-preview.png" />
+                               </image>
+                           </ImageView>
+                       </children>
+                   </Pane>
+                   <Pane prefHeight="98.0" prefWidth="176.0" />
+                   <Pane prefHeight="98.0" prefWidth="125.0">
+                       <children>
+                           <HBox alignment="CENTER" layoutX="2.0" layoutY="39.0" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                               <styleClass>
+                                   <String fx:value="search-box" />
+                                   <String fx:value="shadow" />
+                               </styleClass>
+                               <children>
+                                   <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Evenements" textFill="WHITE" />
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane prefHeight="98.0" prefWidth="132.0">
+                       <children>
+                           <HBox alignment="CENTER" layoutX="7.0" layoutY="39.0" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                               <styleClass>
+                                   <String fx:value="search-box" />
+                                   <String fx:value="shadow" />
+                               </styleClass>
+                               <children>
+                                   <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Formations" textFill="WHITE" />
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane prefHeight="98.0" prefWidth="135.0">
+                       <children>
+                           <HBox alignment="CENTER" layoutX="7.0" layoutY="40.0" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                               <styleClass>
+                                   <String fx:value="search-box" />
+                                   <String fx:value="shadow" />
+                               </styleClass>
+                               <children>
+                                   <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Certifs" textFill="WHITE" />
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane prefHeight="98.0" prefWidth="135.0">
+                       <children>
+                           <HBox alignment="CENTER" layoutX="7.0" layoutY="41.0" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
+                               <styleClass>
+                                   <String fx:value="search-box" />
+                                   <String fx:value="shadow" />
+                               </styleClass>
+                               <children>
+                                   <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Badges" textFill="WHITE" />
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane prefHeight="98.0" prefWidth="165.0">
+                       <children>
+                           <Button fx:id="btn_Gestion_User" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="52.0" layoutY="31.0" mnemonicParsing="false" onAction="#Gestion_User" prefHeight="40.0" prefWidth="68.0" style="-fx-background-color: #213E60;" textFill="#e7e5e5">
+                               <opaqueInsets>
+                                   <Insets />
+                               </opaqueInsets>
+                               <padding>
+                                   <Insets left="50.0" />
+                               </padding>
+                           </Button>
+                             <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="75.0" layoutY="28.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                     <Image url="@images/user_button.png" />
+                                 </image>
+                             </ImageView>
+                  <Label fx:id="Label_username" layoutX="14.0" layoutY="42.0" />
+                       </children></Pane>
+               </children>
+           </HBox>
+
+   </top>
 </BorderPane>

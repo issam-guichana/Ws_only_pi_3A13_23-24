@@ -17,6 +17,7 @@ import services.UserService;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -56,7 +57,7 @@ public class RegisterUserController implements Initializable {
         //controle de saisie
         // Check if any required field is empty
         if (tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty()
-                || tfAge.getText().isEmpty() || cbGender.getValue().isEmpty()) {
+                || tfAge.getText().isEmpty() || cbGender.getValue().isEmpty() || isDuplicate(tfUsername.getText())) {
             showAlert("Error", "Veuillez remplir tout les champs.");
             return;
         }
@@ -148,6 +149,29 @@ public class RegisterUserController implements Initializable {
             System.out.println("Erreur !");
         }
     }
+    // Method to check for duplicates
+    private boolean isDuplicate(String nom) {
+        try {
+            UserService userService = new UserService();
+            List<User> existingUSER = userService.selectAll() ;// Assuming this method exists to get all badges
+
+            for (User user : existingUSER) {
+                if (user.getUsername().equalsIgnoreCase(nom)) {
+                    // Display a warning dialog
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Nom d'utilisateur déjà existant");
+                    alert.setContentText("Le nom utilisateur existe déjà. Veuillez entrer un nom utilisateur différent.");
+                    alert.showAndWait();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle exception
+        }
+        return false;
+    }
+
 
     public void BackToLogin(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
@@ -166,33 +190,10 @@ public class RegisterUserController implements Initializable {
         UserImg.setImage(null);
     }
     @FXML
-    private void exit(ActionEvent event){
-        System.exit(0);
-    }
-    @FXML
     void initialize(){
         assert tfAge != null : "fx:id=\"tfAge\" was not injected: check your FXML file 'RegisterUser.fxml'.";
         assert tfUsername != null : "fx:id=\"tfUsername\" was not injected: check your FXML file 'RegisterUser.fxml'.";
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'RegisterUser.fxml'.";
         assert tfEmail != null : "fx:id=\"tfEmail\" was not injected: check your FXML file 'RegisterUser.fxml'.";
     }
-
-
 }
-
-//    public void initialize() {
-//        initializeComboBoxContent();
-//    }
-
-//    private void redirectToLogin() throws IOException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
-//        Parent loginSuccessRoot = loader.load();
-//        Scene scene = id_Password.getScene(); // Get the scene from any node in the current scene
-//        scene.setRoot(loginSuccessRoot);
-//    }
-
-//    private void initializeComboBoxContent() {
-//        // Initialize  choices
-//        id_Role.getItems().addAll("Member", "Artist"); // Example Role choices
-//        id_Gender.getItems().addAll("Homme", "Femme", "Autre"); // Example gender choices
-//    }
