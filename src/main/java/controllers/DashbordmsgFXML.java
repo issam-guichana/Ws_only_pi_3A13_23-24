@@ -25,18 +25,18 @@ public class DashbordmsgFXML implements Initializable {
     private URL location;
 
     @FXML
-    private TableColumn<ObservableList<String>,String> cnmsg;
+    private TableColumn<ObservableList<String>, String> cnmsg;
 
     @FXML
-    private TableColumn<ObservableList<String>,String> emet;
+    private TableColumn<ObservableList<String>, String> emet;
 
     @FXML
-    private TableColumn<ObservableList<String>,String> nmroom;
+    private TableColumn<ObservableList<String>, String> nmroom;
 
     @FXML
     private TableView<ObservableList<String>> tabm;
     @FXML
-    private TableColumn<ObservableList<String>,String> idmsg;
+    private TableColumn<ObservableList<String>, String> idmsg;
 
     @FXML
     void initialize() {
@@ -45,6 +45,7 @@ public class DashbordmsgFXML implements Initializable {
         assert nmroom != null : "fx:id=\"nmroom\" was not injected: check your FXML file 'DashbordmsgFXML.fxml'.";
 
     }
+
     private TableColumn<ObservableList<String>, Void> setupDeleteButtonColumn() {
         TableColumn<ObservableList<String>, Void> supprimerColumn = new TableColumn<>("Supprimer");
         supprimerColumn.setCellFactory(col -> new TableCell<>() {
@@ -57,13 +58,15 @@ public class DashbordmsgFXML implements Initializable {
                     ObservableList<String> row = getTableView().getItems().get(index);
                     // Retrieve the id_room from the inner list
                     String idmsgString = row.get(0);
-                    System.out.println(idmsgString );
-                    int idmsg= Integer.parseInt(idmsgString );
+                    System.out.println(idmsgString);
+                    int idmsg = Integer.parseInt(idmsgString);
                     // Action to perform when the "Supprimer" button is clicked
                     Servicemessage sq = new Servicemessage();
-                    try{
+                    try {
 //int idRoom = Integer.parseInt(rowData.get(0));
                         sq.DeleteOne(idmsg);
+                        viewdashbordmsg();
+
                         // Refresh the table view after deletion if needed
                         //displayAllRoomsInTableView(); // Define this method to update the table view
                     } catch (SQLException e) {
@@ -81,8 +84,7 @@ public class DashbordmsgFXML implements Initializable {
         return supprimerColumn;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void viewdashbordmsg() {
         Serviceroom sm = new Serviceroom();
         Connection connection = null;
         try {
@@ -114,13 +116,18 @@ public class DashbordmsgFXML implements Initializable {
 
         nmroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
         emet.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
-        TableColumn<ObservableList<String>, Void> deleteColumn = setupDeleteButtonColumn();
-        tabm.getColumns().add(deleteColumn);
-
 
 
 
     }
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+         viewdashbordmsg();
+        TableColumn<ObservableList<String>, Void> deleteColumn = setupDeleteButtonColumn();
+        tabm.getColumns().add(deleteColumn);
+
+    }
 
 }

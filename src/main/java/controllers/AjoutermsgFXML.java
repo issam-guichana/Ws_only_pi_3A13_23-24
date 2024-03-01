@@ -10,12 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import models.Message;
 import services.Servicemessage;
 
-import javax.swing.*;
 import javafx.scene.image.ImageView;
 
 public class AjoutermsgFXML  implements Initializable {
@@ -25,46 +22,46 @@ public class AjoutermsgFXML  implements Initializable {
 
     @FXML
     private URL location;
-    @FXML
-    private ImageView chaticon;
 
-    @FXML
-    private ImageView formicon;
 
-    @FXML
-    private ImageView homeicon;
 
-    @FXML
-    private ImageView logofx;
+
     // Image   mylogo= new Image(getClass().getResourceAsStream("./images/logo.png"));
-    @FXML
-    private ListView<String> listmsg;
-    @FXML
-    private ComboBox<String> roomid;
+
+
     @FXML
     private Button btmsg;
 
     @FXML
-    private ListView<String> listpart;
+    private TableColumn<?, ?> cpartic;
 
     @FXML
-    private AnchorPane listpartc;
+    private TableColumn<?, ?> emet;
+
+    @FXML
+    private TableView<String> listmsg;
+
+    @FXML
+    private TableView<String> listpart;
 
     @FXML
     private TextField msg;
 
 
     @FXML
+    private ComboBox<?> selectroom;
+    @FXML
     private TextField nmroom;
 
     @FXML
-    void ajoutermsg(ActionEvent event) {
+    void sendmsg(ActionEvent event) {
 
         // Initialize selectedRoom with an empty string
         String selectedRoom = "";
         try {
             // Get the selected room from the ComboBox
-            selectedRoom = roomid.getValue();
+           // selectedRoom = roomid.getValue();
+           // selectedRoom = selectroom.getValue();
 
             // Establish connection to the database
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "");
@@ -150,10 +147,10 @@ public class AjoutermsgFXML  implements Initializable {
                 nomroomList.add(resultSet3.getString(1));
             }
             // Set items in the ComboBox for room IDs
-            roomid.setItems(nomroomList);
+            //roomid.setItems(nomroomList);
 
             // Get the selected room
-            String selectedRoom = roomid.getValue();
+            //String selectedRoom = roomid.getValue();
 
             // Prepare statement to select messages based on room_id
             // preparedStatement = connection.prepareStatement();

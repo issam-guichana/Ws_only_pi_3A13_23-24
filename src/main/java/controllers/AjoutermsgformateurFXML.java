@@ -82,7 +82,9 @@ public class AjoutermsgformateurFXML implements Initializable {
 
                 // Insert the message into the database
                 Servicemessage sp = new Servicemessage();
-                sp.InsertOne(p);}
+                sp.InsertOne(p);
+                initial();
+                }
                 else  {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Message vide ");
@@ -112,7 +114,7 @@ public class AjoutermsgformateurFXML implements Initializable {
 
     }
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initial () {
         HashMap<String, Integer> roomFormationMap = new HashMap<>();
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
@@ -168,18 +170,18 @@ public class AjoutermsgformateurFXML implements Initializable {
                                     ResultSet resultSet4 = preparedStatement4.executeQuery();
                                     //ObservableList<Message> messageList = FXCollections.observableArrayList();
                                     //while (resultSet4.next()) {
-                                      //  String cnmsgValue = resultSet4.getString("contenu");
-                                        //String emetValue = resultSet4.getString("sender_msg");
-                                       // messageList.add(new Message(cnmsgValue, emetValue));
-                                        //System.out.println(messageList);
+                                    //  String cnmsgValue = resultSet4.getString("contenu");
+                                    //String emetValue = resultSet4.getString("sender_msg");
+                                    // messageList.add(new Message(cnmsgValue, emetValue));
+                                    //System.out.println(messageList);
                                     //}
 
-                                   // ObservableList<Message> contenuList = FXCollections.observableArrayList();
+                                    // ObservableList<Message> contenuList = FXCollections.observableArrayList();
                                     //while (resultSet4.next()) {
-                                       // String cnmsgValue = resultSet4.getString("contenu");
-                                       // String emetteurValue = resultSet4.getString("sender_msg");
-                                        //contenuList.add(new Message(cnmsgValue, emetteurValue)); // Assuming Message constructor takes contenu and sender as parameters
-                                   // }
+                                    // String cnmsgValue = resultSet4.getString("contenu");
+                                    // String emetteurValue = resultSet4.getString("sender_msg");
+                                    //contenuList.add(new Message(cnmsgValue, emetteurValue)); // Assuming Message constructor takes contenu and sender as parameters
+                                    // }
 
 // Set the cell value factories to extract values from the Message object
                                     //cnmsg.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getContenu()));
@@ -198,7 +200,7 @@ public class AjoutermsgformateurFXML implements Initializable {
                                     cnmsg.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
                                     //System.out.println(contenuList);
                                     listmsg.setItems(contenuList);
-                                   // listmsg.setItems(messageList);
+                                    // listmsg.setItems(messageList);
                                 }
                             } else {
                                 System.out.println("No message found for selected room: " + selectedNomFormation);
@@ -219,6 +221,10 @@ public class AjoutermsgformateurFXML implements Initializable {
                 }
             }
         });
+
+    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initial();
     }
 
 
