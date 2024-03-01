@@ -74,15 +74,6 @@ public class AjouterroomFXML {
         }
     }
 
-    //   void initialize () {
-
-
-//
-    //          assert formation != null : "fx:id=\"formation\" was not injected: check your FXML file 'AjouterroomFXML.fxml'.";
-    //        assert nomroom != null : "fx:id=\"nomroom\" was not injected: check your FXML file 'AjouterroomFXML.fxml'.";
-
-    //   }
-
 
     public void initialize() {
         try (

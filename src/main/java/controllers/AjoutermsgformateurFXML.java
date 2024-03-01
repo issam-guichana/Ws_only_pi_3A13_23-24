@@ -54,6 +54,14 @@ public class AjoutermsgformateurFXML implements Initializable {
     @FXML
     public void sendmsg(javafx.event.ActionEvent actionEvent) {
         String selectedRoom = "";
+        if (selectedRoom == null) {
+            // Handle case where no room is selected
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Espace non sélectionné");
+            alert.setContentText("Vous devez choisir un espace d'abord !");
+            alert.show();
+            return;
+        }
         try {
             // Get the selected room from the ComboBox
             //selectedRoom = roomid.getValue();
@@ -83,6 +91,9 @@ public class AjoutermsgformateurFXML implements Initializable {
                 // Insert the message into the database
                 Servicemessage sp = new Servicemessage();
                 sp.InsertOne(p);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Message envoyé");
+                    alert.show();
                 initial();
                 }
                 else  {

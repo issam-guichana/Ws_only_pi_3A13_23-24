@@ -123,53 +123,67 @@ public class DashbordadminFXML implements Initializable {
     }
     @FXML
     void ajoutroom(ActionEvent event) throws SQLException {
+        try {
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
+                String selectedNomForm = nomform.getValue();
 
+                // Prepare a statement to retrieve the id_form corresponding to the selected nom_form
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_form` FROM `formation` WHERE `nom_form`=?");
+                preparedStatement.setString(1, selectedNomForm);
 
-            try {
+                // Execute the query
+                ResultSet resultSet = preparedStatement.executeQuery();
 
+                // Check if a result is found
+                if (resultSet.next()) {
+                    int idForm = resultSet.getInt("id_form");
 
-                try
-                        (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
-                    String selectedNomForm = nomform.getValue();
+                    // Check if room name, description are not null or empty
+                    if (nameroom.getText() != null && !nameroom.getText().isEmpty() && decsproom.getText() != null) {
+                        // Check if the room name already exists for the selected formation_id
+                        PreparedStatement checkStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM room WHERE nom_room=? AND formation_id=?");
+                        checkStatement.setString(1, nameroom.getText());
+                        checkStatement.setInt(2, idForm);
+                        ResultSet checkResult = checkStatement.executeQuery();
 
-                    // Prepare a statement to retrieve the id_form corresponding to the selected nom_form
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_form` FROM `formation` WHERE `nom_form`=?");
-                    preparedStatement.setString(1, selectedNomForm);
+                        if (checkResult.next()) {
+                            int count = checkResult.getInt("count");
+                            if (count == 0) {
+                                // Create the Room object with the retrieved id_form
+                                Room r = new Room(nameroom.getText(), idForm, decsproom.getText());
 
-                    // Execute the query
-                    ResultSet resultSet = preparedStatement.executeQuery();
+                                // Call the service to insert the room
+                                Serviceroom sp = new Serviceroom();
+                                sp.InsertOne(r);
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-                    // Check if a result is found
-                    if (resultSet.next()) {
-                        int idForm = resultSet.getInt("id_form");
-
-                        // Check if nomroom is not null
-                        if (nameroom.getText() != null && !nameroom.getText().isEmpty() && decsproom.getText() != null ) {
-                            // Create the Room object with the retrieved id_form
-                            Room r = new Room(nameroom.getText(),idForm,decsproom.getText());
-
-                            // Call the service to insert the room
-                            Serviceroom sp = new Serviceroom();
-                            sp.InsertOne(r);
-                            dispalyallrooms();
-
-
-                        } else {
-                            System.out.println("Error: nom_room cannot be null or empty.");
+                                alert.setTitle("Espace crée !");
+                                alert.setContentText("Vous pouvez maintenant communiquer avec vos étudiants");
+                                alert.show();
+                                dispalyallrooms(); // Assuming this method updates the display of all rooms
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Erreur de saisie");
+                                alert.setContentText("Le nom de la salle existe déjà pour cette formation.");
+                                alert.show();
+                            }
                         }
                     } else {
-                        // Handle case where no result is found for the selected nom_form
-                        System.out.println("No id_form found for the selected nom_form: " + selectedNomForm);
+                        System.out.println("Error: Le nom de la salle et la description ne peuvent pas être vides.");
+                        // Display error message to the user
                     }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                    // Handle case where no result is found for the selected nom_form
+                    System.out.println("No id_form found for the selected nom_form: " + selectedNomForm);
                 }
-            } finally {
-
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle SQL exception
             }
+        } finally {
+            // Add any cleanup code if needed
         }
+    }
 
     private void setupModifierButtonColumn() {
         TableColumn<ObservableList<String>, Void> modifierColumn = new TableColumn<>("Modifier");

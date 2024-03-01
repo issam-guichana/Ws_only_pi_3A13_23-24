@@ -50,7 +50,6 @@ public class Ajoutroomformateur implements Initializable {
 
                     // Check if nomroom is not null
                     if (namesapce.getText() != null && !namesapce.getText().isEmpty() && desc.getText() != null) {
-
                         // Check if the room name already exists for the selected formation_id
                         PreparedStatement checkStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM room WHERE nom_room=? AND formation_id=?");
                         checkStatement.setString(1, namesapce.getText());
@@ -92,10 +91,9 @@ public class Ajoutroomformateur implements Initializable {
                 e.printStackTrace();
             }
         } finally {
-
+            // Add any cleanup code if needed
         }
     }
-
 
 
 

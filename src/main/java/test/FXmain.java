@@ -19,24 +19,24 @@ public class FXmain extends Application {
 
 
         // Interface user
-         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/AjoutermsgFXML.fxml"));
+       //  FXMLLoader loader = new FXMLLoader(getClass()
+         //       .getResource("/AjoutermsgFXML.fxml"));
 
 
          //interface admin
-        //FXMLLoader loader = new FXMLLoader(getClass()
-          //      .getResource("/DashbordadminFXML.fxml"));
+     //   FXMLLoader loader = new FXMLLoader(getClass()
+       //         .getResource("/DashbordadminFXML.fxml"));
 
-     //  FXMLLoader loader = new FXMLLoader(getClass()
-       //        .getResource("/DashbordmsgFXML.fxml"));
+       FXMLLoader loader = new FXMLLoader(getClass()
+               .getResource("/DashbordmsgFXML.fxml"));
 
 
 
         //interface formateur
 
-     //   FXMLLoader loader = new FXMLLoader(getClass()
-       //         .getResource("/Ajoutroomformateur.fxml"));
-    //    FXMLLoader loader = new FXMLLoader(getClass()
+      // FXMLLoader loader = new FXMLLoader(getClass()
+        //       .getResource("/Ajoutroomformateur.fxml"));
+    // FXMLLoader loader = new FXMLLoader(getClass()
       //          .getResource("/AjoutermsgformateurFXML.fxml"));
 
                 //FXMLLoader loader = new FXMLLoader(getClass()
