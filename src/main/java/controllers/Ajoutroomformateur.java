@@ -72,7 +72,7 @@ public class Ajoutroomformateur implements Initializable {
                                 alert.show();
                             } else {
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("Erreur de saisie");
+                                alert.setTitle("Erreur de controle de saisie");
                                 alert.setContentText("Le nom de la salle existe déjà pour cette formation.");
                                 alert.show();
                             }
@@ -84,6 +84,10 @@ public class Ajoutroomformateur implements Initializable {
                         alert.show();
                     }
                 } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur de saisie");
+                    alert.setContentText("Veuillez choisir une formation appartenant à un esace");
+                    alert.show();
                     // Handle case where no result is found for the selected nom_form
                     System.out.println("No id_form found for the selected nom_form: " + selectedNomForm);
                 }

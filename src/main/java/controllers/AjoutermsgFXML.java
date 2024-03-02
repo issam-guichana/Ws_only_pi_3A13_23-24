@@ -1,9 +1,10 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -166,12 +167,54 @@ public class AjoutermsgFXML  implements Initializable {
           }
       });
   }
+    private boolean processMessage(Message msg, String filePath) {
+        try (Scanner scanner = new Scanner(new File(filePath))) {
+            Set<String> badWords = new HashSet<>();
+            while (scanner.hasNext()) {
+                badWords.add(scanner.next().toLowerCase()); // Convert to lowercase for case-insensitive matching
+            }
+
+            // Split the message content into individual words
+            String[] words = msg.getcontent().split("\\s+"); // Split by whitespace
+           boolean containsBadWords=false;
+            // Check if any bad words are present in the message
+            for (int i = 0; i < words.length; i++) {
+                if (badWords.contains(words[i].toLowerCase())) {
+                    words[i] = "*".repeat(words[i].length());
+                    containsBadWords = true;// Replace the bad word with stars
+                }
+            }
+
+
+            String maskedMessage = String.join(" ", words);
+
+            // Proceed with adding the message (with masked bad words) to the database
+            Message msgmasque = new Message(maskedMessage, msg.getId_room());
+            addmessage( msgmasque);
+            return containsBadWords;
+
+        } catch (FileNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return false; // Error occurred, treat as if message contains bad words
+        }
+    }
+
+
+
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 initial();
     }
 
+
+    public void  addmessage(Message msg) throws SQLException {
+      Servicemessage sp = new Servicemessage();
+      sp.InsertOne(msg);
+  }
     @FXML
     void sendmsg(ActionEvent event) {
         String selectedRoom = selectroom.getValue(); // Get the selected room
@@ -192,12 +235,31 @@ initial();
             if (resultSet.next()) {
                 int roomId = resultSet.getInt("id_room");
                 Message p = new Message(msg.getText(), roomId);
-                Servicemessage sp = new Servicemessage();
-                sp.InsertOne(p);
-                initial();
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Message envoyé");
-                alert.show();
+                String filePath = "src/main/java/controllers/bad_words.txt";
+                boolean containsBadWords = processMessage(p, filePath);
+
+               // processMessage(p, filePath);
+                if (containsBadWords) {
+                  //  Servicemessage sp = new Servicemessage();
+                    //sp.InsertOne(p);
+                    initial();
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Message masqué");
+                    alert.setContentText("Désolé, mais une partie de  votre message sera masqué pour des raisons ethique ");
+                    alert.show();
+
+                } else {
+                   // addmessage(p);
+                    initial();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Message envoyé");
+                    alert.show();
+
+
+
+
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Espace non existant");

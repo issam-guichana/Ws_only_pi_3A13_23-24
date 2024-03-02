@@ -6,14 +6,22 @@ private String contenu;
 
 private String sender;
 private int id_room;
+
+private byte[] imageData;
     public Message() {
     }
+    public Message(int roomId, byte[] imageData) {
 
-    public Message(int id_msg, String contenu,String sender,int id_room) {
+        this.id_room = roomId;
+        this.imageData = imageData;
+    }
+
+    public Message(int id_msg, String contenu,String sender,int id_room, byte[] imageData) {
         this.id_msg = id_msg;
         this.contenu=contenu;
         this.sender=sender;
         this.id_room = id_room;
+        this.imageData = imageData;
     }
 
     public int getId_room() {
@@ -74,7 +82,9 @@ private int id_room;
     public void setContenu(String contenu) {
         this.contenu = contenu;
     }
-
+       public String getcontent() {
+        return contenu ;
+       }
     @Override
     public String toString() {
         return "Message{" +

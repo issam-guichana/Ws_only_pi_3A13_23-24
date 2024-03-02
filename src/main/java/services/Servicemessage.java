@@ -1,12 +1,17 @@
 package services;
 
+import javafx.stage.FileChooser;
 import models.Message;
 import utils.DBConnection;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+
 
 public class Servicemessage implements CRUD<Message> {
     private Connection cnx ;
@@ -18,14 +23,33 @@ public class Servicemessage implements CRUD<Message> {
     }
 
 
-    public void InsertOne(Message msg) throws SQLException {
-        String req = "INSERT INTO `message` (`contenu`, `room_id`) VALUES (?, ?)";
+    public void Insertwithimage(Message msg,  byte[] imageData) throws SQLException {
+        String req = "INSERT INTO `message` (`room_id`, `image`) VALUES ( ?, ?)";
+
+
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(req)) {
+            // Set the values for the parameters
+           // preparedStatement.setString(1, msg.getContenu());
+            // preparedStatement.setString(2, msg.getSender());
+            preparedStatement.setInt(1, msg.getId_room());
+             preparedStatement.setBinaryStream(2,new ByteArrayInputStream(imageData));
+
+            // Execute the update
+            preparedStatement.executeUpdate();
+
+            System.out.println("Message with image added successfully!");
+        }
+    }
+
+        public void InsertOne(Message msg) throws SQLException {
+        String req = "INSERT INTO `message` (`contenu`, `room_id`) VALUES (?,?)";
 
         try (PreparedStatement preparedStatement = cnx.prepareStatement(req)) {
             // Set the values for the parameters
             preparedStatement.setString(1, msg.getContenu());
            // preparedStatement.setString(2, msg.getSender());
             preparedStatement.setInt(2, msg.getId_room());
+           // preparedStatement.setBinaryStream(11,fis,);
 
             // Execute the update
             preparedStatement.executeUpdate();

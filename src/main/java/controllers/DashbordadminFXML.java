@@ -158,21 +158,29 @@ public class DashbordadminFXML implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
                                 alert.setTitle("Espace crée !");
-                                alert.setContentText("Vous pouvez maintenant communiquer avec vos étudiants");
+                                alert.setContentText("ADMIN, Vous pouvez maintenant communiquersur cette espace");
                                 alert.show();
                                 dispalyallrooms(); // Assuming this method updates the display of all rooms
                             } else {
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle("Erreur de saisie");
-                                alert.setContentText("Le nom de la salle existe déjà pour cette formation.");
+                                alert.setContentText("ADMIN, Le nom de la salle existe déjà pour cette formation.");
                                 alert.show();
                             }
                         }
                     } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Erreur de saisie");
+                        alert.setContentText("ADMIN, Le nom de la salle  ne peuvent pas être vides.");
+                        alert.show();
                         System.out.println("Error: Le nom de la salle et la description ne peuvent pas être vides.");
                         // Display error message to the user
                     }
                 } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur de saisie");
+                    alert.setContentText("ADMIN, veuillez choisir une formation appartenant à un esace");
+                    alert.show();
                     // Handle case where no result is found for the selected nom_form
                     System.out.println("No id_form found for the selected nom_form: " + selectedNomForm);
                 }
