@@ -44,6 +44,14 @@
             <version>9.0.10</version>
         </dependency>
 
+        <!-- ************** JAVA MAIL API depd ************** -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <!-- ************** PDF API depd ************** -->
+
 
     </dependencies>
     <build>

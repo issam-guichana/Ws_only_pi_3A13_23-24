@@ -6,11 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import models.User;
 import services.UserService;
 
 import java.io.File;
@@ -84,9 +82,8 @@ public class UserSettingsController implements Initializable {
         //Tooo dooooo
     }
 
-    public void LogOut(ActionEvent event) throws IOException{
+    public void LogOut(ActionEvent event){
         try {
-            //thezek lel inscription
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
             Parent root = loader.load();
             bLogout.getScene().setRoot(root);

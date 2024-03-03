@@ -24,10 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginUserController implements Initializable {
-   @FXML
-    public Text passwordfalsemessage;
-    private ResourceBundle resources;
-    private URL location;
 
     @FXML
     private TextField tfUsername;
@@ -42,90 +38,95 @@ public class LoginUserController implements Initializable {
 
     public static int logged ;
     private int falsepassword = 3;
+    @FXML
+    public Text passwordfalsemessage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    PreparedStatement ps = null ;
-    ResultSet rs =null;
+    private ResourceBundle resources;
+    private URL location;
+    Connection cnx = DBconnection.getInstance().getCnx();
+
     @FXML
     public void connect(ActionEvent event) throws Exception {
-
-
         PreparedStatement pst = null;
         ResultSet rs = null;
-        Connection cnx = DBconnection.getInstance().getCnx();
+
         String sql = "Select * from user where username = ? and mdp = ?";
         try{
             pst = cnx.prepareStatement(sql);
             pst.setString(1,tfUsername.getText());
             pst.setString(2,tfPassword.getText());
             rs = pst.executeQuery();
+            UserService us = new UserService();
+            User u = us.ChercherParUsername(tfUsername.getText());
+//****************systeme de suspension (suspendre fi wa9t mou3ayan) tsir wa9telli l mot de passe 8alet ************************
+            if (!tfPassword.getText().equals(u.getMdp())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Compte introuvable");
+                alert.setHeaderText("Mot de passe incorrect");
+                alert.setContentText("Mot de passe incorrect \n nombre des essais : " + falsepassword);
+                alert.showAndWait();
+                falsepassword--;
+                if (falsepassword == 0) {
+                    bLogin.setDisable(true);
+                    java.util.Timer chrono = new java.util.Timer();
+                    chrono.schedule(new TimerTask() {
+                        int time = 60;
+                        @Override
+                        public void run() {
+                            passwordfalsemessage.setText("Compte Verrouillé , \n Réessayez dans " + time + "s");
+                            time--;
+                            if (time == 0) {
+                                bLogin.setDisable(false);
+                                passwordfalsemessage.setText("");
+                                chrono.cancel();
+                                falsepassword = 3;
+                            }
+                        }
+                    }, new Date(), 1000);
+                }
+                return;
+            }
+//*****************************************************************************************************
+
+            if (us.ChercherParUsername(tfUsername.getText()).getStatus() == 0){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("compte désactivé");
+                alert.setHeaderText("désolé");
+                alert.setContentText("Votre compte est désactivé, veuillez contacter l'administrateur");
+                alert.showAndWait();
+                Reset();
+                return;
+            }
+            // controle de saisie
+            if (tfUsername.getText().compareTo("") == 0 || tfPassword.getText().compareTo("") == 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Un ou plusieurs champs sont manquants");
+                alert.setHeaderText("Un ou plusieurs champs sont manquants ");
+                alert.setContentText("Les champs nom d'utilisateur et mot de passe sont obligatoires !");
+                alert.showAndWait();
+                return;
+            }
+            if (us.ChercherParUsername(tfUsername.getText()) == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Compte introuvable");
+                alert.setHeaderText("Votre nom d'utilisateur ou votre mot de passe sont introuvables");
+                alert.setContentText("Vérifiez vos informations ou\nMerci de remplir notre formulaire d'inscription ");
+                alert.showAndWait();
+                return;
+            }
+
             if (rs.next()) {
                 logged = rs.getInt("id_user");
                 String role = rs.getString("role");
 
-                UserService us = new UserService();
-                User u = us.ChercherParUsername(tfUsername.getText());
-                if (us.ChercherParUsername(tfUsername.getText()).getStatus() == 0){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("compte désactivé");
-                    alert.setHeaderText("désolé");
-                    alert.setContentText("Votre compte est désactivé, veuillez contacter l'administrateur");
-                    alert.showAndWait();
-                    Reset();
-                    return;
-                }
-                // controle de saisie
-                if (tfUsername.getText().compareTo("") == 0 || tfPassword.getText().compareTo("") == 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Un ou plusieurs champs sont manquants");
-                    alert.setHeaderText("Un ou plusieurs champs sont manquants ");
-                    alert.setContentText("Les champs nom d'utilisateur et mot de passe sont obligatoires !");
-                    alert.showAndWait();
-                    return;
-                }
-                 if (us.ChercherParUsername(tfUsername.getText()) == null) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Compte introuvable");
-                    alert.setHeaderText("Votre nom d'utilisateur ou votre mot de passe sont introuvables");
-                    alert.setContentText("Vérifiez vos informations ou\nMerci de remplir notre formulaire d'inscription ");
-                    alert.showAndWait();
-                    return;
-                }
-                //systeme de suspension (suspendre fi wa9t mou3ayan) tsir wa9telli l mot de passe 8alet
-                 if (!tfPassword.getText().equals(u.getMdp())) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Compte introuvable");
-                    alert.setHeaderText("Mot de passe incorrect");
-                    alert.setContentText("Mot de passe incorrect \n nombre des essais : " + falsepassword);
-                    alert.showAndWait();
-                    falsepassword--;
-                    if (falsepassword == 0) {
-                        bLogin.setDisable(true);
-                        java.util.Timer chrono = new java.util.Timer();
-                        chrono.schedule(new TimerTask() {
-                            int time = 60;
-                            @Override
-                            public void run() {
-                                passwordfalsemessage.setText("Compte Verrouillé , \n Réessayez dans " + time + "s");
-                                time--;
-                                if (time == 0) {
-                                    bLogin.setDisable(false);
-                                    passwordfalsemessage.setText("");
-                                    chrono.cancel();
-                                    falsepassword = 3;
-                                }
-                            }
-                        }, new Date(), 1000);
-                    }
-                }
-
                 //********************* kif yod5el si l'admin ***********
                             //tfUsername.getText().equals("issam") && tfPassword.getText().equals("azerty")
-                else if (u.getRole().equals("ADMIN")) {
+                 if (u.getRole().equals("ADMIN")) {
                     FXMLLoader loader = new FXMLLoader(getClass()
                             .getResource("/AdminMainInterface.fxml"));
                     Parent root = loader.load();
@@ -164,11 +165,15 @@ public class LoginUserController implements Initializable {
         }
     }
 
-    @FXML
-    public void ForgotPwd(ActionEvent event) {
-        //toooooooo doooooooooo
-    }
 
+    @FXML
+    public void ForgotPwd(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/ForgotPassword.fxml"));
+        Parent root = loader.load();
+        ForgotPasswordController rc = loader.getController();
+        hForgotPwd.getScene().setRoot(root);
+    }
     @FXML
     public void GoToRegister(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()

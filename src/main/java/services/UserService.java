@@ -98,6 +98,23 @@ public class UserService implements CRUD<User> {
 
         return userList;
     }
+    public User ChercherParMail(String email) {
+        try {
+            PreparedStatement pre = cnx.prepareStatement("SELECT * FROM user where email = ?");
+            pre.setString(1, email);
+            ResultSet result = pre.executeQuery();
+            while (result.next()) {
+                User u = new User(result.getInt(1), result.getString(2),
+                        result.getString(3), result.getString(4),
+                        result.getInt(5), result.getString(6), result.getString(7)
+                        , result.getString(8), result.getInt(9));
+                return u;
+            }
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
+        return null;
+    }
     public User ChercherParUsername(String username) {
         try {
             PreparedStatement pre = cnx.prepareStatement("SELECT * FROM user where username = ?");

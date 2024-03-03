@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -98,7 +99,7 @@
                         <Font name="Comic Sans MS" size="18.0" />
                     </font>
                 </Text>
-            <Button layoutX="208.0" layoutY="593.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="91.0" style="-fx-background-color: #E68C3A;" text="//to do" textFill="WHITE">
+            <Button layoutX="261.0" layoutY="593.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="91.0" style="-fx-background-color: #E68C3A;" text="//to do" textFill="WHITE">
                <font>
                   <Font name="Candara" size="12.0" />
                </font>
@@ -123,6 +124,8 @@
                   </TableView>
                </children>
             </HBox>
+            <TextField fx:id="tfRecherche" layoutX="36.0" layoutY="58.0"  promptText="Recherche ....." />
+            <Button fx:id="btn_savefile" layoutX="44.0" layoutY="577.0" mnemonicParsing="false" onAction="#saveFile" prefHeight="30.0" prefWidth="176.0" text="Enregistrer dans un fichier txt" />
             </children>
         </AnchorPane>
     </right>
