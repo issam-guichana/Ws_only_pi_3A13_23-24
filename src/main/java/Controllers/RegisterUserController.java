@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class RegisterUserController implements Initializable {
@@ -74,10 +75,16 @@ public class RegisterUserController implements Initializable {
             return;
         }
         try {
+            // cryptage
+            String hashedPassword = BCrypt.hashpw(tfPassword.getText(), BCrypt.gensalt());
+
             User p = new User();
             p.setUsername(tfUsername.getText());
             p.setEmail(tfEmail.getText());
-            p.setMdp(tfPassword.getText());
+
+           // p.setMdp(tfPassword.getText());
+            p.setMdp(hashedPassword);
+
             p.setAge(Integer.parseInt(tfAge.getText()));
             p.setRole(cbRole.getText());
             p.setGender(cbGender.getValue());

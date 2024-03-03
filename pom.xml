@@ -50,7 +50,18 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
-        <!-- ************** PDF API depd ************** -->
+        <!-- ************** jbcrypt API depd ************** -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+        <!-- ************** webcam API depd ************** -->
+        <dependency>
+            <groupId>com.github.sarxos</groupId>
+            <artifactId>webcam-capture</artifactId>
+            <version>0.3.12</version>
+        </dependency>
 
 
     </dependencies>

@@ -4,28 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5dd2bfbf-845e-43cd-9782-8888c4bd3fa7" name="Changes" comment="interfaces tbar9ich">
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+    <list default="true" id="5dd2bfbf-845e-43cd-9782-8888c4bd3fa7" name="Changes" comment="Mailing API">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/AdminInterfaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/AdminInterfaceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ForgotPasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ForgotPasswordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/LoginUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/LoginUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/UserSettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/UserSettingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AdminInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminInterface.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/LoginUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/LoginUser.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/AdminInterface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/AdminInterface.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/AjouterUserFXML.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/AdminAddFormateurController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/AdminAddFormateurController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/RegisterUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/RegisterUserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/AdminInterfaceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/AdminInterfaceController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/DeleteProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/DeleteProfileController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/LoginUserController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/LoginUserController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/LoginUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/LoginUserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/RegisterUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/RegisterUserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/ResetPwdController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/ResetPwdController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/UpdateProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/UpdateProfileController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/UserSettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/UserSettingsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/LoginUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LoginUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +119,7 @@
       <workItem from="1708906442891" duration="9638000" />
       <workItem from="1708983557236" duration="46164000" />
       <workItem from="1709221348694" duration="18245000" />
-      <workItem from="1709295873353" duration="31571000" />
+      <workItem from="1709295873353" duration="42224000" />
     </task>
     <task id="LOCAL-00001" summary="CRUUUUUUUUD">
       <option name="closed" value="true" />
@@ -194,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709256370034</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Mailing API">
+      <option name="closed" value="true" />
+      <created>1709428091203</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1709428091203</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,7 +207,8 @@
     <MESSAGE value="zedet 3 attributs" />
     <MESSAGE value="User_Status" />
     <MESSAGE value="interfaces tbar9ich" />
-    <option name="LAST_COMMIT_MESSAGE" value="interfaces tbar9ich" />
+    <MESSAGE value="Mailing API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mailing API" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

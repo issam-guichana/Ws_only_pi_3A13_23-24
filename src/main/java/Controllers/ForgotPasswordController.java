@@ -85,6 +85,7 @@ public class ForgotPasswordController {
     private Message preparedMessage(Session session, String myAccountEmail, String recepient){
         String query2="select * from user where email=?";
         String userEmail="null" ;
+        String username="";
         String pass="empty";
         try {
             PreparedStatement smt = cnx.prepareStatement(query2);
@@ -92,13 +93,15 @@ public class ForgotPasswordController {
             ResultSet rs= smt.executeQuery();
             System.out.println(rs);
             if(rs.next()){
+                username=rs.getString("username");
                 pass=rs.getString("mdp");
-                userEmail=rs.getString("email");                }
+                userEmail=rs.getString("email");
+            }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         System.out.print("c est en cours");
-        String text="Votre mot de pass est :"+pass+"";
+        String text="Bonjour "+username+"\nVotre mot de pass est :"+pass+" ";
         String object ="Recupération de mot de passe";
         Message message = new MimeMessage(session);
         try{

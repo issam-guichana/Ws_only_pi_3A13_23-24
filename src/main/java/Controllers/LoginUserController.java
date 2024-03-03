@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginUserController implements Initializable {
 
@@ -55,54 +56,17 @@ public class LoginUserController implements Initializable {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String sql = "Select * from user where username = ? and mdp = ?";
+//        String sql = "Select * from user where username = ? and mdp = ?";
+        String sql = "Select * from user where username = ?";
+
         try{
             pst = cnx.prepareStatement(sql);
             pst.setString(1,tfUsername.getText());
-            pst.setString(2,tfPassword.getText());
+            //pst.setString(2,tfPassword.getText());
             rs = pst.executeQuery();
             UserService us = new UserService();
             User u = us.ChercherParUsername(tfUsername.getText());
-//****************systeme de suspension (suspendre fi wa9t mou3ayan) tsir wa9telli l mot de passe 8alet ************************
-            if (!tfPassword.getText().equals(u.getMdp())) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Compte introuvable");
-                alert.setHeaderText("Mot de passe incorrect");
-                alert.setContentText("Mot de passe incorrect \n nombre des essais : " + falsepassword);
-                alert.showAndWait();
-                falsepassword--;
-                if (falsepassword == 0) {
-                    bLogin.setDisable(true);
-                    java.util.Timer chrono = new java.util.Timer();
-                    chrono.schedule(new TimerTask() {
-                        int time = 60;
-                        @Override
-                        public void run() {
-                            passwordfalsemessage.setText("Compte Verrouillé , \n Réessayez dans " + time + "s");
-                            time--;
-                            if (time == 0) {
-                                bLogin.setDisable(false);
-                                passwordfalsemessage.setText("");
-                                chrono.cancel();
-                                falsepassword = 3;
-                            }
-                        }
-                    }, new Date(), 1000);
-                }
-                return;
-            }
-//*****************************************************************************************************
 
-            if (us.ChercherParUsername(tfUsername.getText()).getStatus() == 0){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("compte désactivé");
-                alert.setHeaderText("désolé");
-                alert.setContentText("Votre compte est désactivé, veuillez contacter l'administrateur");
-                alert.showAndWait();
-                Reset();
-                return;
-            }
-            // controle de saisie
             if (tfUsername.getText().compareTo("") == 0 || tfPassword.getText().compareTo("") == 0) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Un ou plusieurs champs sont manquants");
@@ -114,13 +78,55 @@ public class LoginUserController implements Initializable {
             if (us.ChercherParUsername(tfUsername.getText()) == null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Compte introuvable");
-                alert.setHeaderText("Votre nom d'utilisateur ou votre mot de passe sont introuvables");
+                alert.setHeaderText("Votre nom d'utilisateur est introuvables");
                 alert.setContentText("Vérifiez vos informations ou\nMerci de remplir notre formulaire d'inscription ");
                 alert.showAndWait();
                 return;
             }
-
             if (rs.next()) {
+                // controle de saisie
+             if (us.ChercherParUsername(tfUsername.getText()).getStatus() == 0){
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 alert.setTitle("compte désactivé");
+                 alert.setHeaderText("désolé");
+                 alert.setContentText("Votre compte est désactivé, veuillez contacter l'administrateur");
+                 alert.showAndWait();
+                 Reset();
+                 return;
+             }
+             //Cryptage
+             String hashedPassword = rs.getString("mdp");
+//****************systeme de suspension (suspendre fi wa9t mou3ayan) tsir wa9telli l mot de passe 8alet ************************
+             //  if (!tfPassword.getText().equals(u.getMdp())) {
+             if (!BCrypt.checkpw(tfPassword.getText(), hashedPassword)) {
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 alert.setTitle("Compte introuvable");
+                 alert.setHeaderText("Mot de passe incorrect");
+                 alert.setContentText("Mot de passe incorrect \n nombre des essais : " + falsepassword);
+                 alert.showAndWait();
+                 falsepassword--;
+                 if (falsepassword == 0) {
+                     bLogin.setDisable(true);
+                     java.util.Timer chrono = new java.util.Timer();
+                     chrono.schedule(new TimerTask() {
+                         int time = 60;
+                         @Override
+                         public void run() {
+                             passwordfalsemessage.setText("Compte Verrouillé , \n Réessayez dans " + time + "s");
+                             time--;
+                             if (time == 0) {
+                                 bLogin.setDisable(false);
+                                 passwordfalsemessage.setText("");
+                                 chrono.cancel();
+                                 falsepassword = 3;
+                             }
+                         }
+                     }, new Date(), 1000);
+                 }
+                 return;
+             }
+//*****************************************************************************************************
+        //  if (rs.next()) {
                 logged = rs.getInt("id_user");
                 String role = rs.getString("role");
 
@@ -190,5 +196,4 @@ public class LoginUserController implements Initializable {
         tfUsername.setText(null);
         tfPassword.setText(null);
     }
-
 }
