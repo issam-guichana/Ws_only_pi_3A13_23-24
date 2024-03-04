@@ -26,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.util.Pair;
 import models.Room;
+import models.user_formation;
 import services.Servicemessage;
 import services.Serviceroom;
 
@@ -124,7 +125,7 @@ public class DashbordadminFXML implements Initializable {
     @FXML
     void ajoutroom(ActionEvent event) throws SQLException {
         try {
-            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
                 String selectedNomForm = nomform.getValue();
 
                 // Prepare a statement to retrieve the id_form corresponding to the selected nom_form
@@ -141,20 +142,23 @@ public class DashbordadminFXML implements Initializable {
                     // Check if room name, description are not null or empty
                     if (nameroom.getText() != null && !nameroom.getText().isEmpty() && decsproom.getText() != null) {
                         // Check if the room name already exists for the selected formation_id
-                        PreparedStatement checkStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM room WHERE nom_room=? AND formation_id=?");
+                        PreparedStatement checkStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM room WHERE nom_room=? and status='Active'");
                         checkStatement.setString(1, nameroom.getText());
-                        checkStatement.setInt(2, idForm);
                         ResultSet checkResult = checkStatement.executeQuery();
 
                         if (checkResult.next()) {
                             int count = checkResult.getInt("count");
                             if (count == 0) {
+
                                 // Create the Room object with the retrieved id_form
-                                Room r = new Room(nameroom.getText(), idForm, decsproom.getText());
+                                Room r = new Room(nameroom.getText(),decsproom.getText());
+                                user_formation uf= new user_formation(idForm,r.getId_room());
+
+
 
                                 // Call the service to insert the room
                                 Serviceroom sp = new Serviceroom();
-                                sp.InsertOne(r);
+                                sp.InsertOne(r,uf);
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
                                 alert.setTitle("Espace crée !");
@@ -299,7 +303,7 @@ public class DashbordadminFXML implements Initializable {
 
     public void dispalyallrooms() {
         try
-                (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")){
+                (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")){
             Statement statement = connection.createStatement();
             // Retrieve data from the 'formation' table
             ResultSet resultSet = statement.executeQuery("SELECT `nom_form` FROM `formation`");
@@ -318,12 +322,12 @@ public class DashbordadminFXML implements Initializable {
         Serviceroom sm = new Serviceroom();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "");
             Statement statement = connection.createStatement();
 
             // Retrieve data from the 'user' table
             ResultSet resultSet = statement
-                    .executeQuery("select r.id_room,r.nom_room,f.nom_form,r.date_c_room,r.description from room r Join formation f ON r.formation_id=f.id_form and r.status='Active' ;");
+                    .executeQuery("SELECT DISTINCT r.id_room, r.nom_room, f.nom_form, r.date_c_room, r.description FROM user_formation uf JOIN room r ON r.id_room = uf.room_id AND r.status = 'Active' JOIN formation f ON uf.form_id = f.id_form;");
 
             //join user u ON f.user_id=u.id_user and u.role='formateur'
             ObservableList<ObservableList<String>> oblist = FXCollections.observableArrayList();

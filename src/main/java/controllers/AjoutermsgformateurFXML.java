@@ -16,20 +16,28 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Message;
 import services.Servicemessage;
+import utils.DBConnection;
 
 import javax.swing.*;
 
 public class AjoutermsgformateurFXML implements Initializable {
-
+    private Connection cnx ;
+    private Stage primaryStage;
     @FXML
     private ResourceBundle resources;
 
@@ -57,7 +65,8 @@ public class AjoutermsgformateurFXML implements Initializable {
     private ListView<?> nom_room;
     @FXML
     private Button selectimage;
-  @FXML private TextArea textarea;
+    @FXML
+    private TextArea textarea;
     @FXML
     private TextField sendmsg;
 
@@ -69,6 +78,8 @@ public class AjoutermsgformateurFXML implements Initializable {
     @FXML
     private FileInputStream fis;
     private HashMap<String, Integer> roomFormationMap = new HashMap<>();
+
+
 
 
     private boolean processMessage(Message msg, String filePath) {
@@ -108,6 +119,7 @@ public class AjoutermsgformateurFXML implements Initializable {
         Servicemessage sp = new Servicemessage();
         sp.InsertOne(msg);
     }
+
     @FXML
     public void addb3(javafx.event.ActionEvent event) {
         String selectedRoom = "";
@@ -147,21 +159,10 @@ public class AjoutermsgformateurFXML implements Initializable {
             // You can show an alert or perform other error handling here
         }
     }
+
     @FXML
     public void addimage(javafx.event.ActionEvent event) {
         try {
-            URL url = new URL("http://localhost/image_pi/image_uploa.php");
-
-            // Open connection
-            HttpURLConnection connectionbase = (HttpURLConnection) url.openConnection();
-
-            // Set request method
-            connectionbase.setRequestMethod("POST");
-            connectionbase.setDoOutput(true);
-
-            // Specify content type
-            connectionbase.setRequestProperty("Content-Type", "application/octet-stream");
-
             Node sourceNode = (Node) event.getSource();
             Stage primaryStage = (Stage) sourceNode.getScene().getWindow();
 
@@ -173,13 +174,9 @@ public class AjoutermsgformateurFXML implements Initializable {
 
             if (selectedFile != null) {
                 System.out.println("Fichier sélectionné: " + selectedFile.getAbsolutePath());
-                // Assuming you have a TextArea named 'textarea' in your FXML file
-                // textarea.setText(selectedFile.getAbsolutePath());
 
-                // Get the selected room
                 String selectedRoom = selectroom.getValue();
                 if (selectedRoom == null || selectedRoom.isEmpty()) {
-                    // Handle case where no room is selected
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Espace non sélectionné");
                     alert.setContentText("Vous devez choisir un espace d'abord !");
@@ -190,29 +187,22 @@ public class AjoutermsgformateurFXML implements Initializable {
                 try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "");
                      PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_room` FROM `room` WHERE `nom_room` = ?")) {
 
-                    // Prepare statement to retrieve the id of the selected room
                     preparedStatement.setString(1, selectedRoom);
 
-                    // Execute the query to retrieve the id of the selected room
                     try (ResultSet resultSet = preparedStatement.executeQuery()) {
                         if (resultSet.next()) {
                             int roomId = resultSet.getInt("id_room");
 
-                            // Insert the message with the image into the database
                             try (FileInputStream fis = new FileInputStream(selectedFile)) {
-
                                 byte[] imageData = fis.readAllBytes();
-                                // Assuming you have a method to insert image with message into the database
-                                Message msg = new Message(roomId,imageData);
-                                Servicemessage sm=new Servicemessage();
+                                Message msg = new Message(roomId, imageData);
+                                Servicemessage sm = new Servicemessage();
                                 sm.Insertwithimage(msg, imageData);
                                 System.out.println("Message with image inserted into the database successfully!");
                             } catch (IOException e) {
                                 e.printStackTrace();
-                                // Handle file not found exception
                             }
                         } else {
-                            // Handle case where no room with the selected name is found
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Espace introuvable");
                             alert.setContentText("L'espace sélectionné n'existe pas !");
@@ -221,7 +211,6 @@ public class AjoutermsgformateurFXML implements Initializable {
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    // Handle database connection or query execution error
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -229,14 +218,67 @@ public class AjoutermsgformateurFXML implements Initializable {
                 alert.show();
                 System.out.println("Aucun fichier sélectionné");
             }
-
-            // Close connection
-            connectionbase.disconnect();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            // Handle URL connection error
         }
     }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+
+    @FXML
+    public void useemojis(javafx.event.ActionEvent event) {
+        // Create a list of emojis
+
+
+
+        ObservableList<String> emojis = FXCollections.observableArrayList(
+              "", // Add an empty string as the first item to allow deselecting emojis
+        "\uD83D\uDE00", // Grinning face
+         "\uD83D\uDE01", // Grinning face with smiling eyes
+           "\uD83D\uDE02" // Face with tears of joy
+        );
+
+        // Create a ListView to display the emojis
+
+         ListView<String> emojiListView = new ListView<>(emojis);
+
+        // Set the preferred height of each item in the ListView to make emojis more visible
+        emojiListView.setFixedCellSize(40);
+        emojiListView.setCellFactory(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    setTextFill(Color.BLUE); // Set text color to red
+                }
+            }
+        });
+
+        // Handle emoji selection
+        emojiListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Do something with the selected emoji (newValue)
+            System.out.println("Selected emoji: " + newValue);
+
+            sendmsg.appendText(newValue);
+
+
+        });
+        // Get the source node
+        Node sourceNode = (Node) event.getSource();
+
+        // Get the parent of the source node (which is an AnchorPane)
+        AnchorPane parent = (AnchorPane) sourceNode.getParent();
+
+        // Add the ListView to the existing layout
+        parent.getChildren().add(emojiListView);
+    }
+
 
 
 
@@ -298,7 +340,7 @@ public class AjoutermsgformateurFXML implements Initializable {
 
             //selectedRoom = roomid.getValue();
             selectedRoom = selectroom.getValue();
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "");
 
             // Prepare statement to retrieve the id of the selected room
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_room` FROM `room` WHERE `nom_room` = ?");
@@ -340,7 +382,7 @@ public class AjoutermsgformateurFXML implements Initializable {
             //selectedRoom = roomid.getValue();
             selectedRoom = selectroom.getValue();
             // Establish connection to the database
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "");
 
             // Prepare statement to retrieve the id of the selected room
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_room` FROM `room` WHERE `nom_room` = ?");
@@ -355,7 +397,7 @@ public class AjoutermsgformateurFXML implements Initializable {
 
                 if (!sendmsg.getText().trim().isEmpty()){
                 int roomId = resultSet.getInt("id_room");
-
+                   // String messageText = sendmsg.getText();
                     Message p = new Message(sendmsg.getText(), roomId);
                     String filePath = "src/main/java/controllers/bad_words.txt";
                     boolean containsBadWords = processMessage(p, filePath);
@@ -416,7 +458,10 @@ public class AjoutermsgformateurFXML implements Initializable {
     public void initial () {
         HashMap<String, Integer> roomFormationMap = new HashMap<>();
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
+
+
+        // Liste des rooms eli il appartient lihom
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT `nom_room`, `id_room` FROM `room`");
             ObservableList<String> nomformationList = FXCollections.observableArrayList();
@@ -440,17 +485,25 @@ public class AjoutermsgformateurFXML implements Initializable {
             String selectedNomFormation = selectroom.getSelectionModel().getSelectedItem();
             System.out.println(selectedNomFormation);
             if (selectedNomFormation != null) {
-                try (Connection connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
+              //  try (Connection connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
                     // Query to retrieve the formation_id based on the selected nom_room
-                    PreparedStatement preparedStatement3 = connection3.prepareStatement("SELECT formation_id FROM room WHERE nom_room = ?");
-                    preparedStatement3.setString(1, selectedNomFormation);
-                    ResultSet resultSet3 = preparedStatement3.executeQuery();
-                    if (resultSet3.next()) {
-                        int formationId = resultSet3.getInt("formation_id");
-                        System.out.println("Formation id found for selected room: " + formationId);
-                        try (Connection connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
-                            PreparedStatement preparedStatement2 = connection2.prepareStatement("SELECT u.username FROM user u JOIN formation f ON u.id_user = f.user_id WHERE f.id_form = ?");
-                            preparedStatement2.setInt(1, formationId);
+                  //  PreparedStatement preparedStatement3 = connection3.prepareStatement("SELECT formation_id FROM room WHERE nom_room = ?");
+                   // preparedStatement3.setString(1, selectedNomFormation);
+                    //ResultSet resultSet3 = preparedStatement3.executeQuery();
+                    //if (resultSet3.next()) {
+                      //  int formationId = resultSet3.getInt("formation_id");
+                       // System.out.println("Formation id found for selected room: " + formationId);
+                        // change in the integration
+
+                        try (Connection connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
+                            PreparedStatement preparedStatement2 = connection2.prepareStatement("\n" +
+                                    " SELECT DISTINCT (u.username)\n" +
+                                    " FROM user u\n" +
+                                    " JOIN user_formation uf ON uf.user_id = u.id_user \n" +
+                                    " JOIN room r ON uf.room_id=r.id_room WHERE r.nom_room = ?;");
+
+                            //SELECT u.username FROM user u JOIN user_formation uf1 ON u.id_user = uf1.user_id JOIN user_formation uf2 ON uf1.form_id = uf2.form_id JOIN formation f ON uf2.form_id = f.id_form WHERE f.id_form = ?;
+                            preparedStatement2.setString(1, selectedNomFormation);
                             ResultSet resultSet2 = preparedStatement2.executeQuery();
                             ObservableList<String> Listparti = FXCollections.observableArrayList();
                             while (resultSet2.next()) {
@@ -464,7 +517,9 @@ public class AjoutermsgformateurFXML implements Initializable {
                             if (roomFormationMap.containsKey(selectedNomFormation)) {
                                 int roomId = roomFormationMap.get(selectedNomFormation);
                                 System.out.println(roomId);
-                                try (PreparedStatement preparedStatement4 = connection3.prepareStatement("SELECT `contenu`, `sender_msg` FROM `message` WHERE room_id=? and status='Active'")) {
+                                try (  Connection connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
+                                        PreparedStatement preparedStatement4 = connection3.prepareStatement("SELECT `contenu`, `sender_msg` FROM `message` WHERE room_id=? and status='Active'") ;
+                                    {
                                     preparedStatement4.setInt(1, roomId);
                                     ResultSet resultSet4 = preparedStatement4.executeQuery();
                                     //ObservableList<Message> messageList = FXCollections.observableArrayList();
@@ -501,17 +556,17 @@ public class AjoutermsgformateurFXML implements Initializable {
                                     listmsg.setItems(contenuList);
                                     // listmsg.setItems(messageList);
                                 }
-                            } else {
-                                System.out.println("No message found for selected room: " + selectedNomFormation);
+                          //  } else {
+                              //  System.out.println("No message found for selected room: " + selectedNomFormation);
                                 // Handle the situation where the room ID is not found
                             }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                       // } catch (SQLException e) {
+                         //   e.printStackTrace();
                             // Handle SQL exception
                             // You might want to show an error message to the user here
-                        }
-                    } else {
-                        System.out.println("No formation found for selected room: " + selectedNomFormation);
+
+                            } else {
+                     System.out.println("No formation found for selected room: " + selectedNomFormation);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

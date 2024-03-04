@@ -212,6 +212,7 @@
       </Button>
       <TextFlow layoutX="508.0" layoutY="142.0" prefHeight="200.0" prefWidth="200.0" />
       <Button fx:id="selectimage" layoutX="1056.0" layoutY="557.0" mnemonicParsing="false" onAction="#addimage" text="Addimage" />
-      <TextArea fx:id="textarea" layoutX="576.0" layoutY="342.0" prefHeight="115.0" prefWidth="117.0" />
+      <TextArea fx:id="textarea" layoutX="583.0" layoutY="405.0" prefHeight="115.0" prefWidth="117.0" />
+      <Button layoutX="994.0" layoutY="557.0" mnemonicParsing="false" onAction="#useemojis" text="Emojis" />
     </children>
 </AnchorPane>

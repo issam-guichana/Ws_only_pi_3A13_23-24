@@ -1,5 +1,6 @@
 package test;
 
+import com.vdurmont.emoji.EmojiParser;
 import models.Message;
 import models.Room;
 import services.Servicemessage;
@@ -15,7 +16,9 @@ public class Mainclass {
 
         Message m = new Message();
         Room r=new Room();
-
+        String message = "Hello! 😊 This is a message with emojis! 🎉";
+        String parsedMessage = EmojiParser.parseToUnicode(message);
+        System.out.println(parsedMessage);
 
         int id_message_a_modifier = 15; // ID du message à mettre à jour
         String nouveau_contenu = "Nouveau contenu du message";

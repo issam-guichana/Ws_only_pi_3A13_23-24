@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import models.Room;
+import models.user_formation;
 import services.Serviceroom;
 
 public class Ajoutroomformateur implements Initializable {
@@ -34,7 +35,7 @@ public class Ajoutroomformateur implements Initializable {
     @FXML
     void ajoutroom(ActionEvent event) throws SQLException {
         try {
-            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
                 String selectedNomForm = nmform.getValue();
 
                 // Prepare a statement to retrieve the id_form corresponding to the selected nom_form
@@ -51,20 +52,20 @@ public class Ajoutroomformateur implements Initializable {
                     // Check if nomroom is not null
                     if (namesapce.getText() != null && !namesapce.getText().isEmpty() && desc.getText() != null) {
                         // Check if the room name already exists for the selected formation_id
-                        PreparedStatement checkStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM room WHERE nom_room=? AND formation_id=?");
+                        PreparedStatement checkStatement = connection.prepareStatement("SELECT COUNT(*) AS count FROM room WHERE nom_room=? and status='Active' ");
                         checkStatement.setString(1, namesapce.getText());
-                        checkStatement.setInt(2, idForm);
+                      //  checkStatement.setInt(2, idForm);
                         ResultSet checkResult = checkStatement.executeQuery();
 
                         if (checkResult.next()) {
                             int count = checkResult.getInt("count");
                             if (count == 0) {
                                 // Create the Room object with the retrieved id_form
-                                Room r = new Room(namesapce.getText(), idForm, desc.getText());
-
+                                Room r = new Room(namesapce.getText(), desc.getText());
+                                user_formation uf =new user_formation(idForm,r.getId_room());
                                 // Call the service to insert the room
                                 Serviceroom sp = new Serviceroom();
-                                sp.InsertOne(r);
+                                sp.InsertOne(r,uf);
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
                                 alert.setTitle("Espace crée !");
@@ -112,7 +113,7 @@ public class Ajoutroomformateur implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try
-                (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")){
+                (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")){
             Statement statement = connection.createStatement();
             // Retrieve data from the 'formation' table
             ResultSet resultSet = statement.executeQuery("SELECT `nom_form` FROM `formation`");

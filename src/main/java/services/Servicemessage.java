@@ -32,8 +32,9 @@ public class Servicemessage implements CRUD<Message> {
            // preparedStatement.setString(1, msg.getContenu());
             // preparedStatement.setString(2, msg.getSender());
             preparedStatement.setInt(1, msg.getId_room());
-             preparedStatement.setBinaryStream(2,new ByteArrayInputStream(imageData));
-
+            preparedStatement.setBlob(2, new ByteArrayInputStream(imageData));
+            // preparedStatement.setBinaryStream(2,new ByteArrayInputStream(imageData));
+         //   preparedStatement.setBlob(2,);
             // Execute the update
             preparedStatement.executeUpdate();
 

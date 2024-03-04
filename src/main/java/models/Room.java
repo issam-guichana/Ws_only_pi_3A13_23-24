@@ -37,6 +37,11 @@ public class Room {
         this.description=description;
     }
 
+    public Room(String nom_room, String description) {
+        this.nom_room= nom_room;
+
+        this.description=description;
+    }
 
 
     public int getId_room() {
@@ -86,4 +91,7 @@ public class Room {
         this.date_c_creation = date_c_creation;
     }
 
+    public String getNom_room() {
+        return  nom_room;
+    }
 }

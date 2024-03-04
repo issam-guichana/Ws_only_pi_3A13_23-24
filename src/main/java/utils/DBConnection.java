@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 
 public class DBConnection {
-    public static final String URL="jdbc:mysql://localhost:3306/formini.tn1";
+    public static final String URL="jdbc:mysql://localhost:3306/formini.tn2";
     public static final String USER="root";
     public static final String PASSWORD="";
     private Connection cnx;

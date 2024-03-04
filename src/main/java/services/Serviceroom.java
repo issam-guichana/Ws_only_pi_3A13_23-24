@@ -2,6 +2,7 @@ package services;
 
 import models.Message;
 import models.Room;
+import models.user_formation;
 import utils.DBConnection;
 
 import java.sql.*;
@@ -16,22 +17,43 @@ public class Serviceroom implements CRUD<Room> {
 
         cnx = DBConnection.getInstance().getCnx();
     }
-    public void InsertOne(Room room) throws SQLException {
-        String req = "INSERT INTO `room` (`nom_room`,`formation_id`,`description`) VALUES (?,?,?)";
-        PreparedStatement ps = cnx.prepareStatement(req);
+    public void InsertOne(Room room, user_formation uf) throws SQLException {
+        String roomInsertQuery = "INSERT INTO `room` (`nom_room`, `description`) VALUES (?, ?)";
+        String userFormationInsertQuery = "INSERT INTO `user_formation` (`user_id`, `form_id`, `room_id`) VALUES (1, ?, ?)";
 
-        //  ps.setInt(1, room.getId_room());
-        ps.setString(1, room.getNom_room(""));
-        ps.setInt(2, room.getFormation_id());
-        ps.setString(3, room.getDescription());
+        try (PreparedStatement roomPs = cnx.prepareStatement(roomInsertQuery, Statement.RETURN_GENERATED_KEYS);
 
-        //  ps.setString(2, msg.getContenu());
+             PreparedStatement ufPs = cnx.prepareStatement(userFormationInsertQuery)) {
 
-        ps.executeUpdate(); // Exécuter la requête
+            roomPs.setString(1, room.getNom_room(""));
+            roomPs.setString(2, room.getDescription());
+            roomPs.executeUpdate(); // Execute the room insert query
 
-        // Fermez la PreparedStatement après utilisation.
-        ps.close();
+            ResultSet generatedKeys = roomPs.getGeneratedKeys();
+            int roomId;
+            if (generatedKeys.next()) {
+                roomId = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Failed to retrieve generated room ID.");
+            }
+
+            ufPs.setInt(1, uf.getForm_id());
+            ufPs.setInt(2, roomId);
+            ufPs.executeUpdate(); // Execute the user_formation insert query
+
+        } catch (SQLException e) {
+            // Handle any SQL errors
+            e.printStackTrace();
+            throw e; // Re-throw the exception to be handled by the caller
+        }
     }
+
+
+    @Override
+    public void InsertOne(Room room) throws SQLException {
+
+    }
+
     public List<Room> SelectAll() throws SQLException {
         List<Room> roomList = new ArrayList<>();
 
