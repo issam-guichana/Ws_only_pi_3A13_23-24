@@ -30,7 +30,7 @@ public class ServiceCertificat implements CRUD<Certificat> {
 
     @Override
     public void updateOne(Certificat certificat) throws SQLException {
-        String query = "UPDATE `certificat` SET `nom_certif`=?, `date_certif`=?, `formation_id`=? WHERE `id`=?";
+        String query = "UPDATE `certificat` SET `nom_certif`=?, `date_certif`=?, `formation_id`=? WHERE `id_certif`=?";
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
             ps.setString(1, certificat.getNomCertif());
             ps.setDate(2, certificat.getDateCertif());
@@ -59,7 +59,7 @@ public class ServiceCertificat implements CRUD<Certificat> {
              ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
                 Certificat certificat = new Certificat();
-                certificat.setId(rs.getInt("id"));
+                certificat.setId(rs.getInt("id_certif"));
                 certificat.setNomCertif(rs.getString("nom_certif"));
                 certificat.setDateCertif(rs.getDate("date_certif"));
                 certificat.setFormationId(rs.getInt("formation_id"));

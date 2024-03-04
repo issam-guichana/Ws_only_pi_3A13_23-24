@@ -34,7 +34,7 @@
 
 
 
-            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Utilisateurs" textFill="WHITE">
+            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Utilisateurs" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -64,7 +64,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="idbtnform" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Formations" textFill="WHITE">
+            <Button fx:id="idbtnform" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Formations" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -173,7 +173,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="123.0" prefWidth="167.0">
                                  <children>
-                                    <Label prefHeight="63.0" prefWidth="116.0" text="Bronze" textFill="#2a73ff">
+                                    <Label fx:id="lblTotalBadges" prefHeight="63.0" prefWidth="32.0" textFill="#2a73ff">
                                        <font>
                                           <Font name="System Bold" size="26.0" />
                                        </font>
@@ -183,7 +183,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="123.0" prefWidth="161.0">
                                  <children>
-                                    <Label text="3" textFill="#26bfbc">
+                                    <Label fx:id="lblMostAttributedBadge" prefHeight="58.0" prefWidth="66.0" textFill="#26bfbc">
                                        <font>
                                           <Font name="System Bold" size="26.0" />
                                        </font>
@@ -191,19 +191,9 @@
                                     <Label text="Top Badges" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="123.0" prefWidth="124.0">
-                                 <children>
-                                    <Label text="0" textFill="#fa5f7e">
-                                       <font>
-                                          <Font name="System Bold" size="26.0" />
-                                       </font>
-                                    </Label>
-                                    <Label prefHeight="17.0" prefWidth="80.0" text="Top Trainig" textFill="#141414" />
-                                 </children>
-                              </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label text="0" textFill="#de0000">
+                                    <Label prefHeight="55.0" prefWidth="16.0" text="0" textFill="#de0000">
                                        <font>
                                           <Font name="System Bold" size="26.0" />
                                        </font>
@@ -231,12 +221,12 @@
                               </Button>
                            </children>
                         </HBox>
-                        <VBox layoutX="40.0" layoutY="309.0" prefHeight="294.0" prefWidth="713.0">
+                        <VBox layoutX="40.0" layoutY="309.0" prefHeight="329.0" prefWidth="768.0">
                            <children>
-                              <TableView fx:id="tabbadge" prefHeight="343.0" prefWidth="713.0" stylesheets="@style.css">
+                              <TableView fx:id="tabbadge" prefHeight="319.0" prefWidth="759.0" stylesheets="@style.css">
                                  <columns>
-                                    <TableColumn fx:id="colnom" prefWidth="183.0" text="Nom" />
-                                    <TableColumn fx:id="coltype" prefWidth="123.0" text="Type" />
+                                    <TableColumn fx:id="colnom" prefWidth="335.0" text="Nom" />
+                                    <TableColumn fx:id="coltype" prefWidth="196.0" text="Type" />
                                  </columns>
                               </TableView>
                            </children>

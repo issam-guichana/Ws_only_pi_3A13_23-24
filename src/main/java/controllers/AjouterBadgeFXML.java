@@ -36,7 +36,16 @@ public class AjouterBadgeFXML {
     private Button idajouter;
 
     @FXML
+    private Label lblTotalBadges;
+
+
+    @FXML
+    private Label lblMostAttributedBadge;
+
+    @FXML
     private TableView<Badge> tabbadge;
+
+
 
     public void displayAllBadgesInTableView() {
         colnom.setCellValueFactory(new PropertyValueFactory<>("nomBadge"));
@@ -282,7 +291,20 @@ public class AjouterBadgeFXML {
         displayAllBadgesInTableView();
         setupButtonColumns();
 
+        try {
+            // Calculate total badges
+            ServiceBadge serviceBadge = new ServiceBadge();
+            int totalBadges = serviceBadge.countTotalBadges();
+
+            // Set the total badges count to the label
+            lblTotalBadges.setText(String.valueOf(totalBadges));
+            String mostAttributedBadge = serviceBadge.findMostAttributedBadge();
+            lblMostAttributedBadge.setText(mostAttributedBadge);
+        } catch (SQLException e) {
+            System.err.println("Erreur lors du calcul du nombre total de badges : " + e.getMessage());
+        }
     }
+
 
     @FXML
     void accederCertif(ActionEvent event) {

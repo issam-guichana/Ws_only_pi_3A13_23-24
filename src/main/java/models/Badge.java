@@ -5,7 +5,7 @@ public class Badge {
     private int idBadge;
     private String nomBadge;
     private String type;
-    private int formationId; // Foreign key
+
 
     // Constructors
     public Badge() {
@@ -20,7 +20,7 @@ public class Badge {
         this.idBadge = idBadge;
         this.nomBadge = nomBadge;
         this.type = type;
-        this.formationId = formationId;
+
     }
 
     // Getters and setters
@@ -48,13 +48,7 @@ public class Badge {
         this.type = type;
     }
 
-    public int getFormationId() {
-        return formationId;
-    }
 
-    public void setFormationId(int formationId) {
-        this.formationId = formationId;
-    }
 
 
     @Override
@@ -63,7 +57,7 @@ public class Badge {
                 "idBadge=" + idBadge +
                 ", nomBadge='" + nomBadge + '\'' +
                 ", type='" + type + '\'' +
-                ", formationId=" + formationId +
+
                 '}';
     }
 
