@@ -44,6 +44,7 @@
             <version>9.0.10</version>
         </dependency>
 
+
         <!-- ************** JAVA MAIL API depd ************** -->
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -62,9 +63,21 @@
             <artifactId>webcam-capture</artifactId>
             <version>0.3.12</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version> <!-- Use the latest version -->
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.32</version> <!-- Use the latest version -->
+        </dependency>
+        
 
 
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

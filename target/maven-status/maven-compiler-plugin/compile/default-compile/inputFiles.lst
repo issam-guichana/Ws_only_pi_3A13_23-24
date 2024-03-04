@@ -1,11 +1,13 @@
 C:\Users\issam\Desktop\pidev\src\main\java\Controllers\RegisterUserController.java
 C:\Users\issam\Desktop\pidev\src\main\java\utils\DBconnection.java
+C:\Users\issam\Desktop\pidev\src\main\java\Controllers\ForgotPasswordController.java
 C:\Users\issam\Desktop\pidev\src\main\java\test\FxMain.java
 C:\Users\issam\Desktop\pidev\src\main\java\test\MainClass.java
 C:\Users\issam\Desktop\pidev\src\main\java\Controllers\AdminInterfaceController.java
 C:\Users\issam\Desktop\pidev\src\main\java\Controllers\DeleteProfileController.java
 C:\Users\issam\Desktop\pidev\src\main\java\Controllers\ResetPwdController.java
 C:\Users\issam\Desktop\pidev\src\main\java\services\UserService.java
+C:\Users\issam\Desktop\pidev\src\main\java\Controllers\WebcamInterfaceController.java
 C:\Users\issam\Desktop\pidev\src\main\java\services\CRUD.java
 C:\Users\issam\Desktop\pidev\src\main\java\Controllers\AdminAddFormateurController.java
 C:\Users\issam\Desktop\pidev\src\main\java\Controllers\AdminMainInterfaceController.java

@@ -6,25 +6,42 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import models.User;
 import services.UserService;
 import utils.DBconnection;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//************
 import org.mindrot.jbcrypt.BCrypt;
+//************
+import javafx.scene.image.ImageView;
+import com.github.sarxos.webcam.Webcam;
+
 
 public class LoginUserController implements Initializable {
+
+    @FXML
+    private ImageView imageView;
+    private Webcam webcam;
+
 
     @FXML
     private TextField tfUsername;
@@ -44,6 +61,9 @@ public class LoginUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialize the webcam
+        webcam = Webcam.getDefault();
+        webcam.setViewSize(webcam.getViewSizes()[0]);
 
     }
 
@@ -106,13 +126,18 @@ public class LoginUserController implements Initializable {
                  alert.showAndWait();
                  falsepassword--;
                  if (falsepassword == 0) {
+                     //take photo
+                     webcam.open();
+                     capturePhoto();
+                     closeWebcam();
+
                      bLogin.setDisable(true);
                      java.util.Timer chrono = new java.util.Timer();
                      chrono.schedule(new TimerTask() {
                          int time = 60;
                          @Override
                          public void run() {
-                             passwordfalsemessage.setText("Compte Verrouillé , \n Réessayez dans " + time + "s");
+                             passwordfalsemessage.setText("Compte Verrouillé  \n Réessayez dans " + time + "s");
                              time--;
                              if (time == 0) {
                                  bLogin.setDisable(false);
@@ -126,7 +151,6 @@ public class LoginUserController implements Initializable {
                  return;
              }
 //*****************************************************************************************************
-        //  if (rs.next()) {
                 logged = rs.getInt("id_user");
                 String role = rs.getString("role");
 
@@ -195,5 +219,42 @@ public class LoginUserController implements Initializable {
     private void Reset(){
         tfUsername.setText(null);
         tfPassword.setText(null);
+    }
+
+    //******************** Take photo when False password **************************
+    private void capturePhoto() {
+        // Capture photo from the webcam
+        BufferedImage bufferedImage = webcam.getImage();
+        // Get Username
+        String username = tfUsername.getText() ;
+        // Generate a filename based on current timestamp
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+        String timestamp = dateFormat.format(new Date());
+        String filename = "C:/Users/issam/Desktop/pi photos/"+username+"_"+timestamp+".png";
+        // Save the captured image to a file
+        File output = new File(filename);
+        try {
+            ImageIO.write(bufferedImage, "png", output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Load the captured image into a JavaFX Image object
+        Image fxImage = convertToFxImage(bufferedImage);
+
+        // Display the captured photo in the ImageView
+        imageView.setImage(fxImage);
+    }
+    private Image convertToFxImage(BufferedImage bufferedImage) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bufferedImage, "png", outputStream);
+            return new Image(new ByteArrayInputStream(outputStream.toByteArray()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private void closeWebcam() {
+        webcam.close();
     }
 }

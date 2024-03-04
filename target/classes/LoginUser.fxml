@@ -21,6 +21,7 @@
                   <Image url="@../../../../../../../img/logo.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="imageView" fitHeight="274.0" fitWidth="456.0" layoutX="18.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" visible="false" />
          </children>
       </AnchorPane>
    </left>
@@ -49,7 +50,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fx:id="passwordfalsemessage" layoutX="227.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="passwordfalsemessage" layoutX="218.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
       </AnchorPane>
    </right>
