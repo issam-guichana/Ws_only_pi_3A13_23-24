@@ -17,6 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane prefHeight="550.0" prefWidth="964.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterQuestion">
    <children>
       <HBox layoutX="498.0" layoutY="7.0" prefHeight="45.0" prefWidth="200.0" styleClass="quiz-add-container">
@@ -36,7 +37,7 @@
             </Text>
          </children>
       </HBox>
-      <VBox layoutX="283.0" layoutY="382.0" prefHeight="227.0" prefWidth="615.0" styleClass="quiz-add-container">
+      <VBox layoutX="283.0" layoutY="382.0" prefHeight="164.0" prefWidth="615.0" styleClass="quiz-add-container">
          <effect>
             <DropShadow height="18.07" radius="12.1975" width="32.72">
                <color>
@@ -68,109 +69,147 @@
       <TextField fx:id="choix4" layoutX="509.0" layoutY="284.0" prefHeight="25.0" prefWidth="164.0" promptText="Option 4..." styleClass="text-field" />
       <ChoiceBox fx:id="idbr" layoutX="523.0" layoutY="330.0" prefWidth="150.0" />
       <TextArea fx:id="idenonce" layoutX="360.0" layoutY="84.0" prefHeight="38.0" prefWidth="515.0" promptText="Enonce..." styleClass="text-field" />
-      <TableView fx:id="questTab" layoutX="300.0" layoutY="393.0" prefHeight="207.0" prefWidth="583.0" stylesheets="@css/styles.css">
+      <TableView fx:id="questTab" layoutX="300.0" layoutY="393.0" prefHeight="143.0" prefWidth="583.0" stylesheets="@css/styles.css">
         <columns>
           <TableColumn fx:id="colQuest" prefWidth="405.0" text="Questions" />
         </columns>
       </TableView>
-      <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="253.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="177.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="86.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/logo-removebg-preview.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" top="50.0" />
                </VBox.margin></ImageView>
-            <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Users" textFill="#e7e5e5">
+
+            <Label alignment="CENTER" prefHeight="52.0" prefWidth="218.0" style="-fx-background-color: white; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Bienvenue Admin" textFill="#213e60">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font></Label>
+
+
+
+            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Utilisateurs" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_Person_32px.png" />
+                        <Image url="@img/utilisateur.png" />
                      </image>
                   </ImageView>
                </graphic>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
                <padding>
                   <Insets left="50.0" />
                </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Events" textFill="WHITE">
+            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Evénements" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_Open_Envelope_32px.png" />
+                        <Image url="@img/calendrier.png" />
                      </image>
                   </ImageView>
                </graphic>
                <padding>
                   <Insets left="50.0" />
                </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Training" textFill="WHITE">
+            <Button fx:id="idbtnform" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Formations" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_Box_32px.png" />
+                        <Image url="@img/casquette-de-graduation.png" />
                      </image>
                   </ImageView>
                </graphic>
                <padding>
                   <Insets left="50.0" />
                </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Certificats" textFill="WHITE">
+            <Button fx:id="idbtncertif" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Certificats" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_Xbox_Menu_32px.png" />
+                        <Image url="@img/document.png" />
                      </image>
                   </ImageView>
                </graphic>
                <padding>
                   <Insets left="50.0" />
                </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Badges" textFill="WHITE">
+            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Badges" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_Slider__32px.png" />
+                        <Image url="@img/bouclier-verifier.png" />
                      </image>
                   </ImageView>
                </graphic>
                <padding>
                   <Insets left="50.0" />
                </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Quiz" textFill="WHITE">
+            <Button fx:id="btnQuiz" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#accederQuiz" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Quiz" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_Search_52px.png" />
+                        <Image url="@img/editer.png" />
                      </image>
                   </ImageView>
                </graphic>
                <padding>
                   <Insets left="50.0" />
                </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
-            <Button fx:id="btnSettings1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="signout" textFill="WHITE">
+            <Button fx:id="btnSettings111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Discussion" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_Sign_Out_32px.png" />
+                        <Image url="@img/commentaire.png" />
                      </image>
                   </ImageView>
                </graphic>
                <padding>
                   <Insets left="50.0" />
                </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSettings11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@css/styles.css" text="Se déconnecter" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/connexion-alt.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
          </children>
       </VBox>
@@ -365,7 +404,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Button fx:id="btnadd1" layoutX="910.0" layoutY="6.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="27.0" styleClass="button-add">
+      <Button fx:id="goBackBtn" layoutX="910.0" layoutY="6.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="27.0" styleClass="button-add">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>

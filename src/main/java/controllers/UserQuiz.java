@@ -2,8 +2,12 @@ package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -14,9 +18,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -24,10 +30,12 @@ import javafx.scene.text.Text;
 import models.Quiz;
 import services.ServiceQuiz;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserQuiz {
+
     @FXML
     private Button btnCustomers;
 
@@ -68,9 +76,11 @@ public class UserQuiz {
     private Label pageLabel;
 
     private int currentPage = 1;
-    private int pageSize = 10;
+    private int pageSize = 12;
     private List<Quiz> allQuizzes;
     private int totalPages;
+    @FXML
+    private Button btnQuiz;
 
 
 
@@ -96,7 +106,7 @@ public class UserQuiz {
                 imageView.setFitHeight(100); // Adjust height as needed
 
                 // Create a button to access the quiz
-                Button button = new Button("Access Quiz");
+                Button button = new Button("Acceder au Quiz");
                 // Add event handler to the button to handle accessing the quiz
 
                 // Add the image view and button to the HBox
@@ -133,25 +143,53 @@ public class UserQuiz {
             VBox quizBox = new VBox();
             quizBox.setSpacing(10); // Vertical spacing between components
             quizBox.setAlignment(Pos.CENTER); // Align components to the center horizontally
-            quizBox.setStyle("-fx-background-color: #E68C3AFF;-fx-background-radius: 10px; -fx-padding: 10px;"); // Set background color
-            quizBox.setEffect(new DropShadow());
+            quizBox.setStyle("-fx-background-color: #E68C3AFF;-fx-background-radius: 10px; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 0);"); // Set background color
 
+            // Create a Rectangle with rounded corners
+            Rectangle clip = new Rectangle(100, 100);
+            clip.setArcWidth(20); // Adjust this value as needed for the roundness of the corners
+            clip.setArcHeight(20); // Adjust this value as needed for the roundness of the corners
+
+            // Create the ImageView and apply the Rectangle as a clip to it
             ImageView imageView = new ImageView(new Image(quiz.getImage()));
             imageView.setFitWidth(100);
             imageView.setFitHeight(100);
+            imageView.setClip(clip);
 
             // Create a label to display the quiz name
             Label quizNameLabel = new Label(quiz.getNom_quiz());
             quizNameLabel.setStyle("-fx-text-fill: white");
 
             Button button = new Button();
-            Text buttonText = new Text("Access Quiz");
+            Text buttonText = new Text("Acceder au Quiz");
             buttonText.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
             buttonText.setFill(Color.WHITE);
             buttonText.setUnderline(true);
             button.setGraphic(buttonText);
-            button.setStyle("-fx-background-color: transparent; -fx-border-color: rgba(38,38,38,0.64);-fx-border-radius: 10px;-fx-background-radius: 10px");
-            // Add event handler to the button to handle accessing the quiz
+            button.setStyle("-fx-background-color: transparent; -fx-border-radius: 10px;-fx-background-radius: 10px");
+            button.setCursor(Cursor.HAND);
+            final int finalCol = col;
+            final int finalRow = row;
+
+// Add event handler to the "Access Quiz" button
+            button.setOnAction(event -> {
+                // Get the index of the selected quiz
+                int index = (finalRow * 6) + finalCol;
+                // Get the selected quiz
+                Quiz selectedQuiz = allQuizzes.get(index);
+                try {
+                    // Load the UserQuestions controller
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserQuestions.fxml"));
+                    Parent root = loader.load();
+                    UserQuestions userQuestionsController = loader.getController();
+                    // Pass the selected quiz to the UserQuestions controller
+                    userQuestionsController.initData(selectedQuiz);
+                    // Set the scene to the UserQuestions controller
+                    button.getScene().setRoot(root);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
             // Add nodes to the VBox in the desired order
             quizBox.getChildren().addAll(imageView, quizNameLabel, button);
@@ -161,7 +199,7 @@ public class UserQuiz {
 
             // Increment column index and reset to 0 if it reaches 5
             col++;
-            if (col == 5) {
+            if (col == 6) {
                 col = 0;
                 row++;
             }
@@ -238,6 +276,45 @@ public class UserQuiz {
         this.currentPage = currentPage;
     }
     @FXML
+    void rechercherQuiz(ActionEvent event) {
+        finput11.textProperty().addListener((observable, oldValue, newValue) -> {
+            String searchTerm = newValue.trim();
+
+            try {
+                ServiceQuiz serviceQuiz = new ServiceQuiz();
+                if (searchTerm.isEmpty()) {
+                    // If the search bar is empty, display all quizzes
+                    allQuizzes = serviceQuiz.selectAll();
+                } else {
+                    // Otherwise, search for quizzes based on the search term
+                    allQuizzes = serviceQuiz.ChercherParQuizName(searchTerm);
+                }
+
+                totalPages = (int) Math.ceil((double) allQuizzes.size() / pageSize);
+                currentPage = 1; // Reset to first page when searching
+
+                displayQuizzesForPage(currentPage);
+                updatePageLabel();
+                // Disable previous button if currentPage is 1
+                previousButton.setDisable(currentPage == 1);
+                // Disable next button if currentPage is equal to totalPages
+                nextButton.setDisable(currentPage == totalPages);
+            } catch (SQLException ex) {
+                System.err.println("Erreur lors de la récupération des Quiz : " + ex.getMessage());
+            }
+        });
+    }
+    @FXML
+    void accederQuiz(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/UserQuiz.fxml"));
+        Parent root = loader.load();
+        UserQuiz lc = loader.getController();
+
+        btnQuiz.getScene().setRoot(root);
+    }
+
+    @FXML
     public void initialize() {
         loadQuizzes();
         displayQuizzesForPage(currentPage);
@@ -246,5 +323,8 @@ public class UserQuiz {
         previousButton.setDisable(currentPage == 1);
         // Disable next button if currentPage is equal to totalPages
         nextButton.setDisable(currentPage == totalPages);
+        finput11.textProperty().addListener((observable, oldValue, newValue) -> {
+            rechercherQuiz(new ActionEvent()); // Call the method to perform the search
+        });
     }
 }

@@ -1,37 +1,54 @@
-/* Side Bar */
-/*#sidebar {*!*/
-/*    -fx-background-color: linear-gradient(to bottom, #2a578d, #1B2D46); !* Gradient background *!*/
-/*    -fx-background-radius: 8;*/
-/*}*/
+.search-box {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100px; /* Add 'px' unit for radius */
+}
 
-/* Sidebar items (buttons, links, etc.) */
-/*.sidebar-item {*/
-/*    -fx-padding: 10px 20px; !* Adjust padding as needed *!*/
-/*    -fx-text-fill: white; !* Text color *!*/
-/*    -fx-font-size: 16px; !* Font size *!*/
-/*    -fx-font-weight: bold; !* Font weight *!*/
-/*    -fx-cursor: hand; !* Cursor on hover *!*/
-/*    -fx-background-radius: 8;*/
-/*    -fx-background-color: rgba(182, 182, 177, 0);*/
-/*}*/
-/*.sidebar-item:hover{*/
-/*    -fx-background-color: rgba(182, 182, 177, 0.56);*/
-/*}*/
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
 
-/*!* Logout button *!*/
-/*.logout-button {*/
-/*    -fx-background-color: #fa4300; !* Button background color *!*/
-/*    -fx-text-fill: #FFFFFF; !* Button text color *!*/
-/*    -fx-font-size: 16px; !* Font size *!*/
-/*    -fx-padding: 10px 20px; !* Adjust padding as needed *!*/
-/*    -fx-alignment: center; !* Center text *!*/
-/*}*/
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
 
-/*!* Logout button hover effect *!*/
-/*.logout-button:hover {*/
-/*    -fx-background-color: #ff662e; !* Button background color on hover *!*/
-/*}*/
-/* Buttons */
+.right-bar{
+    -fx-background-color: #D3D3D3;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
+.chosen-fruit-card{
+    -fx-background-color: #F16C31;
+    -fx-background-radius: 30;
+}
+
+.comboBox{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 30;
+}
+
+.add-btn{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.free-delivery-card{
+    -fx-background-color: #D3D3D3;
+    -fx-background-radius: 30;
+}
+
+.shopping-online-card{
+    -fx-background-color: #BAEAC3;
+    -fx-background-radius: 30;
+}
+
+.fruit-item{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30;
+}
 .button-add, .button-import {
     -fx-background-color: #E68C3A;
     -fx-text-fill: white;
@@ -79,4 +96,24 @@
 .quiz-container{
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
+}
+.quiz-list-container{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+.quiz-list-bg{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(255, 255, 255, 0.7); /* Adjust opacity as needed */
+
+}
+.start-quiz-bg{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(44, 42, 42, 0.7); /* Adjust opacity and color as needed */
+
+}
+.blur-effect {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0.5, 0, 0);
 }

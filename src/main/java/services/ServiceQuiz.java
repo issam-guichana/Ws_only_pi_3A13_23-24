@@ -35,7 +35,7 @@ public class ServiceQuiz implements CRUD<Quiz> {
 
     @Override
     public void updateOne(Quiz quiz) throws SQLException {
-        String req = "UPDATE `quiz` SET `nom_quiz`,`image` = ? WHERE `id_quiz` = ?";
+        String req = "UPDATE `quiz` SET `nom_quiz` = ?,`image` = ? WHERE `id_quiz` = ?";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setString(1, quiz.getNom_quiz());
@@ -97,4 +97,20 @@ public class ServiceQuiz implements CRUD<Quiz> {
 
         return quiz;
     }
+    public List<Quiz> ChercherParQuizName(String quizName) throws SQLException {
+        List<Quiz> quizList = new ArrayList<>();
+        PreparedStatement pre = cnx.prepareStatement("SELECT * FROM quiz WHERE nom_quiz LIKE ?");
+        pre.setString(1, "%" + quizName + "%");
+        ResultSet result = pre.executeQuery();
+        while (result.next()) {
+            Quiz p = new Quiz();
+            p.setId_quiz(result.getInt("id_quiz"));
+            p.setNom_quiz(result.getString("nom_quiz"));
+            p.setImage(result.getString("image"));
+            quizList.add(p);
+        }
+        return quizList;
+    }
+
+
 }

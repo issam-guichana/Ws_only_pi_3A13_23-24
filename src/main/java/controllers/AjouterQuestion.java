@@ -5,7 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -75,19 +77,33 @@ public class AjouterQuestion {
     @FXML
     private TextArea idenonce;
     private Quiz quiz;
+    @FXML
+    private Button btnQuiz;
+    @FXML
+    private Button goBackBtn;
 
     @FXML
     void ajouterQuestion(ActionEvent event) {
-        btnadd.setOnAction(e->{
-            String enonce=idenonce.getText();
-            String c1=choix1.getText();
-            String c2=choix2.getText();
-            String c3=choix3.getText();
-            String c4=choix4.getText();
-            String br=(String) idbr.getValue();
-            Question quest=new Question(enonce,br,c1,c2,c3,c4,this.quiz);
-            ServiceQuestion sq =new ServiceQuestion();
+        btnadd.setOnAction(e -> {
             try {
+                // Check if the number of questions exceeds the limit
+                if (questTab.getItems().size() >= 10) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Vous avez dépassé le nombre maximum de questions (10).");
+                    alert.showAndWait();
+                    return; // Exit the method if the limit is reached
+                }
+
+                String enonce = idenonce.getText();
+                String c1 = choix1.getText();
+                String c2 = choix2.getText();
+                String c3 = choix3.getText();
+                String c4 = choix4.getText();
+                String br = idbr.getValue();
+                Question quest = new Question(enonce, br, c1, c2, c3, c4, this.quiz);
+                ServiceQuestion sq = new ServiceQuestion();
                 sq.insertOne(quest);
                 displayAllQuestionsInTableView();
             } catch (SQLException ex) {
@@ -284,13 +300,33 @@ public class AjouterQuestion {
         setupSupprimerButtonColumn();
     }
     @FXML
-    void goBack(ActionEvent event) {
-
+    void goBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/AjouterQuiz.fxml"));
+        Parent root = loader.load();
+        AjouterQuiz lc = loader.getController();
+        goBackBtn.getScene().setRoot(root);
+    }
+    @FXML
+    void accederQuiz(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/AjouterQuiz.fxml"));
+        Parent root = loader.load();
+        AjouterQuiz lc = loader.getController();
+        btnQuiz.getScene().setRoot(root);
     }
 
     @FXML
     public void initialize() {
         setupButtonColumns();
+        btnadd.disableProperty().bind(
+                idenonce.textProperty().isEmpty()
+                        .or(choix1.textProperty().isEmpty())
+                        .or(choix2.textProperty().isEmpty())
+                        .or(choix3.textProperty().isEmpty())
+                        .or(choix4.textProperty().isEmpty())
+                        .or(idbr.valueProperty().isNull())
+        );
         ObservableList<String> items = FXCollections.observableArrayList("choix1", "choix2", "choix3", "choix4");
         idbr.setItems(items);
 

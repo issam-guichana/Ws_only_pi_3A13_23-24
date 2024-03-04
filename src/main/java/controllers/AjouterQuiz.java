@@ -46,12 +46,13 @@ public class AjouterQuiz {
 
     @FXML
     private Button btnrefresh;
-
+    @FXML
+    private Button btnSearch;
     @FXML
     private TextField finput1;
 
     @FXML
-    private TextField finput11;
+    private TextField search;
 
     @FXML
     private Text ftext1;
@@ -68,6 +69,8 @@ public class AjouterQuiz {
     @FXML
     private Button importing;
     private String xamppFolderPath = "c:/xampp/htdocs/img/";
+    @FXML
+    private Button btnQuiz;
 
 
     @FXML
@@ -125,8 +128,25 @@ public class AjouterQuiz {
                 accessButton.setOnAction(event -> {
                     Quiz quiz = getTableView().getItems().get(getIndex());
                     System.out.println("Accéder to quiz: " + quiz.getNom_quiz());
-                    openQuestionCRUDPage(quiz); // Call method to navigate to question CRUD page
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterQuestion.fxml"));
+                        Parent root = loader.load();
+
+                        // Pass the quiz to the controller of the question CRUD page
+                        AjouterQuestion controller = loader.getController();
+                        controller.setQuiz(quiz);
+
+                        accessButton.getScene().setRoot(root);
+//            Stage stage = new Stage();
+//            stage.setScene(new Scene(root));
+//            stage.setTitle("Question Page");
+//            stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace(); // Handle exception
+                    } // Call method to navigate to question CRUD page
                 });
+                accessButton.setStyle("-fx-background-color: #E68C3A;" +
+                        "    -fx-text-fill: white;");
             }
 
             @Override
@@ -138,23 +158,7 @@ public class AjouterQuiz {
         quizlist.getColumns().add(accederColumn);
     }
 
-    private void openQuestionCRUDPage(Quiz quiz) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterQuestion.fxml"));
-            Parent root = loader.load();
 
-            // Pass the quiz to the controller of the question CRUD page
-            AjouterQuestion controller = loader.getController();
-            controller.setQuiz(quiz);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Question Page");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle exception
-        }
-    }
 
 
     private void setupModifierButtonColumn() {
@@ -169,6 +173,8 @@ public class AjouterQuiz {
                     System.out.println("Modify quiz: " + quiz.getNom_quiz());
                     displayModifyDialog(quiz); // Call method to display dialog
                 });
+                modifyButton.setStyle("-fx-background-color: #E68C3A;" +
+                    "    -fx-text-fill: white;");
             }
 
             @Override
@@ -253,6 +259,8 @@ public class AjouterQuiz {
                         throw new RuntimeException(e);
                     }
                 });
+                deleteButton.setStyle("-fx-background-color: #E68C3A;" +
+                        "    -fx-text-fill: white;");
             }
 
             @Override
@@ -263,11 +271,36 @@ public class AjouterQuiz {
         });
         quizlist.getColumns().add(supprimerColumn);
     }
-
     @FXML
-    public void initialize() {
-        displayAllQuizInTableView();
-        setupButtonColumns();
+    void accederQuiz(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/AjouterQuiz.fxml"));
+        Parent root = loader.load();
+        AjouterQuiz lc = loader.getController();
+        btnQuiz.getScene().setRoot(root);
+    }
+    @FXML
+    void rechercherQuiz(ActionEvent event) {
+        String searchTerm = search.getText();
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            try {
+                ServiceQuiz serviceQuiz = new ServiceQuiz();
+                List<Quiz> quizzes = serviceQuiz.ChercherParQuizName(searchTerm);
+                ObservableList<Quiz> ql = FXCollections.observableArrayList(quizzes);
+                quizlist.setItems(ql);
+            } catch (SQLException ex) {
+                System.err.println("Erreur lors de la récupération des Quiz : " + ex.getMessage());
+            }
+        } else {
+            try {
+                ServiceQuiz serviceQuiz = new ServiceQuiz();
+                List<Quiz> allQuizzes = serviceQuiz.selectAll();
+                ObservableList<Quiz> ql = FXCollections.observableArrayList(allQuizzes);
+                quizlist.setItems(ql);
+            } catch (SQLException ex) {
+                System.err.println("Erreur lors de la récupération des Quiz : " + ex.getMessage());
+            }
+        }
     }
 
     @FXML
@@ -299,5 +332,17 @@ public class AjouterQuiz {
             System.out.println("No file selected");
         }
 
+    }
+    @FXML
+    public void initialize() {
+        displayAllQuizInTableView();
+        setupButtonColumns();
+        btnadd.disableProperty().bind(
+                path.textProperty().isEmpty().or(finput1.textProperty().isEmpty())
+        );
+        path.setDisable(true);
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            rechercherQuiz(new ActionEvent());
+        });
     }
 }
