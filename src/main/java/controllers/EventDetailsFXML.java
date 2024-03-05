@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +14,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import models.Evenement;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 public class EventDetailsFXML implements Initializable {
     @FXML
     private Button backButton;
+    @FXML
+    private Button participer;
     @FXML
     private CalendarController calendarController;
     @FXML
@@ -71,7 +73,12 @@ public class EventDetailsFXML implements Initializable {
         } else {
             System.out.println("event mafamech");
         }
-        setMapUrl(event.generateMapUrl());
+        if (event.getLieu() != null && !event.getLieu().isEmpty()) {
+            // Use OpenStreetMap to generate a map URL
+            String mapUrl = "https://www.openstreetmap.org/?mlat=" + event.getLieu() +
+                    "&mlon=" + event.getLieu() + "#map=14/" + event.getLieu();
+            setMapUrl(mapUrl);
+        }
     }
 
     @Override
@@ -79,6 +86,10 @@ public class EventDetailsFXML implements Initializable {
         webEngine = mapView.getEngine();
     }
     // New method to set the map URL
+    private String getOpenStreetMapURL(String location) {
+        return "https://www.openstreetmap.org/search?query=" + location.replace(" ", "%20");
+    }
+
     public void setMapUrl(String mapUrl) {
         webEngine.load(mapUrl);
     }
@@ -103,6 +114,23 @@ public class EventDetailsFXML implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void participerevent(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ParticiperFXML.fxml"));
+            Parent root = loader.load();
+
+            // Additional setup if needed
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Participer Event");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
 
 

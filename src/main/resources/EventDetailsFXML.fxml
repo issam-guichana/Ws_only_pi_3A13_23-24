@@ -122,14 +122,9 @@
         <Label fx:id="prix" text="Prix" GridPane.rowIndex="5" />
         <Label fx:id="nbrp" text="Nbr de participants" GridPane.rowIndex="6" />
         <ImageView fx:id="Image" fitHeight="267.0" fitWidth="472.0" pickOnBounds="true" preserveRatio="true" />
-        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="238.0" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="participer" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Button fx:id="participer" mnemonicParsing="false" onAction="#participerevent" prefHeight="26.0" prefWidth="238.0" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="participer" GridPane.columnIndex="1" GridPane.rowIndex="6" />
     </GridPane>
-    <Button fx:id="backButton" layoutX="1079.0" layoutY="123.0" mnemonicParsing="false" onAction="#goToCalendar" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" />
+    <Button fx:id="backButton" layoutX="1042.0" layoutY="123.0" mnemonicParsing="false" onAction="#goToCalendar" style="-fx-background-color: #E38C3A; -fx-text-fill: white;" text="&lt;|" />
    <WebView fx:id="mapView" layoutX="802.0" layoutY="241.0" prefHeight="339.0" prefWidth="415.0" />
-   <ImageView fx:id="backButton" fitHeight="26.0" fitWidth="29.0" layoutX="1097.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@images/back.png" />
-      </image>
-   </ImageView>
 
 </AnchorPane>

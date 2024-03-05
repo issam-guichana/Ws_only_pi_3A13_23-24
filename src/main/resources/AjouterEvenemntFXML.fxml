@@ -151,7 +151,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="253.0" style="-fx-background-color: #376cb0;" stylesheets="@Styles.css" text="Evénements" textFill="WHITE">
+            <Button fx:id="btnCustomers" onAction="#openeventgestion" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="253.0" style="-fx-background-color: #376cb0;" stylesheets="@Styles.css" text="Evénements" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>

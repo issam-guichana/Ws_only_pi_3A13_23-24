@@ -467,4 +467,19 @@ public class AjouterEvenementFXML {
         }
     }
 
+    public void openeventgestion(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenemntFXML.fxml"));
+            Parent root = loader.load();
+
+            // Additional setup if needed
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Ajouter un Événement");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
