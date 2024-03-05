@@ -71,16 +71,40 @@ public class ServiceCertificat implements CRUD<Certificat> {
         return certificats;
     }
 
-    public List<Pair<String, Integer>> getCertificatNombrePersonnes() {
-        // Code pour récupérer les données de la base de données
-        // SELECT nomCertif, COUNT(*) FROM personnes GROUP BY nomCertif
 
-        // Exemple de données simulées
+
+
+
+    public List<Pair<String, Integer>> getCertificatNombrePersonnes() {
         List<Pair<String, Integer>> certificatNombrePersonnes = new ArrayList<>();
-        certificatNombrePersonnes.add(new Pair<>("Certificat 1", 10));
-        certificatNombrePersonnes.add(new Pair<>("Certificat 2", 15));
-        certificatNombrePersonnes.add(new Pair<>("Certificat 3", 5));
+
+        try {
+            String sql = "SELECT c.nom_certif, COUNT(DISTINCT uf.user_id) AS total_personnes " +
+                    "FROM certificat c " +
+                    "LEFT JOIN formation f ON c.id_certif = f.certif_id " +
+                    "LEFT JOIN user_formation uf ON f.id_form = uf.form_id " +
+                    "GROUP BY c.nom_certif";
+
+            PreparedStatement statement = cnx.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String nomCertif = resultSet.getString("nom_certif");
+                int totalPersonnes = resultSet.getInt("total_personnes");
+                certificatNombrePersonnes.add(new Pair<>(nomCertif, totalPersonnes));
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return certificatNombrePersonnes;
     }
+
+
+
+
 }
+

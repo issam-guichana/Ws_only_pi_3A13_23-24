@@ -162,14 +162,14 @@
             <Pane fx:id="pnlOrders" prefHeight="200.0" prefWidth="200.0" />
             <Pane fx:id="pnlMenus" prefHeight="673.0" prefWidth="793.0">
                <children>
-                  <Pane fx:id="pnlOverview" layoutX="-5.0" layoutY="-1.0" prefHeight="708.0" prefWidth="899.0" style="-fx-background-color: #F4F2EF;">
+                  <Pane fx:id="pnlOverview" layoutX="-6.0" prefHeight="708.0" prefWidth="899.0" style="-fx-background-color: #F4F2EF;">
                      <children>
                         <Label layoutX="68.0" layoutY="37.0" prefHeight="35.0" prefWidth="362.0" text="Badge Details">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER_LEFT" layoutX="55.0" layoutY="100.0" prefHeight="139.0" prefWidth="768.0" spacing="50.0" style="-fx-background-color: #F4F2EF;">
+                        <HBox alignment="CENTER_LEFT" layoutX="91.0" layoutY="104.0" prefHeight="139.0" prefWidth="740.0" spacing="50.0" style="-fx-background-color: #F4F2EF;">
                            <children>
                               <VBox alignment="CENTER" prefHeight="123.0" prefWidth="167.0">
                                  <children>
@@ -183,7 +183,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="123.0" prefWidth="161.0">
                                  <children>
-                                    <Label fx:id="lblMostAttributedBadge" prefHeight="58.0" prefWidth="66.0" textFill="#26bfbc">
+                                    <Label fx:id="lblMostAttributedBadge" prefHeight="58.0" prefWidth="88.0" textFill="#26bfbc">
                                        <font>
                                           <Font name="System Bold" size="26.0" />
                                        </font>
@@ -191,17 +191,7 @@
                                     <Label text="Top Badges" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Label prefHeight="55.0" prefWidth="16.0" text="0" textFill="#de0000">
-                                       <font>
-                                          <Font name="System Bold" size="26.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="TOP" textFill="#1b1b1b" />
-                                 </children>
-                              </VBox>
-                              <Button fx:id="idajouter" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#ajouterBadge" prefHeight="58.0" prefWidth="256.0" style="-fx-background-color: #E68C3A;" text="ADD" textFill="#e7e5e5">
+                              <Button fx:id="idajouter" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#ajouterBadge" prefHeight="58.0" prefWidth="226.0" style="-fx-background-color: #E68C3A;" text="ADD" textFill="#e7e5e5">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -221,13 +211,13 @@
                               </Button>
                            </children>
                         </HBox>
-                        <VBox layoutX="40.0" layoutY="309.0" prefHeight="329.0" prefWidth="768.0">
+                        <VBox layoutX="91.0" layoutY="309.0" prefHeight="329.0" prefWidth="717.0">
                            <children>
-                              <TableView fx:id="tabbadge" prefHeight="319.0" prefWidth="759.0" stylesheets="@style.css">
+                              <TableView fx:id="tabbadge" prefHeight="319.0" prefWidth="748.0" stylesheets="@style.css">
                                  <columns>
-                                    <TableColumn fx:id="colnom" prefWidth="217.0" text="Nom" />
-                                    <TableColumn fx:id="coltype" prefWidth="252.0" text="Type" />
-                                    <TableColumn fx:id="colimg" prefWidth="137.0" text="Image" />
+                                    <TableColumn fx:id="colnom" prefWidth="197.0" text="Nom" />
+                                    <TableColumn fx:id="coltype" prefWidth="185.0" text="Type" />
+                                    <TableColumn fx:id="colimg" prefWidth="145.0" text="Image" />
                                  </columns>
                               </TableView>
                            </children>
