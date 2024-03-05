@@ -64,17 +64,26 @@ public class UserQuestions {
         quizBox.getChildren().addAll(imageView, quizNameLabel);
         quizInfoContainer.getChildren().add(quizBox);
 
-
-
-        // Set an action for the access quiz button
-        startQuiz.setOnAction(event -> {
-
-        });
-
         // Set the name of the selected quiz
         quizNameLabel.setText(selectedQuiz.getNom_quiz());
 
     }
+    @FXML
+    void startQuiz(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/RepondreQuiz.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller of the RepondreQuiz interface
+        RepondreQuiz controller= loader.getController();
+
+        // Pass the selected quiz to the controller
+        controller.initData(selectedQuiz);
+
+        // Set the RepondreQuiz interface as the root of the scene
+        startQuiz.getScene().setRoot(root);
+    }
+
+
     @FXML
     void goBack(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
@@ -83,5 +92,8 @@ public class UserQuestions {
         UserQuiz lc = loader.getController();
         cancel.getScene().setRoot(root);
     }
+    @FXML
+    public void initialize() {
 
+    }
 }

@@ -36,6 +36,9 @@
                             <String fx:value="transparent" />
                             <String fx:value="search-box" />
                         </styleClass>
+                  <cursor>
+                     <Cursor fx:constant="TEXT" />
+                  </cursor>
                     </TextField>
                     <Button layoutX="268.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@css/styles.css" text="Recherche" textFill="WHITE" />
                 </children>
@@ -50,6 +53,9 @@
                         <children>
                             <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Evenements" />
                         </children>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                     </HBox>
                 </children>
             </Pane>
@@ -63,6 +69,9 @@
                         <children>
                             <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Formations" />
                         </children>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                     </HBox>
                 </children>
             </Pane>
@@ -76,6 +85,9 @@
                         <children>
                             <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Certifs" />
                         </children>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                     </HBox>
                 </children>
             </Pane>
@@ -89,6 +101,9 @@
                         <children>
                             <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Badges" />
                         </children>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
                     </HBox>
                 </children>
             </Pane>
@@ -123,7 +138,7 @@
          <String fx:value="start-quiz-bg" />
       </styleClass>
    </HBox>
-   <Button fx:id="startQuiz" layoutX="313.0" layoutY="239.0" mnemonicParsing="false" prefHeight="104.0" prefWidth="630.0" style="-fx-background-color: Green;" text="Commencer le quiz" textFill="WHITE">
+   <Button fx:id="startQuiz" layoutX="313.0" layoutY="239.0" mnemonicParsing="false" onAction="#startQuiz" prefHeight="104.0" prefWidth="630.0" style="-fx-background-color: Green;" text="Commencer le quiz" textFill="WHITE">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

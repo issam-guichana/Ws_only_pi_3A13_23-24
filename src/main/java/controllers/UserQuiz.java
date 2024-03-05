@@ -27,12 +27,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import models.Question;
 import models.Quiz;
+import services.ServiceQuestion;
 import services.ServiceQuiz;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserQuiz {
 
@@ -81,39 +84,39 @@ public class UserQuiz {
     private int totalPages;
     @FXML
     private Button btnQuiz;
-
-
+    private int score;
+    public void setScore(int score){
+        this.score=score;
+        System.out.println(score);
+    }
 
     public void loadQuizzes() {
         try {
             ServiceQuiz sq = new ServiceQuiz();
             allQuizzes = sq.selectAll();
 
+            // Filter quizzes to only those with 10 questions
+            allQuizzes = allQuizzes.stream()
+                    .filter(quiz -> {
+                        try {
+                            List<Question> questions = new ServiceQuestion().selectQuestionByQuiz(quiz);
+                            return questions.size() == 10;
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    })
+                    .collect(Collectors.toList());
+
             totalPages = (int) Math.ceil((double) allQuizzes.size() / pageSize);
 
             // Assuming you have a container to hold the quizzes, like a VBox
             VBox quizzesContainer = new VBox();
 
-            // Loop through the list of quizzes
+            // Loop through the filtered list of quizzes
             for (Quiz quiz : allQuizzes) {
-                // Create an HBox to hold the information of each quiz
-                HBox quizBox = new HBox();
-                quizBox.setSpacing(10); // Adjust spacing as needed
-
-                // Create an ImageView for the quiz image
-                ImageView imageView = new ImageView(new Image(quiz.getImage()));
-                imageView.setFitWidth(100); // Adjust width as needed
-                imageView.setFitHeight(100); // Adjust height as needed
-
-                // Create a button to access the quiz
-                Button button = new Button("Acceder au Quiz");
-                // Add event handler to the button to handle accessing the quiz
-
-                // Add the image view and button to the HBox
-                quizBox.getChildren().addAll(imageView, button);
-
-                // Add the HBox to the container
-                quizzesContainer.getChildren().add(quizBox);
+                // Create UI components to display the quiz
+                // Add these components to the quizzesContainer
             }
 
             // Add the container to the main view (wherever you want to display the quizzes)
