@@ -119,7 +119,9 @@ public class RepondreQuiz {
     // Method to calculate the user's score at the end of the quiz
     private int calculateScore() {
         int score = 0;
-        for (int i = 0; i < questions.size(); i++) {
+        int answeredQuestionsCount = Math.min(userChoices.size(), questions.size()); // Use the size of userChoices list
+
+        for (int i = 0; i < answeredQuestionsCount; i++) {
             Question question = questions.get(i);
             String userChoice = userChoices.get(i);
             String correctChoice = ""; // Initialize correctChoice
@@ -157,6 +159,22 @@ public class RepondreQuiz {
         alert.setTitle("Quiz Completed");
         alert.setHeaderText(null);
         alert.setContentText("Your score: " + score + " out of 10");
+        storeSessionData();
+        // Add event handler for the "OK" button
+        alert.setOnCloseRequest(event -> {
+            try {
+                // Load the UserQuiz interface
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserQuiz.fxml"));
+                Parent root = loader.load();
+
+                // Change the scene to the UserQuiz interface
+                countdownBar.getScene().setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Show the alert dialog
         alert.showAndWait();
     }
 
@@ -232,17 +250,21 @@ public class RepondreQuiz {
     // Method to navigate back to Quiz Selection
     private void backToQuizSelection() throws IOException {
         int score = calculateScoreWithTimeLimit();
-
+        storeSessionData();
         // Load the UserQuiz interface
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserQuiz.fxml"));
         Parent root = loader.load();
 
-        // Access UserQuiz controller and set the score
-        UserQuiz userQuizController = loader.getController();
-        userQuizController.setScore(score);
-
         // Change the scene to the UserQuiz interface
         countdownBar.getScene().setRoot(root);
+    }
+    private void storeSessionData() {
+        int score = calculateScore();
+        SessionData.addToSumOfScores(score);
+        SessionData.incrementNumberOfQuizzesCompleted();
+        SessionData.storeQuizScore(selectedQuiz.getId_quiz(), score);
+        float averageScore = SessionData.getAverageScore();
+        SessionData.setMoyenne(averageScore);
     }
 
 }

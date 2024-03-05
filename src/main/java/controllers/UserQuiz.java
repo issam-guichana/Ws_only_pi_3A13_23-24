@@ -40,6 +40,9 @@ import java.util.stream.Collectors;
 public class UserQuiz {
 
     @FXML
+    private Label averageScoreLabel;
+
+    @FXML
     private Button btnCustomers;
 
     @FXML
@@ -84,11 +87,7 @@ public class UserQuiz {
     private int totalPages;
     @FXML
     private Button btnQuiz;
-    private int score;
-    public void setScore(int score){
-        this.score=score;
-        System.out.println(score);
-    }
+
 
     public void loadQuizzes() {
         try {
@@ -109,14 +108,23 @@ public class UserQuiz {
                     .collect(Collectors.toList());
 
             totalPages = (int) Math.ceil((double) allQuizzes.size() / pageSize);
-
+            SessionData.setNumberOfQuizzes(allQuizzes.size());
             // Assuming you have a container to hold the quizzes, like a VBox
             VBox quizzesContainer = new VBox();
 
             // Loop through the filtered list of quizzes
             for (Quiz quiz : allQuizzes) {
                 // Create UI components to display the quiz
-                // Add these components to the quizzesContainer
+                VBox quizBox = new VBox();
+                // Other UI components...
+
+                // Add the score label
+                Label scoreLabel = new Label(getScoreForQuiz(quiz));
+                scoreLabel.setStyle("-fx-text-fill: white");
+                quizBox.getChildren().add(scoreLabel);
+
+                // Add quizBox to quizzesContainer
+                quizzesContainer.getChildren().add(quizBox);
             }
 
             // Add the container to the main view (wherever you want to display the quizzes)
@@ -162,6 +170,10 @@ public class UserQuiz {
             // Create a label to display the quiz name
             Label quizNameLabel = new Label(quiz.getNom_quiz());
             quizNameLabel.setStyle("-fx-text-fill: white");
+            System.out.println("test "+getScoreForQuiz(quiz));
+
+            Label scoreLabel =new Label(getScoreForQuiz(quiz)) ;
+            scoreLabel.setStyle("-fx-text-fill: white");
 
             Button button = new Button();
             Text buttonText = new Text("Acceder au Quiz");
@@ -195,7 +207,7 @@ public class UserQuiz {
             });
 
             // Add nodes to the VBox in the desired order
-            quizBox.getChildren().addAll(imageView, quizNameLabel, button);
+            quizBox.getChildren().addAll(imageView, quizNameLabel,scoreLabel, button);
 
             // Add the VBox to the grid at the specified column and row
             quizzesGrid.add(quizBox, col, row);
@@ -211,6 +223,10 @@ public class UserQuiz {
         // Add the grid to the quizContainer
         quizContainer.getChildren().add(quizzesGrid);
 
+    }
+
+    private String toString(int score) {
+        return "Score: "+score;
     }
 
     // Handle pagination actions
@@ -286,8 +302,17 @@ public class UserQuiz {
             try {
                 ServiceQuiz serviceQuiz = new ServiceQuiz();
                 if (searchTerm.isEmpty()) {
-                    // If the search bar is empty, display all quizzes
-                    allQuizzes = serviceQuiz.selectAll();
+                    allQuizzes = serviceQuiz.selectAll().stream()
+                            .filter(quiz -> {
+                                try {
+                                    List<Question> questions = new ServiceQuestion().selectQuestionByQuiz(quiz);
+                                    return questions.size() == 10;
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    return false;
+                                }
+                            })
+                            .collect(Collectors.toList());
                 } else {
                     // Otherwise, search for quizzes based on the search term
                     allQuizzes = serviceQuiz.ChercherParQuizName(searchTerm);
@@ -316,6 +341,14 @@ public class UserQuiz {
 
         btnQuiz.getScene().setRoot(root);
     }
+    private String getScoreForQuiz(Quiz quiz) {
+        Integer score = SessionData.getQuizScore(quiz.getId_quiz());
+        if (score != null) {
+            return "Score: " + score;
+        } else {
+            return "Not Passed";
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -329,5 +362,8 @@ public class UserQuiz {
         finput11.textProperty().addListener((observable, oldValue, newValue) -> {
             rechercherQuiz(new ActionEvent()); // Call the method to perform the search
         });
+        averageScoreLabel.setText("Votre moyenne est: " + SessionData.getAverageScore());
+
     }
+
 }

@@ -225,6 +225,11 @@
             </DropShadow>
          </effect>
       </ImageView>
+      <Label fx:id="averageScoreLabel" alignment="CENTER" layoutX="200.0" layoutY="100.0" prefHeight="81.0" prefWidth="286.0" styleClass="header" text="Label">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
 
    </children>
 </AnchorPane>

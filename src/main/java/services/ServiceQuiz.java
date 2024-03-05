@@ -3,12 +3,14 @@ package services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import models.Question;
 import models.Quiz;
 import utils.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceQuiz implements CRUD<Quiz> {
     private Connection cnx ;
@@ -109,7 +111,21 @@ public class ServiceQuiz implements CRUD<Quiz> {
             p.setImage(result.getString("image"));
             quizList.add(p);
         }
-        return quizList;
+
+        // Filter quizzes to include only those with 10 questions
+        List<Quiz> filteredQuizzes = quizList.stream()
+                .filter(quiz -> {
+                    try {
+                        List<Question> questions = new ServiceQuestion().selectQuestionByQuiz(quiz);
+                        return questions.size() == 10;
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                })
+                .collect(Collectors.toList());
+
+        return filteredQuizzes;
     }
 
 
