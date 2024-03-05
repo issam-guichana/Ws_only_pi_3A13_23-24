@@ -195,9 +195,9 @@ public class AjoutermsgformateurFXML implements Initializable {
 
                             try (FileInputStream fis = new FileInputStream(selectedFile)) {
                                 byte[] imageData = fis.readAllBytes();
-                                Message msg = new Message(roomId, imageData);
+                              //  Message msg = new Message(roomId, imageData);
                                 Servicemessage sm = new Servicemessage();
-                                sm.Insertwithimage(msg, imageData);
+                               // sm.Insertwithimage(msg, imageData);
                                 System.out.println("Message with image inserted into the database successfully!");
                             } catch (IOException e) {
                                 e.printStackTrace();

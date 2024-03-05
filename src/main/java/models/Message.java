@@ -6,22 +6,23 @@ private String contenu;
 
 private String sender;
 private int id_room;
-
-private byte[] imageData;
+private String image;
+//private byte[] imageData;
     public Message() {
     }
-    public Message(int roomId, byte[] imageData) {
+    //public Message(int roomId,String image) {
 
-        this.id_room = roomId;
-        this.imageData = imageData;
-    }
+      //  this.id_room = roomId;
+        //this.imageData = imageData;
+        //this.image=image;
+    //}
 
-    public Message(int id_msg, String contenu,String sender,int id_room, byte[] imageData) {
+    public Message(int id_msg, String contenu,String sender,int id_room, String imageData) {
         this.id_msg = id_msg;
         this.contenu=contenu;
         this.sender=sender;
         this.id_room = id_room;
-        this.imageData = imageData;
+        this.image = image;
     }
 
     public int getId_room() {

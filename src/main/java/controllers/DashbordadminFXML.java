@@ -3,11 +3,14 @@ package controllers;
 
 import java.net.URL;
 import java.sql.*;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,22 +18,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 
 
 import javafx.scene.control.Button;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 import javafx.util.Pair;
 import models.Room;
 import models.user_formation;
-import services.Servicemessage;
 import services.Serviceroom;
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class DashbordadminFXML implements Initializable {
@@ -40,10 +41,14 @@ public class DashbordadminFXML implements Initializable {
 
     @FXML
     private URL location;
+
+
+    @FXML
+    private TableColumn<ObservableList<String>,String> statusroom;
     @FXML
     private TableColumn<ObservableList<String>, Void> button_room;
     @FXML
-    private TableColumn<String, String> date_c_room;
+    private TableColumn<ObservableList<String>,String>  date_c_room;
     @FXML
     private TableColumn<ObservableList<String>,String> descroom;
     @FXML
@@ -65,6 +70,7 @@ public class DashbordadminFXML implements Initializable {
 
     @FXML
     private TextField nameroom;
+    private boolean suspendColumnAdded = false;
 
     @FXML
     private ComboBox<String> nomform;
@@ -74,7 +80,7 @@ public class DashbordadminFXML implements Initializable {
     private Label descriptionField;
 
 
-
+    private static final int SUSPENSION_TIME_COLUMN_INDEX = 4;
 
 
     private TableColumn<ObservableList<String>, Void> setupDeleteButtonColumn() {
@@ -197,6 +203,226 @@ public class DashbordadminFXML implements Initializable {
         }
     }
 
+
+    // Metier : suspendre un room pour une durée
+
+
+            private TableColumn<ObservableList<String>, Void> setupsuspendButtonColumn() {
+                if (tabr.getColumns().stream().noneMatch(column -> column.getText().equals("Suspendre"))) {
+                    TableColumn<ObservableList<String>, Void> suspendColumn = new TableColumn<>("Suspendre");
+                    TableColumn<ObservableList<String>, Void> durationColumn = new TableColumn<>("Durée restante");
+
+                    // Set cell factory for suspend column
+                    suspendColumn.setCellFactory(col -> new TableCell<ObservableList<String>, Void>() {
+                        private final Button suspendButton = new Button("Suspendre");
+
+
+                        {
+                            // Action when the suspend button is clicked
+                            suspendButton.setOnAction(event -> {
+                                int index = getIndex();
+                                if (index >= 0 && index < tabr.getItems().size()) {
+                                    ObservableList<String> rowData = tabr.getItems().get(index);
+                                    String idRoom = rowData.get(0);
+                                    String nomRoom = rowData.get(1); // Assuming nom_room is at index 1
+                                    // Display suspension dialog
+                                    displaysuspendDialog(idRoom, nomRoom);
+                                }
+                            });
+                            suspendButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+
+                        }
+
+                        @Override
+                        protected void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setGraphic(null);
+                            } else {
+                                setGraphic(suspendButton);
+                            }
+                        }
+                    });
+
+                    // Set cell factory for duration column
+                    durationColumn.setCellFactory(col -> new TableCell<ObservableList<String>, Void>() {
+                        private final Label countdownLabel = new Label();
+
+                        @Override
+                        protected void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setGraphic(null);
+                            } else {
+                                ObservableList<String> rowData = getTableRow().getItem();
+                                String suspensionEndTime = rowData.get(SUSPENSION_TIME_COLUMN_INDEX); // Assuming the column index of suspension end time
+                                if (suspensionEndTime != null && !suspensionEndTime.isEmpty()) {
+                                    long remainingTime = calculateRemainingTime(suspensionEndTime);
+                                    countdownLabel.setText(formatRemainingTime(remainingTime));
+                                    setGraphic(countdownLabel);
+                                } else {
+                                    setGraphic(null);
+                                }
+                            }
+                        }
+                    });
+
+                    return suspendColumn;
+                } else {
+                    return null; // Return null if the column has already been added
+                }
+            }
+
+
+
+            private long calculateRemainingTime(String suspensionTime)  {
+        // Define the suspension duration in milliseconds (e.g., 1 hour)
+        long suspensionDurationMillis = TimeUnit.HOURS.toMillis(1);
+
+        // Get the current time
+        long currentTimeMillis = System.currentTimeMillis();
+
+        // Calculate the end time of suspension by adding the suspension duration to the current time
+        long suspensionEndTimeMillis = currentTimeMillis + suspensionDurationMillis;
+
+        // Calculate the remaining time by subtracting the current time from the suspension end time
+        long remainingTimeMillis = suspensionEndTimeMillis - currentTimeMillis;
+
+        // Ensure the remaining time is non-negative
+        return Math.max(remainingTimeMillis, 0);
+    }
+
+
+    private String formatRemainingTime(long remainingTimeMillis) {
+        long hours = TimeUnit.MILLISECONDS.toHours(remainingTimeMillis);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(remainingTimeMillis) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(remainingTimeMillis) % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    private void displaysuspendDialog(String idRoom, String nomRoom) {
+        // Create the custom dialog
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Choisir la durée de suspension");
+
+        // Set the button types
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        // Create the grid layout for the dialog content
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        // Add labels and combo box for suspension duration
+        ComboBox<String> durationComboBox = new ComboBox<>();
+        durationComboBox.getItems().addAll("2 minutes","30 minutes", "1 heure", "2 heures", "4 heures"); // Add your duration options here
+        grid.add(new Label("Durée de suspension: "), 0, 0);
+        grid.add(durationComboBox, 1, 0);
+
+        // Set the grid as the dialog content
+        dialog.getDialogPane().setContent(grid);
+
+        // Convert the result to a string when the OK button is clicked
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == ButtonType.OK) {
+                return durationComboBox.getValue();
+            }
+            return null;
+        });
+
+        // Show the dialog and wait for user input
+        Optional<String> result = dialog.showAndWait();
+
+        // Process the result when the dialog is closed
+        result.ifPresent(duration -> {
+            // Suspend the room
+            try {
+                suspendRoom(idRoom, duration);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            // Display confirmation to the user
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Room Suspended");
+            alert.setHeaderText(null);
+            alert.setContentText("La discussion a été suspendue avec succès pour " + duration);
+            alert.showAndWait();
+        });
+    }
+
+    private void suspendRoom(String idRoom, String duration) throws SQLException {
+        // Convert duration string to minutes
+        int durationInMinutes;
+        switch (duration) {
+            case "2 minutes":
+                durationInMinutes = 2;
+                break;
+            case "30 minutes":
+                durationInMinutes = 30;
+                break;
+            case "1 heure":
+                durationInMinutes = 60;
+                break;
+            case "2 heures":
+                durationInMinutes = 120;
+                break;
+            case "4 heures":
+                durationInMinutes = 240;
+                break;
+            default:
+                durationInMinutes = 0;
+        }
+
+        // Call your service method to suspend the room with the calculated duration
+        Serviceroom sr = new Serviceroom();
+        int roomId = Integer.parseInt(idRoom);
+
+        sr.suspendroom(roomId, durationInMinutes);
+        dispalyallrooms();
+
+        // Schedule task to resuspend the room after the specified duration
+        //scheduleResuspendTask(roomId, durationInMinutes);
+    }
+
+    private void checkSuspensionStatus() {
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(() -> {
+            try {
+                releaseExpiredSuspensions();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }, 0, 1, TimeUnit.MINUTES); // Check every minute
+    }
+
+    // Method to release expired suspensions
+    private void releaseExpiredSuspensions() throws SQLException {
+        long currentTimeMillis = System.currentTimeMillis();
+
+        // Retrieve rooms with suspended status and suspension end time less than current time
+        String query = "SELECT id_room FROM room WHERE status='Suspend' AND suspend_time< ?";
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "");
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, currentTimeMillis);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            // Release suspension for each room
+            while (resultSet.next()) {
+                int idRoom = resultSet.getInt("id_room");
+                Serviceroom sr= new Serviceroom();
+               sr.resuspendroom(idRoom);
+            }
+        }
+    }
+
+
+
+
+    // CRUD : MOdifier le nom d'un room
     private void setupModifierButtonColumn() {
         TableColumn<ObservableList<String>, Void> modifierColumn = new TableColumn<>("Modifier");
         modifierColumn.setCellFactory(col -> new TableCell<ObservableList<String>, Void>() {
@@ -298,6 +524,7 @@ public class DashbordadminFXML implements Initializable {
     private void setupButtonColumns() {
 
         setupModifierButtonColumn();
+        setupsuspendButtonColumn();
 
     }
 
@@ -327,7 +554,7 @@ public class DashbordadminFXML implements Initializable {
 
             // Retrieve data from the 'user' table
             ResultSet resultSet = statement
-                    .executeQuery("SELECT DISTINCT r.id_room, r.nom_room, f.nom_form, r.date_c_room, r.description FROM user_formation uf JOIN room r ON r.id_room = uf.room_id AND r.status = 'Active' JOIN formation f ON uf.form_id = f.id_form;");
+                    .executeQuery("SELECT DISTINCT r.id_room, r.nom_room, f.nom_form, r.date_c_room, r.description,r.status FROM user_formation uf JOIN room r ON r.id_room = uf.room_id AND r.status IN ('Active', 'Suspend')  JOIN formation f ON uf.form_id = f.id_form;");
 
             //join user u ON f.user_id=u.id_user and u.role='formateur'
             ObservableList<ObservableList<String>> oblist = FXCollections.observableArrayList();
@@ -339,7 +566,9 @@ public class DashbordadminFXML implements Initializable {
                 row.add(resultSet.getString("nom_form"));
                // row.add(resultSet.getString("username"));
                 row.add(resultSet.getString("description"));
-                //row.add(resultSet.getString("date_c_room"));
+                row.add(resultSet.getString("date_c_room"));
+                row.add(resultSet.getString("status"));
+
                 oblist.add(row);
             }
 
@@ -348,25 +577,31 @@ public class DashbordadminFXML implements Initializable {
             throw new RuntimeException(e);
         }
 // Bind columns to their respective data properties
-        idroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
+      //  idroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
 
         nmroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
         nmform.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
         //formateur.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
         descroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
-
+       date_c_room.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(4)));
+   statusroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(5)));
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        checkSuspensionStatus();
         dispalyallrooms();
         setupButtonColumns();
        //TableColumn<ObservableList<String>, Void> modifierColumn = setupModifierButtonColumn();
       // tabr.getColumns().add(modifierColumn);
         TableColumn<ObservableList<String>, Void> deleteColumn = setupDeleteButtonColumn();
         tabr.getColumns().add(deleteColumn);
+
+        TableColumn<ObservableList<String>, Void> suspendColumn = setupsuspendButtonColumn();
+        if (suspendColumn != null) {
+            tabr.getColumns().add(suspendColumn);
+        }
 
     }
 

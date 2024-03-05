@@ -113,6 +113,28 @@ public class Serviceroom implements CRUD<Room> {
     }
 
 
+    public void suspendroom(int id_room, int durationInMinutes) throws SQLException {
+        String req = "UPDATE room SET status='suspend', suspend_time=? WHERE id_room = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setInt(1, durationInMinutes);
+            ps.setInt(2, id_room);
+            ps.executeUpdate(); // Execute the query
+        } // The PreparedStatement will be automatically closed here
+    }
+
+    public void resuspendroom (int id_room) throws SQLException {
+        String req ="UPDATE room SET status='Active' WHERE id_room = ?";
+        PreparedStatement ps = cnx.prepareStatement(req);
+
+        ps.setInt(1, id_room);
+
+        ps.executeUpdate(); // Exécuter la requête
+
+
+        // Fermez la PreparedStatement après utilisation.
+        ps.close();
+    }
+
 
 
 }

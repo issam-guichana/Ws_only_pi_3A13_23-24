@@ -20,14 +20,13 @@
     <children>
         <AnchorPane layoutX="159.0" prefHeight="692.0" prefWidth="819.0" style="-fx-background-color: #f4f2ef;">
             <children>
-                <TableView fx:id="tabr" layoutX="121.0" layoutY="319.0" prefHeight="281.0" prefWidth="661.0" style="-fx-border-color: #213E60; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+                <TableView fx:id="tabr" layoutX="121.0" layoutY="319.0" prefHeight="365.0" prefWidth="661.0" style="-fx-border-color: #213E60; -fx-border-radius: 10px; -fx-background-radius: 10px;">
                     <columns>
                         <TableColumn fx:id="nmroom" prefWidth="75.0" text="Nom_room" />
                         <TableColumn fx:id="descroom" prefWidth="75.0" text="Description" />
                         <TableColumn fx:id="nmform" prefWidth="112.0" text="Nom_formation" />
-                        <TableColumn fx:id="formateur" prefWidth="75.0" text="Formateur" />
                         <TableColumn fx:id="date_c_room" prefWidth="92.0" text="Date creation" />
-                  <TableColumn fx:id="idroom" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="statusroom" prefWidth="75.0" text="Status" />
                     </columns>
                 </TableView>
             <GridPane layoutX="239.0" layoutY="105.0" prefHeight="138.0" prefWidth="447.0">

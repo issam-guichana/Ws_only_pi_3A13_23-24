@@ -2,6 +2,7 @@ package controllers;
 
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -23,6 +24,11 @@ public class DashbordmsgFXML implements Initializable {
 
     @FXML
     private URL location;
+    @FXML
+    private TableColumn<ObservableList<String>, String> date_msg;
+
+    @FXML
+    private TableColumn<ObservableList<String>, String>  heure;
 
     @FXML
     private TableColumn<ObservableList<String>, String> cnmsg;
@@ -88,12 +94,12 @@ public class DashbordmsgFXML implements Initializable {
         Serviceroom sm = new Serviceroom();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "");
             Statement statement = connection.createStatement();
 
             // Retrieve data from the 'user' table
             ResultSet resultSet = statement
-                    .executeQuery("select m.id_msg,m.contenu,r.nom_room,u.username From message m Join room r ON m.room_id=r.id_room and m.status='Active' Join formation f ON f.id_form=r.formation_id join user u on f.user_id=u.id_user;");
+                    .executeQuery("select DISTINCT m.id_msg,m.contenu,r.nom_room,u.username,m.heure_msg,m.date_msg From message m Join room r ON m.room_id=r.id_room and m.status='Active' Join user_formation f ON f.room_id=r.id_room join user u ON f.user_id=u.id_user;");
             ObservableList<ObservableList<String>> oblist = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -102,6 +108,14 @@ public class DashbordmsgFXML implements Initializable {
                 row.add(resultSet.getString("contenu"));
                 row.add(resultSet.getString("nom_room"));
                 row.add(resultSet.getString("username"));
+              //  row.add(String.valueOf(resultSet.getTime("heure_msg")));
+                Time time = resultSet.getTime("heure_msg");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                String formattedTime = timeFormat.format(time);
+                row.add(formattedTime);
+
+                row.add(resultSet.getString("date_msg"));
+               // row.add(resultSet.getString("date_msg"));
 
                 oblist.add(row);
             }
@@ -111,14 +125,14 @@ public class DashbordmsgFXML implements Initializable {
             throw new RuntimeException(e);
         }
 // Bind columns to their respective data properties
-        idmsg.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
+       // idmsg.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
         cnmsg.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
 
         nmroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
         emet.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
 
-
-
+      date_msg.setCellValueFactory(param->new SimpleStringProperty(param.getValue().get(4)));
+        heure.setCellValueFactory(param->new SimpleStringProperty(param.getValue().get(5)));
     }
 
 
