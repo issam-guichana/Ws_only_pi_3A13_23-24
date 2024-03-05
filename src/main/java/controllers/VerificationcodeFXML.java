@@ -8,11 +8,17 @@ import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import models.Evenement;
+import services.Payment;
 
 import java.io.IOException;
 
 public class VerificationcodeFXML {
+
     @FXML
     private CalendarController calendarController;
 
@@ -43,7 +49,9 @@ public class VerificationcodeFXML {
     private void initialize() {
         // You can perform any initialization here
     }
-
+    WebView webView = new WebView();
+    WebEngine webEngine = webView.getEngine();
+    Float prix = 150F;
     @FXML
     private void handleConfirmPaymentButton(ActionEvent event) {
         // Get the entered verification code
@@ -55,7 +63,21 @@ public class VerificationcodeFXML {
             // Code is valid, proceed to the payment page
             messageLabel.setText("Verification successful. Redirecting to the payment page...");
             // Implement code to navigate to the payment page
-            navigateToPaymentPage();
+           // navigateToPaymentPage();
+            Evenement evenement =new Evenement();
+            webEngine.load("https://dashboard.stripe.com/test/payments");
+            StackPane root = new StackPane();
+            root.getChildren().addAll(webView);
+            Payment p = new Payment();
+            long priceLong = (long) (prix*0.32) *100;
+            p.processPayment(priceLong);
+            // Create a Scene and add the StackPane to it
+            Scene scene = new Scene(root, 800, 600);
+            Stage primaryStage = new Stage();
+            // Set the Scene to the Stage
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Load Web Page on Button Click");
+            primaryStage.show();
         } else {
             // Code is not valid, show an error message
             messageLabel.setText("Invalid verification code. Please try again.");
@@ -98,34 +120,5 @@ public class VerificationcodeFXML {
         return isValid;
     }
 
-    private void navigateToPaymentPage() {
-        try {
-            // Get the current stage
-            Stage currentStage = (Stage) confirmPaymentButton.getScene().getWindow();
 
-            // Load the PaimentEventFXML.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/paimenteventFXML.fxml"));
-            Parent root = loader.load();
-
-            // Create a new stage for the payment scene
-            Stage paymentStage = new Stage();
-            paymentStage.setScene(new Scene(root));
-
-            // Get the reference to the PaimentEventFXML controller
-            PaimenteventFXML paimentEventController = loader.getController();
-
-            // Additional actions or data passing can be done here
-
-            // Set the ParticiperFXML controller reference
-            paimentEventController.setParticiperController(participerController);
-
-            // Close the current stage (old scene)
-            currentStage.close();
-
-            // Show the new stage (payment scene)
-            paymentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

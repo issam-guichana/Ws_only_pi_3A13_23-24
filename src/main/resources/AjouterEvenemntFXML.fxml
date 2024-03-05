@@ -151,7 +151,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnCustomers" onAction="#openeventgestion" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="253.0" style="-fx-background-color: #376cb0;" stylesheets="@Styles.css" text="Evénements" textFill="WHITE">
+            <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#openeventgestion" prefHeight="78.0" prefWidth="253.0" style="-fx-background-color: #376cb0;" stylesheets="@Styles.css" text="Evénements" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -258,7 +258,7 @@
             </Button>
          </children>
       </VBox>
-      <TableView fx:id="tbEvents" layoutX="520.0" layoutY="146.0" prefHeight="200.0" prefWidth="712.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="146.0">
+      <TableView fx:id="tbEvents" layoutX="520.0" layoutY="274.0" prefHeight="200.0" prefWidth="712.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="274.0">
          <columns>
             <TableColumn fx:id="ColNom" prefWidth="71.20000839233398" text="Nom" />
             <TableColumn fx:id="colDescr" prefWidth="156.8000030517578" text="Description" />
@@ -270,7 +270,7 @@
             <TableColumn fx:id="colimg" prefWidth="156.8000030517578" text="Image" />
          </columns>
       </TableView>
-      <Button fx:id="tfListP" layoutX="888.0" layoutY="383.0" mnemonicParsing="false" onAction="#accederListeParticipants" prefHeight="38.0" prefWidth="200.0">
+      <Button fx:id="tfListP" layoutX="973.0" layoutY="512.0" mnemonicParsing="false" onAction="#accederListeParticipants" prefHeight="38.0" prefWidth="200.0">
          <text>Liste des participants</text>
          <stylesheets>
             <URL value="@Styles.css" />
@@ -286,7 +286,16 @@
             </ImageView>
          </graphic>
       </Button>
-
+      <TextField fx:id="search" layoutX="835.0" layoutY="146.0" />
+      <Button fx:id="tfsearch" layoutX="992.0" layoutY="145.0" mnemonicParsing="false" onAction="#SearchEvenemnt" style="-fx-background-color: #d8d1bd;" stylesheets="Styles.css">
+         <graphic>
+            <ImageView fitHeight="20" fitWidth="20">
+               <image>
+                  <Image url="@images/search.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
 
    </children>
 </AnchorPane>

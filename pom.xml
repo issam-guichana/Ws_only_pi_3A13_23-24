@@ -50,6 +50,11 @@
             <artifactId>javafx-web</artifactId>
             <version>17.0.2</version> <!-- Use the appropriate version -->
         </dependency>
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>20.120.0</version>
+        </dependency>
 
 
     </dependencies>

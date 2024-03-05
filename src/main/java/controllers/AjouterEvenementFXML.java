@@ -482,4 +482,7 @@ public class AjouterEvenementFXML {
             e.printStackTrace();
         }
     }
+
+    public void SearchEvenemnt(ActionEvent actionEvent) {
+    }
 }

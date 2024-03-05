@@ -62,7 +62,18 @@
     -fx-effect: dropshadow(three-pass-box, #ae8251, 10, 0, 0, 0);
 }
 
+#tfsearch {
+    -fx-background-radius: 0; /* To remove button border-radius */
+    -fx-padding: 10 20; /* Adjust padding to make the button bigger */
+    -fx-font-size: 14; /* Adjust font size for text, if applicable */
+    -fx-background-color: #d8d1bd; /* Default background color */
+}
 
+#tfsearch:hover {
+    -fx-background-color: #d8d1bd; /* Change background color on hover */
+    -fx-cursor: hand; /* Change cursor on hover */
+    -fx-effect: dropshadow(three-pass-box, #ae8251, 10, 0, 0, 0); /* Add drop shadow on hover */
+}
 #searchButton {
     -fx-background-radius: 0; /* To remove button border-radius */
     -fx-padding: 10 20; /* Adjust padding to make the button bigger */
@@ -74,4 +85,26 @@
     -fx-background-color: #d8d1bd; /* Change background color on hover */
     -fx-cursor: hand; /* Change cursor on hover */
     -fx-effect: dropshadow(three-pass-box, #ae8251, 10, 0, 0, 0); /* Add drop shadow on hover */
+}
+
+/* Define styles for the countdown label */
+/* Define styles for the countdown label */
+.countdown-label {
+    -fx-font-size: 36px;
+    -fx-text-fill: #E38C3AFF; /* Hexadecimal color code for the label text */
+    -fx-font-family: 'YourClockFont', 'Monospaced'; /* Use a clock-like font as fallback */
+}
+
+/* Define styles for the clock digits */
+.clock-digits {
+    -fx-font-size: 36px;
+    -fx-font-family: 'YourClockFont', 'Monospaced'; /* Use a clock-like font as fallback */
+    -fx-text-fill: #E38C3AFF; /* Hexadecimal color code for the clock digits */
+}
+
+/* Additional style for event happening now */
+.event-now {
+    -fx-font-size: 24px;
+    -fx-text-fill: #E38C3AFF; /* Hexadecimal color code for the event happening now text */
+    -fx-font-weight: bold;
 }

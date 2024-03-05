@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,14 +11,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import models.Evenement;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import services.Payment;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class EventDetailsFXML implements Initializable {
@@ -24,6 +31,8 @@ public class EventDetailsFXML implements Initializable {
     private Button backButton;
     @FXML
     private Button participer;
+    @FXML
+    private Label countdownLabel;
     @FXML
     private CalendarController calendarController;
     @FXML
@@ -46,16 +55,20 @@ public class EventDetailsFXML implements Initializable {
 
     @FXML
     private Label nbrp;
-
+    private Evenement currentEvent;
     @FXML
     private WebView mapView;
     private WebEngine webEngine;
+    private boolean stylesApplied = false;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        webEngine = mapView.getEngine();
+        setupCountdownTimer();
+    }
     public void setCalendarController(CalendarController calendarController) {
         this.calendarController = calendarController;
     }
-
-
-    @FXML
 
     public void setEventDetails(Evenement event) {
         if (event != null) {
@@ -77,25 +90,12 @@ public class EventDetailsFXML implements Initializable {
             // Use OpenStreetMap to generate a map URL
             String mapUrl = "https://www.openstreetmap.org/?mlat=" + event.getLieu() +
                     "&mlon=" + event.getLieu() + "#map=14/" + event.getLieu();
-            setMapUrl(mapUrl);
+            webEngine.load(mapUrl);
         }
+        currentEvent = event;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        webEngine = mapView.getEngine();
-    }
-    // New method to set the map URL
-    private String getOpenStreetMapURL(String location) {
-        return "https://www.openstreetmap.org/search?query=" + location.replace(" ", "%20");
-    }
-
-    public void setMapUrl(String mapUrl) {
-        webEngine.load(mapUrl);
-    }
-
-
-    public void goToCalendar(javafx.event.ActionEvent actionEvent) {
+    public void goToCalendar(ActionEvent actionEvent) {
         try {
             // Close the current stage
             Stage currentStage = (Stage) backButton.getScene().getWindow();
@@ -129,8 +129,55 @@ public class EventDetailsFXML implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-}
 
+    }
+
+    private void setupCountdownTimer() {
+        final Timeline timeline = new Timeline(
+                new KeyFrame(
+                        javafx.util.Duration.seconds(0),
+                        actionEvent -> {
+                            if (currentEvent != null) {
+                                LocalDateTime startDateTime = LocalDateTime.of(currentEvent.getDate_event(), currentEvent.getHeure_deb());
+                                java.time.Duration duration = java.time.Duration.between(LocalDateTime.now(), startDateTime);
+
+                                if (!duration.isNegative()) {
+                                    long seconds = duration.getSeconds();
+                                    String time = String.format("%dd %dh %dm %ds left",
+                                            seconds / 86400,
+                                            (seconds % 86400) / 3600,
+                                            (seconds % 3600) / 60,
+                                            (seconds % 60));
+
+                                    // Apply styles for the countdown label
+                                    countdownLabel.getStylesheets().add(getClass().getResource("/Styles.css").toExternalForm());
+                                    countdownLabel.getStyleClass().clear(); // Clear existing styles
+                                    countdownLabel.getStyleClass().addAll("countdown-label", "clock-digits");
+                                    countdownLabel.setText(time);
+                                } else {
+                                    // Apply styles for the countdown label when the event is happening
+                                    countdownLabel.setText("Event is happening now!");
+                                    countdownLabel.getStylesheets().add(getClass().getResource("/Styles.css").toExternalForm());
+                                    countdownLabel.getStyleClass().clear(); // Clear existing styles
+                                    countdownLabel.getStyleClass().addAll("countdown-label", "clock-digits", "event-now");
+
+                                    // Apply a pulsing effect
+                                    FadeTransition fadeTransition = new FadeTransition(javafx.util.Duration.seconds(1), countdownLabel);
+                                    fadeTransition.setFromValue(1.0);
+                                    fadeTransition.setToValue(0.3);
+                                    fadeTransition.setCycleCount(Timeline.INDEFINITE);
+                                    fadeTransition.setAutoReverse(true);
+                                    fadeTransition.play();
+                                }
+                            }
+                        }
+                ),
+                new KeyFrame(javafx.util.Duration.seconds(1))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+}
 
 
