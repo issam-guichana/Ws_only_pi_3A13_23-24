@@ -587,7 +587,21 @@ public class DashbordadminFXML implements Initializable {
    statusroom.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(5)));
     }
 
+    @FXML
+    void actualiserroom(ActionEvent event) {
+        checkSuspensionStatus();
+        dispalyallrooms();
+        setupButtonColumns();
+        //TableColumn<ObservableList<String>, Void> modifierColumn = setupModifierButtonColumn();
+        // tabr.getColumns().add(modifierColumn);
+        TableColumn<ObservableList<String>, Void> deleteColumn = setupDeleteButtonColumn();
+        tabr.getColumns().add(deleteColumn);
 
+        TableColumn<ObservableList<String>, Void> suspendColumn = setupsuspendButtonColumn();
+        if (suspendColumn != null) {
+            tabr.getColumns().add(suspendColumn);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         checkSuspensionStatus();

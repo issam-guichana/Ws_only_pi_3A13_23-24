@@ -1,10 +1,8 @@
 package controllers;
 import java.awt.*;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.*;
@@ -77,6 +75,12 @@ public class AjoutermsgformateurFXML implements Initializable {
 
     @FXML
     private FileInputStream fis;
+    @FXML
+    private ImageView msgimg;
+    private String Imgmsg;
+    @FXML
+    public Label ImagemsgName;
+
     private HashMap<String, Integer> roomFormationMap = new HashMap<>();
 
 
@@ -160,72 +164,75 @@ public class AjoutermsgformateurFXML implements Initializable {
         }
     }
 
-    @FXML
-    public void addimage(javafx.event.ActionEvent event) {
-        try {
-            Node sourceNode = (Node) event.getSource();
-            Stage primaryStage = (Stage) sourceNode.getScene().getWindow();
 
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Ouvrir");
 
-            // Show open dialog
-            File selectedFile = fileChooser.showOpenDialog(primaryStage);
-
-            if (selectedFile != null) {
-                System.out.println("Fichier sélectionné: " + selectedFile.getAbsolutePath());
-
-                String selectedRoom = selectroom.getValue();
-                if (selectedRoom == null || selectedRoom.isEmpty()) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Espace non sélectionné");
-                    alert.setContentText("Vous devez choisir un espace d'abord !");
-                    alert.show();
-                    return;
+    public void UploadImageroom(javafx.event.ActionEvent event) throws FileNotFoundException, IOException {
+        FileChooser fc = new FileChooser();
+        //fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", listFichier));
+        File f = fc.showOpenDialog(null);
+        if (f != null) {
+            //Commentaire.setText("Image sélectionnée" + f.getAbsolutePath());
+            InputStream is = null;
+            OutputStream os = null;
+            try {
+                is = new FileInputStream(f);
+                os = new FileOutputStream(new File("C:/xampp/htdocs/image_pi/" + f.getName()));
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
                 }
+            } finally {
+                if (is != null) {
+                    is.close();
+                }
+                if (os != null) {
+                    os.close();
+                }
+            }
+            String selectedRoom = selectroom.getValue();
+            if (selectedRoom == null || selectedRoom.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Espace non sélectionné");
+                alert.setContentText("Vous devez choisir un espace d'abord !");
+                alert.show();
+                return;
+            }
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "");
+                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_room` FROM `room` WHERE `nom_room` = ?")) {
 
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "");
-                     PreparedStatement preparedStatement = connection.prepareStatement("SELECT `id_room` FROM `room` WHERE `nom_room` = ?")) {
+                preparedStatement.setString(1, selectedRoom);
 
-                    preparedStatement.setString(1, selectedRoom);
-
-                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                        if (resultSet.next()) {
-                            int roomId = resultSet.getInt("id_room");
-
-                            try (FileInputStream fis = new FileInputStream(selectedFile)) {
-                                byte[] imageData = fis.readAllBytes();
-                              //  Message msg = new Message(roomId, imageData);
-                                Servicemessage sm = new Servicemessage();
-                               // sm.Insertwithimage(msg, imageData);
-                                System.out.println("Message with image inserted into the database successfully!");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Alert alert = new Alert(Alert.AlertType.WARNING);
-                            alert.setTitle("Espace introuvable");
-                            alert.setContentText("L'espace sélectionné n'existe pas !");
-                            alert.show();
-                        }
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        int roomId = resultSet.getInt("id_room");
+                        System.out.println(roomId);
+                        File file = new File("C:/xampp/htdocs/image_pi/" + f.getName());
+                        System.out.println(file.toURI());
+                        msgimg.setImage(new Image(file.toURI().toString()));
+                        Imgmsg = f.getName();
+                        System.out.println(Imgmsg);
+                      //  ImagemsgName.setText(Imgmsg);
+                        Servicemessage sr = new Servicemessage();
+                        sr.Insertwithimage(roomId, Imgmsg);
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Image ajouté");
+                        alert.setContentText("image est envoyé avec succés !");
+                        alert.show();
+                    } else {
+                        //Commentaire.setText("Erreur chargement de l'image");
+                        //Alert
+                        System.out.println("Erreur !");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Aucun fichier sélectionné");
-                alert.show();
-                System.out.println("Aucun fichier sélectionné");
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
 
 
     @FXML
@@ -368,7 +375,7 @@ public class AjoutermsgformateurFXML implements Initializable {
 
     @FXML
     public void sendmsg(javafx.event.ActionEvent actionEvent) {
-        String selectedRoom = "";
+        String selectedRoom = selectroom.getValue();
         if (selectedRoom == null) {
             // Handle case where no room is selected
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -378,8 +385,7 @@ public class AjoutermsgformateurFXML implements Initializable {
             return;
         }
         try {
-            // Get the selected room from the ComboBox
-            //selectedRoom = roomid.getValue();
+
             selectedRoom = selectroom.getValue();
             // Establish connection to the database
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "");
@@ -402,10 +408,9 @@ public class AjoutermsgformateurFXML implements Initializable {
                     String filePath = "src/main/java/controllers/bad_words.txt";
                     boolean containsBadWords = processMessage(p, filePath);
 
-                    // processMessage(p, filePath);
+
                     if (containsBadWords) {
-                        //  Servicemessage sp = new Servicemessage();
-                        //sp.InsertOne(p);
+
                         initial();
 
                         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -463,7 +468,7 @@ public class AjoutermsgformateurFXML implements Initializable {
         // Liste des rooms eli il appartient lihom
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT `nom_room`, `id_room` FROM `room`");
+            ResultSet resultSet = statement.executeQuery("SELECT `nom_room`, `id_room` FROM `room` where status IN ('Active', 'Suspend')");
             ObservableList<String> nomformationList = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -485,14 +490,7 @@ public class AjoutermsgformateurFXML implements Initializable {
             String selectedNomFormation = selectroom.getSelectionModel().getSelectedItem();
             System.out.println(selectedNomFormation);
             if (selectedNomFormation != null) {
-              //  try (Connection connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
-                    // Query to retrieve the formation_id based on the selected nom_room
-                  //  PreparedStatement preparedStatement3 = connection3.prepareStatement("SELECT formation_id FROM room WHERE nom_room = ?");
-                   // preparedStatement3.setString(1, selectedNomFormation);
-                    //ResultSet resultSet3 = preparedStatement3.executeQuery();
-                    //if (resultSet3.next()) {
-                      //  int formationId = resultSet3.getInt("formation_id");
-                       // System.out.println("Formation id found for selected room: " + formationId);
+
                         // change in the integration
 
                         try (Connection connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
@@ -522,33 +520,12 @@ public class AjoutermsgformateurFXML implements Initializable {
                                     {
                                     preparedStatement4.setInt(1, roomId);
                                     ResultSet resultSet4 = preparedStatement4.executeQuery();
-                                    //ObservableList<Message> messageList = FXCollections.observableArrayList();
-                                    //while (resultSet4.next()) {
-                                    //  String cnmsgValue = resultSet4.getString("contenu");
-                                    //String emetValue = resultSet4.getString("sender_msg");
-                                    // messageList.add(new Message(cnmsgValue, emetValue));
-                                    //System.out.println(messageList);
-                                    //}
-
-                                    // ObservableList<Message> contenuList = FXCollections.observableArrayList();
-                                    //while (resultSet4.next()) {
-                                    // String cnmsgValue = resultSet4.getString("contenu");
-                                    // String emetteurValue = resultSet4.getString("sender_msg");
-                                    //contenuList.add(new Message(cnmsgValue, emetteurValue)); // Assuming Message constructor takes contenu and sender as parameters
-                                    // }
-
-// Set the cell value factories to extract values from the Message object
-                                    //cnmsg.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getContenu()));
-                                    //emet.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSender()));
-                                    ObservableList<String> contenuList = FXCollections.observableArrayList();
+                                                                       ObservableList<String> contenuList = FXCollections.observableArrayList();
                                     while (resultSet4.next()) {
                                         String cnmsgValue = resultSet4.getString("contenu");
                                         String emetteurValue = resultSet4.getString("sender_msg");
                                         contenuList.add(cnmsgValue);
                                     }
-                                    // Set the cell value factories to extract values from the Message object
-                                    // cnmsg.setCellValueFactory(new PropertyValueFactory<>("contenu"));
-                                    //emet.setCellValueFactory(new PropertyValueFactory<>("emet"));
 
                                     // Set the items in the TableView
                                     cnmsg.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
@@ -556,22 +533,15 @@ public class AjoutermsgformateurFXML implements Initializable {
                                     listmsg.setItems(contenuList);
                                     // listmsg.setItems(messageList);
                                 }
-                          //  } else {
-                              //  System.out.println("No message found for selected room: " + selectedNomFormation);
-                                // Handle the situation where the room ID is not found
+
                             }
-                       // } catch (SQLException e) {
-                         //   e.printStackTrace();
-                            // Handle SQL exception
-                            // You might want to show an error message to the user here
 
                             } else {
                      System.out.println("No formation found for selected room: " + selectedNomFormation);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    // Handle SQL exception
-                    // You might want to show an error message to the user here
+
                 }
             }
         });

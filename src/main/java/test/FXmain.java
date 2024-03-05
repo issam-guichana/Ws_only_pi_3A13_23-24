@@ -24,8 +24,8 @@ public class FXmain extends Application {
 
 
          //interface admin
-       FXMLLoader loader = new FXMLLoader(getClass()
-               .getResource("/DashbordadminFXML.fxml"));
+      // FXMLLoader loader = new FXMLLoader(getClass()
+        //       .getResource("/DashbordadminFXML.fxml"));
 
   //  FXMLLoader loader = new FXMLLoader(getClass()
              //  .getResource("/DashbordmsgFXML.fxml"));
@@ -36,8 +36,8 @@ public class FXmain extends Application {
 
     // FXMLLoader loader = new FXMLLoader(getClass()
       //       .getResource("/Ajoutroomformateur.fxml"));
-   //FXMLLoader loader = new FXMLLoader(getClass()
-     //           .getResource("/AjoutermsgformateurFXML.fxml"));
+   FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/AjoutermsgformateurFXML.fxml"));
 
                 //FXMLLoader loader = new FXMLLoader(getClass()
           //      .getResource("/test.fxml"));

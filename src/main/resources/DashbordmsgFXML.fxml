@@ -153,7 +153,7 @@
                </Button>
            </children>
        </VBox>
-      <TableView fx:id="tabm" layoutX="281.0" layoutY="182.0" prefHeight="200.0" prefWidth="682.0">
+      <TableView fx:id="tabm" layoutX="282.0" layoutY="182.0" prefHeight="200.0" prefWidth="682.0">
         <columns>
           <TableColumn fx:id="cnmsg" prefWidth="123.0" text="Contenu Message" />
           <TableColumn fx:id="nmroom" prefWidth="127.0" text="Nom Room" />

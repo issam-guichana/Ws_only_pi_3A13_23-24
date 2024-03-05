@@ -1,7 +1,9 @@
 package controllers;
 
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.sql.*;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -13,6 +15,12 @@ import javafx.scene.control.*;
 import models.Room;
 import models.user_formation;
 import services.Serviceroom;
+
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class Ajoutroomformateur implements Initializable {
 
@@ -99,6 +107,51 @@ public class Ajoutroomformateur implements Initializable {
             // Add any cleanup code if needed
         }
     }
+
+
+   // public void sendmailroom() {
+     //   String recipientEmail = GlobalVariables.userEmail;
+
+        // Check if recipientEmail is not null before using it
+       // if (recipientEmail != null) {
+           // String senderEmail = "rahma.sakkat@etudiant-isi.utm.tn";
+         //   String password = "11670867";
+
+            //Properties props = new Properties();
+            //props.put("mail.smtp.host", "smtp.office365.com");
+            //props.put("mail.smtp.port", "587");
+            //props.put("mail.smtp.auth", "true");
+           // props.put("mail.smtp.starttls.enable", "true");
+
+            //try {
+              //  final String finalPassword = password;
+                //Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                  //  protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                    //    return new PasswordAuthentication(senderEmail, finalPassword.toCharArray());
+                    //}
+                //});
+                //javax.mail.Message message = new MimeMessage(session);
+                //message.setFrom(new InternetAddress(senderEmail));
+
+                // Create InternetAddress object only if recipientEmail is not null
+                //InternetAddress recipientAddress = new InternetAddress(recipientEmail);
+                //message.setRecipient(javax.mail.Message.RecipientType.TO, recipientAddress);
+
+                //message.setSubject("Course purchase success!");
+                //message.setText("Dear User,\n\nThis is to inform you that your course purchase is successful.\n\nBest regards,\nEduHub Connect");
+
+                //Transport.send(message);
+
+                //System.out.println("Course purchase email sent successfully to " + recipientEmail);
+            //} catch (MessagingException e) {
+              //  System.err.println("Failed to send email: " + e.getMessage());
+                //e.printStackTrace();
+            //}
+        //} else {
+          //  System.out.println("Recipient email is null.");
+        //}
+    //}
+
 
 
 

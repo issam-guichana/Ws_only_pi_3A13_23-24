@@ -20,7 +20,7 @@
     <children>
         <AnchorPane layoutX="159.0" prefHeight="692.0" prefWidth="819.0" style="-fx-background-color: #f4f2ef;">
             <children>
-                <TableView fx:id="tabr" layoutX="121.0" layoutY="319.0" prefHeight="365.0" prefWidth="661.0" style="-fx-border-color: #213E60; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+                <TableView fx:id="tabr" layoutX="121.0" layoutY="319.0" prefHeight="309.0" prefWidth="661.0" style="-fx-border-color: #213E60; -fx-border-radius: 10px; -fx-background-radius: 10px;">
                     <columns>
                         <TableColumn fx:id="nmroom" prefWidth="75.0" text="Nom_room" />
                         <TableColumn fx:id="descroom" prefWidth="75.0" text="Description" />
@@ -42,11 +42,6 @@
                   <RowConstraints maxHeight="25.0" minHeight="4.0" prefHeight="8.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Description" textFill="#213e60" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
                   <Label text="Formation" textFill="#213e60" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="13.0" />
@@ -60,6 +55,11 @@
                   <TextField fx:id="nameroom" prefHeight="25.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ComboBox fx:id="nomform" prefHeight="25.0" prefWidth="318.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="decsproom" prefHeight="25.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Description" textFill="#213e60" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
             <Label layoutX="239.0" layoutY="49.0" prefHeight="20.0" prefWidth="461.0" text="Bienvenue Admin sur le tableau de bord des discussions !" textFill="#213e60">
@@ -72,7 +72,12 @@
                   <Image url="@Images/tableau-de-bord.png" />
                </image>
             </ImageView>
-            <Button layoutX="351.0" layoutY="246.0" mnemonicParsing="false" onAction="#ajoutroom" style="-fx-background-position: center;" text="Appuyer pour ajouter un espace" textAlignment="JUSTIFY" textFill="#213e60">
+            <Button layoutX="351.0" layoutY="246.0" mnemonicParsing="false" onAction="#ajoutroom" style="-fx-background-position: center; -fx-background-color: #e68c3a; -fx-background-radius: 20px;" text="Appuyer pour ajouter un espace" textAlignment="JUSTIFY" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="682.0" layoutY="47.0" mnemonicParsing="false" onAction="#actualiserroom" style="-fx-background-position: center; -fx-background-color: #e68c3a; -fx-background-radius: 20px;" text="Actualiser tous" textAlignment="JUSTIFY" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

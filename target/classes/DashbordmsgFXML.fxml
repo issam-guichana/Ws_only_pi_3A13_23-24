@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="667.0" prefWidth="978.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashbordmsgFXML">
    <children>
@@ -152,14 +153,13 @@
                </Button>
            </children>
        </VBox>
-      <TableView fx:id="tabm" layoutX="281.0" layoutY="182.0" prefHeight="200.0" prefWidth="682.0">
+      <TableView fx:id="tabm" layoutX="282.0" layoutY="182.0" prefHeight="200.0" prefWidth="682.0">
         <columns>
           <TableColumn fx:id="cnmsg" prefWidth="123.0" text="Contenu Message" />
           <TableColumn fx:id="nmroom" prefWidth="127.0" text="Nom Room" />
             <TableColumn fx:id="emet" prefWidth="75.0" text="Emmetteur" />
-            <TableColumn prefWidth="75.0" text="date_msg" />
-            <TableColumn prefWidth="75.0" text="heure" />
-            <TableColumn fx:id="idmsg" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="date_msg" prefWidth="75.0" text="date_msg" />
+            <TableColumn fx:id="heure" prefWidth="75.0" text="heure" />
         </columns>
       </TableView>
       <Label layoutX="446.0" layoutY="76.0" text="Bienvenue Admin au tableau de bord Messages!" textFill="#213e60">
@@ -171,5 +171,6 @@
             <Image url="@Images/tableau-de-bord.png" />
          </image>
       </ImageView>
+      <Text layoutX="423.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

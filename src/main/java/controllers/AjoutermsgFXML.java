@@ -74,72 +74,72 @@ public class AjoutermsgFXML  implements Initializable {
     //homeicon.setImage(homeImage);
     //}
 
-  public void initial() {
 
-      HashMap<String, Integer> roomFormationMap = new HashMap<>();
+      public void initial () {
+          HashMap<String, Integer> roomFormationMap = new HashMap<>();
 
-      try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
-          Statement statement = connection.createStatement();
-          ResultSet resultSet = statement.executeQuery("SELECT `nom_room`, `id_room` FROM `room`");
-          ObservableList<String> nomformationList = FXCollections.observableArrayList();
 
-          while (resultSet.next()) {
-              String nomRoom = resultSet.getString("nom_room");
-              int idRoom = resultSet.getInt("id_room");
-              nomformationList.add(nomRoom);
-              roomFormationMap.put(nomRoom, idRoom); // Store the room ID along with the room name
+          // Liste des rooms eli il appartient lihom
+          try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
+              Statement statement = connection.createStatement();
+              ResultSet resultSet = statement.executeQuery("SELECT `nom_room`, `id_room` FROM `room` where status IN ('Active', 'Suspend')");
+              ObservableList<String> nomformationList = FXCollections.observableArrayList();
+
+              while (resultSet.next()) {
+                  String nomRoom = resultSet.getString("nom_room");
+                  int idRoom = resultSet.getInt("id_room");
+                  nomformationList.add(nomRoom);
+                  roomFormationMap.put(nomRoom, idRoom); // Store the room ID along with the room name
+              }
+
+              selectroom.setItems(nomformationList);
+          } catch (SQLException e) {
+              e.printStackTrace();
+              // Handle SQL exception
+              // You might want to show an error message to the user here
+              return;
           }
 
-          selectroom.setItems(nomformationList);
-      } catch (SQLException e) {
-          e.printStackTrace();
-          // Handle SQL exception
-          // You might want to show an error message to the user here
-          return;
-      }
+          selectroom.setOnAction(event -> {
+              String selectedNomFormation = selectroom.getSelectionModel().getSelectedItem();
+              System.out.println(selectedNomFormation);
+              if (selectedNomFormation != null) {
 
-      selectroom.setOnAction(event -> {
-          String selectedNomFormation = selectroom.getSelectionModel().getSelectedItem();
-          System.out.println(selectedNomFormation);
-          if (selectedNomFormation != null) {
-              try (Connection connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
-                  // Query to retrieve the formation_id based on the selected nom_room
-                  PreparedStatement preparedStatement3 = connection3.prepareStatement("SELECT formation_id FROM room WHERE nom_room = ?");
-                  preparedStatement3.setString(1, selectedNomFormation);
-                  ResultSet resultSet3 = preparedStatement3.executeQuery();
-                  if (resultSet3.next()) {
-                      int formationId = resultSet3.getInt("formation_id");
-                      System.out.println("Formation id found for selected room: " + formationId);
-                      try (Connection connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn1", "root", "")) {
-                          PreparedStatement preparedStatement2 = connection2.prepareStatement("SELECT u.username FROM user u JOIN formation f ON u.id_user = f.user_id WHERE f.id_form = ?");
-                          preparedStatement2.setInt(1, formationId);
-                          ResultSet resultSet2 = preparedStatement2.executeQuery();
-                          ObservableList<String> Listparti = FXCollections.observableArrayList();
-                          while (resultSet2.next()) {
-                              Listparti.add(resultSet2.getString("username"));
-                          }
-                          System.out.println(Listparti);
-                          cpartic.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
-                          listpart.setItems(Listparti);
+                  // change in the integration
 
-                          // Query to retrieve the id_room based on the selected nom_room
-                          if (roomFormationMap.containsKey(selectedNomFormation)) {
-                              int roomId = roomFormationMap.get(selectedNomFormation);
-                              System.out.println(roomId);
-                              try (PreparedStatement preparedStatement4 = connection3.prepareStatement("SELECT `contenu`, `sender_msg` FROM `message` WHERE room_id=? and status='Active'")) {
+                  try (Connection connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
+                      PreparedStatement preparedStatement2 = connection2.prepareStatement("\n" +
+                              " SELECT DISTINCT (u.username)\n" +
+                              " FROM user u\n" +
+                              " JOIN user_formation uf ON uf.user_id = u.id_user \n" +
+                              " JOIN room r ON uf.room_id=r.id_room WHERE r.nom_room = ?;");
+
+                      //SELECT u.username FROM user u JOIN user_formation uf1 ON u.id_user = uf1.user_id JOIN user_formation uf2 ON uf1.form_id = uf2.form_id JOIN formation f ON uf2.form_id = f.id_form WHERE f.id_form = ?;
+                      preparedStatement2.setString(1, selectedNomFormation);
+                      ResultSet resultSet2 = preparedStatement2.executeQuery();
+                      ObservableList<String> Listparti = FXCollections.observableArrayList();
+                      while (resultSet2.next()) {
+                          Listparti.add(resultSet2.getString("username"));
+                      }
+                      System.out.println(Listparti);
+                      cpartic.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+                      listpart.setItems(Listparti);
+
+                      // Query to retrieve the id_room based on the selected nom_room
+                      if (roomFormationMap.containsKey(selectedNomFormation)) {
+                          int roomId = roomFormationMap.get(selectedNomFormation);
+                          System.out.println(roomId);
+                          try (Connection connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/formini.tn2", "root", "")) {
+                              PreparedStatement preparedStatement4 = connection3.prepareStatement("SELECT `contenu`, `sender_msg` FROM `message` WHERE room_id=? and status='Active'");
+                              {
                                   preparedStatement4.setInt(1, roomId);
                                   ResultSet resultSet4 = preparedStatement4.executeQuery();
-
-
                                   ObservableList<String> contenuList = FXCollections.observableArrayList();
                                   while (resultSet4.next()) {
                                       String cnmsgValue = resultSet4.getString("contenu");
                                       String emetteurValue = resultSet4.getString("sender_msg");
                                       contenuList.add(cnmsgValue);
                                   }
-                                  // Set the cell value factories to extract values from the Message object
-                                  // cnmsg.setCellValueFactory(new PropertyValueFactory<>("contenu"));
-                                  //emet.setCellValueFactory(new PropertyValueFactory<>("emet"));
 
                                   // Set the items in the TableView
                                   cnmsg.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
@@ -147,26 +147,21 @@ public class AjoutermsgFXML  implements Initializable {
                                   listmsg.setItems(contenuList);
                                   // listmsg.setItems(messageList);
                               }
-                          } else {
-                              System.out.println("No message found for selected room: " + selectedNomFormation);
-                              // Handle the situation where the room ID is not found
+
                           }
-                      } catch (SQLException e) {
-                          e.printStackTrace();
-                          // Handle SQL exception
-                          // You might want to show an error message to the user here
+
+                      } else {
+                          System.out.println("No formation found for selected room: " + selectedNomFormation);
                       }
-                  } else {
-                      System.out.println("No formation found for selected room: " + selectedNomFormation);
+                  } catch (SQLException e) {
+                      e.printStackTrace();
+
                   }
-              } catch (SQLException e) {
-                  e.printStackTrace();
-                  // Handle SQL exception
-                  // You might want to show an error message to the user here
               }
-          }
-      });
-  }
+          });
+
+      }
+
     private boolean processMessage(Message msg, String filePath) {
         try (Scanner scanner = new Scanner(new File(filePath))) {
             Set<String> badWords = new HashSet<>();

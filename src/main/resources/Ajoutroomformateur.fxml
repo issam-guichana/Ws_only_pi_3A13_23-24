@@ -180,7 +180,7 @@
          </image>
       </ImageView>
       <Label layoutX="976.0" layoutY="181.0" style="-fx-background-color: white;" text="2" textFill="#213e60" />
-      <Button layoutX="1044.0" layoutY="514.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="148.0" style="-fx-background-color: #E68c3a;" text="Inviter par mail" textFill="WHITE">
+      <Button layoutX="1044.0" layoutY="514.0" mnemonicParsing="false" onAction="#sendmailroom" prefHeight="30.0" prefWidth="148.0" style="-fx-background-color: #E68c3a;" text="Inviter par mail" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

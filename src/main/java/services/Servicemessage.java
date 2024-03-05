@@ -23,7 +23,7 @@ public class Servicemessage implements CRUD<Message> {
     }
 
 
-    public void Insertwithimage(Message msg,  byte[] imageData) throws SQLException {
+    public void Insertwithimage(int id_room,  String imageData) throws SQLException {
         String req = "INSERT INTO `message` (`room_id`, `image`) VALUES ( ?, ?)";
 
 
@@ -31,8 +31,10 @@ public class Servicemessage implements CRUD<Message> {
             // Set the values for the parameters
            // preparedStatement.setString(1, msg.getContenu());
             // preparedStatement.setString(2, msg.getSender());
-            preparedStatement.setInt(1, msg.getId_room());
-            preparedStatement.setBlob(2, new ByteArrayInputStream(imageData));
+            preparedStatement.setInt(1, id_room);
+            preparedStatement.setString(2, imageData);
+
+            // preparedStatement.setBlob(2, new ByteArrayInputStream(imageData));
             // preparedStatement.setBinaryStream(2,new ByteArrayInputStream(imageData));
          //   preparedStatement.setBlob(2,);
             // Execute the update

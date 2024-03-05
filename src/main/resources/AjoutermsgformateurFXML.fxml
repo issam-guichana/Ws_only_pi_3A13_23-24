@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -210,9 +209,11 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <TextFlow layoutX="508.0" layoutY="142.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="selectimage" layoutX="1056.0" layoutY="557.0" mnemonicParsing="false" onAction="#addimage" text="Addimage" />
-      <TextArea fx:id="textarea" layoutX="583.0" layoutY="405.0" prefHeight="115.0" prefWidth="117.0" />
+      <TextFlow layoutX="508.0" layoutY="142.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="msgimg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children></TextFlow>
+      <Button fx:id="selectimage" layoutX="1056.0" layoutY="557.0" mnemonicParsing="false" onAction="#UploadImageroom" text="Addimage" />
       <Button layoutX="994.0" layoutY="557.0" mnemonicParsing="false" onAction="#useemojis" text="Emojis" />
     </children>
 </AnchorPane>
