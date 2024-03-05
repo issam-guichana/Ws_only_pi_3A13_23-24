@@ -10,6 +10,7 @@ import java.util.List;
 public class Evenement {
     private int nbrP;
     private String nom_event;
+    private String lieu;
     private String description;
     private int prix,id_event;
     private LocalTime heure_deb;
@@ -17,7 +18,7 @@ public class Evenement {
     private String image_event;
     private List<Userparticipants> participants;
 
-    public Evenement(String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb, int prix, int nbrP,String image_event){
+    public Evenement(String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb,String lieu, int prix, int nbrP,String image_event){
         this.nom_event = nom_event;
         this.description = description;
         this.prix = prix;
@@ -27,13 +28,15 @@ public class Evenement {
         this.image_event = image_event;
         // Set LocalTime directly
         this.heure_deb = heure_deb;
+        this.lieu = lieu;
     }
 
-    public Evenement(int id_event,String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb, int prix,int nbrP,String image_event) {
+    public Evenement(int id_event,String nom_event, String description, java.sql.Date date_event, LocalTime heure_deb,String lieu, int prix,int nbrP,String image_event) {
         this.nom_event = nom_event;
         this.description = description;
         this.prix = prix;
         this.nbrP = nbrP;
+        this.lieu = lieu;
         // Convert java.sql.Date to LocalDate
         this.date_event = date_event.toLocalDate();
         this.id_event=id_event;
@@ -50,6 +53,14 @@ public class Evenement {
     }
     public Evenement() {
 
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
     }
 
     public String getImage_event() {
@@ -119,14 +130,22 @@ public class Evenement {
     @Override
     public String toString() {
         return "Evenement{" +
-
+                "nbrP=" + nbrP +
                 ", nom_event='" + nom_event + '\'' +
+                ", lieu='" + lieu + '\'' +
                 ", description='" + description + '\'' +
                 ", prix=" + prix +
                 ", id_event=" + id_event +
                 ", heure_deb=" + heure_deb +
                 ", date_event=" + date_event +
-                "nbrp=" + nbrP +
+                ", image_event='" + image_event + '\'' +
+                ", participants=" + participants +
                 '}';
+    }
+    public String generateMapUrl() {
+        // Use the Google Maps Static API to generate a map URL based on the location
+        // Example URL format: https://maps.googleapis.com/maps/api/staticmap?center=place&size=600x300&key=YOUR_API_KEY
+        // Replace YOUR_API_KEY with your actual Google Maps API key
+        return "https://maps.googleapis.com/maps/api/staticmap?center=" + lieu + "&size=600x300&key=YOUR_API_KEY";
     }
 }

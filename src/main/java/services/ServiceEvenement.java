@@ -32,17 +32,18 @@ public class ServiceEvenement implements CRUD<Evenement> {
     @Override
 
     public void insertOne(Evenement evenement) throws SQLException {
-        String req = "INSERT INTO `evenement`(`nom_event`,`description`,`date_event`, `heure_deb`, `prix`,`nbrP`,`image_event`) VALUES " +
-                "(?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `evenement`(`nom_event`,`description`,`date_event`, `heure_deb`, `lieu`, `prix`,`nbrP`,`image_event`) VALUES " +
+                "(?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement ps = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, evenement.getNom_event());
             ps.setString(2, evenement.getDescription());
             ps.setDate(3, java.sql.Date.valueOf(evenement.getDate_event()));
             ps.setTime(4, java.sql.Time.valueOf(evenement.getHeure_deb()));
-            ps.setInt(5, evenement.getPrix());
-            ps.setInt(6, evenement.getNbrP());
-            ps.setString(7, evenement.getImage_event());
+            ps.setString(5, evenement.getLieu());
+            ps.setInt(6, evenement.getPrix());
+            ps.setInt(7, evenement.getNbrP());
+            ps.setString(8, evenement.getImage_event());
 
             int affectedRows = ps.executeUpdate();
 
@@ -78,7 +79,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
 
     public void updateOne(Evenement evenement) throws SQLException {
         try {
-            String req = "UPDATE evenement SET nom_event=?, description=?, date_event=?, heure_deb=?, prix=?, nbrP=?, image_event=? WHERE id_event=?";
+            String req = "UPDATE evenement SET nom_event=?, description=?, date_event=?, heure_deb=?, lieu=?, prix=?, nbrP=?, image_event=? WHERE id_event=?";
             PreparedStatement ps = cnx.prepareStatement(req);
 
             // Définition des valeurs des paramètres de substitution
@@ -86,10 +87,11 @@ public class ServiceEvenement implements CRUD<Evenement> {
             ps.setString(2, evenement.getDescription());
             ps.setObject(3, java.sql.Date.valueOf(evenement.getDate_event()));
             ps.setObject(4, evenement.getHeure_deb());
-            ps.setInt(5, evenement.getPrix());
-            ps.setInt(6, evenement.getNbrP());
-            ps.setString(7, evenement.getImage_event());
-            ps.setInt(8, evenement.getId_event());
+            ps.setString(5, evenement.getLieu());
+            ps.setInt(6, evenement.getPrix());
+            ps.setInt(7, evenement.getNbrP());
+            ps.setString(8, evenement.getImage_event());
+            ps.setInt(9, evenement.getId_event());
 
             // Exécution de la requête préparée
             ps.executeUpdate();
@@ -124,17 +126,17 @@ public class ServiceEvenement implements CRUD<Evenement> {
                 Evenement e = new Evenement();
 
                 e.setId_event(rs.getInt(1));
-                e.setNom_event(rs.getString(5));
+                e.setNom_event(rs.getString(6));
                 e.setDescription(rs.getString(2));
-                e.setPrix(rs.getInt(6));
+                e.setPrix(rs.getInt(7));
 
                 // Assuming column 5 is date_event (LocalDate)
                 e.setDate_event(rs.getObject(3, LocalDate.class));
-
+                e.setLieu(rs.getString(5));
                 // Assuming column 6 is heure_deb (LocalTime)
                 e.setHeure_deb(rs.getObject(4, LocalTime.class));
-                e.setImage_event(rs.getString(8));
-                e.setNbrP(rs.getInt(7));
+                e.setImage_event(rs.getString(9));
+                e.setNbrP(rs.getInt(8));
 
                 evenementsList.add(e);
             }
@@ -146,7 +148,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
     public List<Userparticipants> getParticipants(int event_id) throws SQLException {
         List<Userparticipants> participants = new ArrayList<>();
 
-        // Check if event_id is provided, if not, fetch all participants
+
         String query;
         if (event_id > 0) {
             query = "SELECT up.user_id, up.userName, up.event_id, e.nom_event " +
@@ -201,13 +203,14 @@ public class ServiceEvenement implements CRUD<Evenement> {
                 if (resultSet.next()) {
                     selectedEvent = new Evenement();
                     selectedEvent.setId_event(resultSet.getInt(1));
-                    selectedEvent.setNom_event(resultSet.getString(5));
+                    selectedEvent.setNom_event(resultSet.getString(6));
                     selectedEvent.setDescription(resultSet.getString(2));
-                    selectedEvent.setPrix(resultSet.getInt(6));
+                    selectedEvent.setPrix(resultSet.getInt(7));
                     selectedEvent.setDate_event(resultSet.getObject(3, LocalDate.class));
                     selectedEvent.setHeure_deb(resultSet.getObject(4, LocalTime.class));
-                    selectedEvent.setImage_event(resultSet.getString(8));
-                    selectedEvent.setNbrP(resultSet.getInt(7));
+                    selectedEvent.setLieu(resultSet.getString(5));
+                    selectedEvent.setImage_event(resultSet.getString(9));
+                    selectedEvent.setNbrP(resultSet.getInt(8));
                 }
             }
         }

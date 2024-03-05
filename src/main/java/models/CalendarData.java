@@ -71,6 +71,7 @@ public class CalendarData {
                         resultSet.getString("description"),
                         resultSet.getDate("date_event"),
                         resultSet.getTime("heure_deb").toLocalTime(),
+                        resultSet.getString("lieu"),
                         resultSet.getInt("prix"),
                         resultSet.getInt("nbrP"),
                         resultSet.getString("image_event")

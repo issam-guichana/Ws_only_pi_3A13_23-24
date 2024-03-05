@@ -42,6 +42,12 @@
                   <Font name="Ebrima Bold" size="17.0" />
                </font></Text>
             <Spinner fx:id="tfheure_event" />
+            <Label text="Lieu" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tflieu" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix">
                <font>
                   <Font name="Ebrima Bold" size="17.0" />
@@ -252,13 +258,13 @@
             </Button>
          </children>
       </VBox>
-      <TableView fx:id="tbEvents" layoutX="438.0" layoutY="167.0" prefHeight="200.0" prefWidth="746.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="167.0">
+      <TableView fx:id="tbEvents" layoutX="520.0" layoutY="146.0" prefHeight="200.0" prefWidth="712.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="146.0">
          <columns>
-            <TableColumn fx:id="colId" prefWidth="34.39999485015869" text="ID" />
             <TableColumn fx:id="ColNom" prefWidth="71.20000839233398" text="Nom" />
             <TableColumn fx:id="colDescr" prefWidth="156.8000030517578" text="Description" />
             <TableColumn fx:id="coldate" prefWidth="128.00006103515625" text="Date event" />
             <TableColumn fx:id="colheure" prefWidth="106.39996337890625" text="Heure event" />
+            <TableColumn fx:id="Collieu" prefWidth="75.0" text="Lieu" />
             <TableColumn fx:id="colPrix" prefWidth="107.199951171875" text="Prix" />
             <TableColumn fx:id="colNbrP" minWidth="0.0" prefWidth="151.20001220703125" text="Nbr Participants" />
             <TableColumn fx:id="colimg" prefWidth="156.8000030517578" text="Image" />

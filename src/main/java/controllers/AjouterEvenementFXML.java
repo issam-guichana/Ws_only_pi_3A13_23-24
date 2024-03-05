@@ -46,7 +46,8 @@ public class AjouterEvenementFXML {
 
     @FXML
     private TextArea tfDescr1;
-
+    @FXML
+    private TextField tflieu;
     @FXML
     private TextField tfNbrP1;
 
@@ -77,7 +78,8 @@ public class AjouterEvenementFXML {
 
     @FXML
     private TableColumn<Evenement, String> ColNom;
-
+    @FXML
+    private TableColumn<Evenement, String> Collieu;
     @FXML
     private TableColumn<Evenement, String> colDescr;
 
@@ -111,7 +113,7 @@ public class AjouterEvenementFXML {
     void ajouterEvenemnt(ActionEvent event) {
         try {
             // Validate input fields
-            if (tfNom1.getText().isEmpty() || tfDescr1.getText().isEmpty() || tfDate_event.getValue() == null
+            if (tfNom1.getText().isEmpty() || tfDescr1.getText().isEmpty() || tfDate_event.getValue() == null || tflieu.getText().isEmpty()
                     || tfheure_event.getValue() == null || tfprix.getText().isEmpty() || tfNbrP1.getText().isEmpty()
                     || tfimage.getText().isEmpty()) {
                 // Display an error message if any of the fields are empty
@@ -140,7 +142,7 @@ public class AjouterEvenementFXML {
             // Get the image URL from the tfimage TextField
             String imageUrl = tfimage.getText();
 
-            Evenement p = new Evenement(tfNom1.getText(), tfDescr1.getText(), sqlDate, localTime,
+            Evenement p = new Evenement(tfNom1.getText(), tfDescr1.getText(),  sqlDate, localTime,tflieu.getText(),
                     Integer.parseInt(tfprix.getText()), Integer.parseInt(tfNbrP1.getText()), imageUrl);
 
             ServiceEvenement sp = new ServiceEvenement(tbEvents);
@@ -191,6 +193,7 @@ public class AjouterEvenementFXML {
         tfNbrP1.setText(null);
         tfimage.setText(null);
         imageevenement.setImage(null);
+        tflieu.setText(null);
     }
 
     private LocalTime defaultValue() {
@@ -233,6 +236,7 @@ public class AjouterEvenementFXML {
         try {
             String nom_event = (tfNom1.getText() != null) ? tfNom1.getText() : "";
             String description = (tfDescr1.getText() != null) ? tfDescr1.getText() : "";
+            String lieu = (tflieu.getText() != null) ? tflieu.getText() : "";
             LocalDate localDate = tfDate_event.getValue();
             LocalTime timeText = tfheure_event.getValue();
             String image_event = (tfimage.getText() != null) ? tfimage.getText() : "";
@@ -244,7 +248,7 @@ public class AjouterEvenementFXML {
             int nbrP = Integer.parseInt((tfNbrP1.getText() != null) ? tfNbrP1.getText() : "0");
 
             // Create Evenement object
-            Evenement newEvent = new Evenement(selectedEvent.getId_event(), nom_event, description, sqlDate, timeText, prix, nbrP, image_event);
+            Evenement newEvent = new Evenement(selectedEvent.getId_event(), nom_event, description, sqlDate, timeText,lieu, prix, nbrP, image_event);
             // Set the image_event property
             newEvent.setImage_event(image_event);
 
@@ -274,11 +278,12 @@ public class AjouterEvenementFXML {
 
 @FXML
     void afficherevent() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id_event"));
+        //colId.setCellValueFactory(new PropertyValueFactory<>("id_event"));
         ColNom.setCellValueFactory(new PropertyValueFactory<>("nom_event"));
         colDescr.setCellValueFactory(new PropertyValueFactory<>("description"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("date_event"));
         colheure.setCellValueFactory(new PropertyValueFactory<>("heure_deb"));
+        Collieu.setCellValueFactory(new PropertyValueFactory<>("lieu"));
         colPrix.setCellValueFactory(new PropertyValueFactory<>("prix"));
         colNbrP.setCellValueFactory(new PropertyValueFactory<>("nbrP"));
         colimg.setCellValueFactory(new PropertyValueFactory<>("image_event"));
@@ -301,6 +306,7 @@ public class AjouterEvenementFXML {
     void initialize() {
         assert tfDate_event != null : "fx:id=\"tfDate_event\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tfDescr1 != null : "fx:id=\"tfDescr\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
+        assert tflieu != null : "fx:id=\"tflieu\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tfheure_event != null : "fx:id=\"tfheure_deb\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tfNbrP1 != null : "fx:id=\"tfNbrP\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tfNom1 != null : "fx:id=\"tfNom\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
@@ -317,6 +323,7 @@ public class AjouterEvenementFXML {
         assert colDescr != null : "fx:id=\"colDescr\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert coldate != null : "fx:id=\"coldate\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colheure != null : "fx:id=\" colheure\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
+        assert Collieu != null : "fx:id=\"Collieu\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colId != null : "fx:id=\"colId\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colPrix != null : "fx:id=\"colLieu\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colNbrP != null : "fx:id=\"colNbrP\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
@@ -438,6 +445,7 @@ public class AjouterEvenementFXML {
         tfDate_event.setValue(selectedEvent.getDate_event());
         LocalTime selectedTime = selectedEvent.getHeure_deb();
         tfheure_event.getValueFactory().setValue(selectedTime);
+        tflieu.setText(selectedEvent.getLieu());
         tfNbrP1.setText(String.valueOf(selectedEvent.getNbrP()));
         tfimage.setText(selectedEvent.getImage_event());
 

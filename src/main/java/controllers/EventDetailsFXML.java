@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import models.Evenement;
 
@@ -43,6 +45,9 @@ public class EventDetailsFXML implements Initializable {
     @FXML
     private Label nbrp;
 
+    @FXML
+    private WebView mapView;
+    private WebEngine webEngine;
     public void setCalendarController(CalendarController calendarController) {
         this.calendarController = calendarController;
     }
@@ -66,12 +71,18 @@ public class EventDetailsFXML implements Initializable {
         } else {
             System.out.println("event mafamech");
         }
+        setMapUrl(event.generateMapUrl());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        webEngine = mapView.getEngine();
     }
+    // New method to set the map URL
+    public void setMapUrl(String mapUrl) {
+        webEngine.load(mapUrl);
+    }
+
 
     public void goToCalendar(javafx.event.ActionEvent actionEvent) {
         try {
