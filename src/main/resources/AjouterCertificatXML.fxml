@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.StackedBarChart?>
@@ -191,22 +190,14 @@
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <StackedBarChart layoutX="45.0" layoutY="353.0" prefHeight="327.0" prefWidth="408.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </StackedBarChart>
-                  <AreaChart layoutX="468.0" layoutY="360.0" prefHeight="314.0" prefWidth="396.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </AreaChart>
+                        <StackedBarChart fx:id="stackedBarChart" layoutX="51.0" layoutY="353.0" prefHeight="327.0" prefWidth="761.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
+                        </StackedBarChart>
 
                           </children>
                 </Pane>

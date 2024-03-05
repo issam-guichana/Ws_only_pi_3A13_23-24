@@ -20,11 +20,11 @@ public class ServiceBadge implements CRUD<Badge> {
     @Override
     public void insertOne(Badge badge) throws SQLException {
        // String query = "INSERT INTO Badge (`nom_badge`, `type`, `formation_id`) VALUES (?, ?, ?)";
-         String query = "INSERT INTO Badge (`nom_badge`, `type`) VALUES (?, ?)";
+         String query = "INSERT INTO Badge (`nom_badge`, `type` , `img_badge`) VALUES (?, ?,?)";
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
             ps.setString(1, badge.getNomBadge());
             ps.setString(2, badge.getType());
-
+            ps.setString(3, badge.getImgBadge());
             ps.executeUpdate();
             System.out.println("Badge Added!");
         }
@@ -32,11 +32,11 @@ public class ServiceBadge implements CRUD<Badge> {
 
     @Override
     public void updateOne(Badge badge) throws SQLException {
-        String query = "UPDATE Badge SET `nom_badge`=?, `type`=? WHERE `id_badge`=?";
+        String query = "UPDATE Badge SET `nom_badge`=?, `type`=? ,`img_badge`=? WHERE `id_badge`=?";
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
             ps.setString(1, badge.getNomBadge());
             ps.setString(2, badge.getType());
-           // ps.setInt(3, badge.getFormationId());
+            ps.setString(3, badge.getImgBadge());
             ps.setInt(4, badge.getIdBadge());
             ps.executeUpdate();
             System.out.println("Badge Updated!");
@@ -64,7 +64,7 @@ public class ServiceBadge implements CRUD<Badge> {
                 badge.setIdBadge(rs.getInt("id_badge"));
                 badge.setNomBadge(rs.getString("nom_badge"));
                 badge.setType(rs.getString("type"));
-               // badge.setFormationId(rs.getInt("formation_id"));
+                badge.setImgBadge(rs.getString("img_badge"));
                 badges.add(badge);
             }
         }

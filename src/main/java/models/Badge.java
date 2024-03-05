@@ -1,26 +1,26 @@
 package models;
 
-
 public class Badge {
     private int idBadge;
     private String nomBadge;
     private String type;
-
+    private String imgBadge;
 
     // Constructors
     public Badge() {
     }
 
-    public Badge(String nomBadge, String type) {
+    public Badge(String nomBadge, String type, String imgBadge) {
         this.nomBadge = nomBadge;
         this.type = type;
+        this.imgBadge = imgBadge;
     }
 
-    public Badge(int idBadge, String nomBadge, String type, int formationId) {
+    public Badge(int idBadge, String nomBadge, String type, String imgBadge) {
         this.idBadge = idBadge;
         this.nomBadge = nomBadge;
         this.type = type;
-
+        this.imgBadge = imgBadge;
     }
 
     // Getters and setters
@@ -32,12 +32,12 @@ public class Badge {
         this.idBadge = idBadge;
     }
 
-    public String getNomBadge() {
-        return nomBadge;
+    public String getImgBadge() {
+        return imgBadge;
     }
 
-    public void setNomBadge(String nomBadge) {
-        this.nomBadge = nomBadge;
+    public void setImgBadge(String imgBadge) {
+        this.imgBadge = imgBadge;
     }
 
     public String getType() {
@@ -48,8 +48,13 @@ public class Badge {
         this.type = type;
     }
 
+    public String getNomBadge() {
+        return nomBadge;
+    }
 
-
+    public void setNomBadge(String nomBadge) {
+        this.nomBadge = nomBadge;
+    }
 
     @Override
     public String toString() {
@@ -57,9 +62,7 @@ public class Badge {
                 "idBadge=" + idBadge +
                 ", nomBadge='" + nomBadge + '\'' +
                 ", type='" + type + '\'' +
-
+                ", imgBadge='" + imgBadge + '\'' +
                 '}';
     }
-
-
 }

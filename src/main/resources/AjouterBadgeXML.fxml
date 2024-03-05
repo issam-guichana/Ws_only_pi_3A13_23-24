@@ -225,8 +225,9 @@
                            <children>
                               <TableView fx:id="tabbadge" prefHeight="319.0" prefWidth="759.0" stylesheets="@style.css">
                                  <columns>
-                                    <TableColumn fx:id="colnom" prefWidth="335.0" text="Nom" />
-                                    <TableColumn fx:id="coltype" prefWidth="196.0" text="Type" />
+                                    <TableColumn fx:id="colnom" prefWidth="217.0" text="Nom" />
+                                    <TableColumn fx:id="coltype" prefWidth="252.0" text="Type" />
+                                    <TableColumn fx:id="colimg" prefWidth="137.0" text="Image" />
                                  </columns>
                               </TableView>
                            </children>

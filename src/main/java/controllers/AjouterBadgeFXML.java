@@ -10,12 +10,24 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Badge;
 import services.ServiceBadge;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,6 +43,9 @@ public class AjouterBadgeFXML {
 
     @FXML
     private TableColumn<Badge, String> coltype;
+
+    @FXML
+    private TableColumn <Badge, String> colimg;
 
     @FXML
     private Button idajouter;
@@ -50,6 +65,7 @@ public class AjouterBadgeFXML {
     public void displayAllBadgesInTableView() {
         colnom.setCellValueFactory(new PropertyValueFactory<>("nomBadge"));
         coltype.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colimg.setCellValueFactory(new PropertyValueFactory<>("imgBadge"));
 
 
         try {
@@ -70,7 +86,6 @@ public class AjouterBadgeFXML {
             displayAddDialog(badge);
         });
     }
-
     private void displayAddDialog(Badge badge) {
         // Create the dialog components
         Dialog<Badge> dialog = new Dialog<>();
@@ -85,24 +100,23 @@ public class AjouterBadgeFXML {
         TextField nomField = new TextField();
         nomField.setPromptText("Nom du badge");
 
-        // Add a TextFormatter to allow only alphabetic characters and limit length to 15
-        nomField.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z]*") && change.getControlNewText().length() <= 15) {
-                return change;
-            }
-            return null;
-        }));
-
         TextField typeField = new TextField();
         typeField.setPromptText("Type du badge");
 
-        // Add a TextFormatter to allow only alphabetic characters and limit length to 15
-        typeField.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z]*") && change.getControlNewText().length() <= 15) {
-                return change;
+        TextField imageField = new TextField();
+        imageField.setPromptText("Nom de l'image");
+
+        // Image selection button
+        Button selectImageButton = new Button("Sélectionner une image");
+        selectImageButton.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Sélectionner une image");
+            File selectedFile = fileChooser.showOpenDialog(dialog.getOwner());
+            if (selectedFile != null) {
+                // Afficher le nom du fichier dans le champ de texte
+                imageField.setText(selectedFile.getName());
             }
-            return null;
-        }));
+        });
 
         // Enable/disable the add button depending on whether fields are filled
         Node addButtonNode = dialog.getDialogPane().lookupButton(addButton);
@@ -119,7 +133,15 @@ public class AjouterBadgeFXML {
 
         // Layout for the dialog
         VBox vbox = new VBox(20);
-        vbox.getChildren().addAll(new Label("Nom du badge:"), nomField, new Label("Type du badge:"), typeField);
+        vbox.getChildren().addAll(
+                new Label("Nom du badge:"),
+                nomField,
+                new Label("Type du badge:"),
+                typeField,
+                new Label("Nom de l'image:"),
+                imageField,
+                selectImageButton
+        );
         dialog.getDialogPane().setContent(vbox);
 
         // Request focus on the nomField by default
@@ -128,7 +150,14 @@ public class AjouterBadgeFXML {
         // Convert the result to a Badge object when the add button is clicked
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButton) {
-                return new Badge(nomField.getText(), typeField.getText());
+                // Get the selected image path
+                String imagePath = null; // Ne pas utiliser l'image, uniquement le nom
+                if (!imageField.getText().isEmpty()) {
+                    imagePath = imageField.getText();
+                }
+
+                // Return the Badge object with image path
+                return new Badge(nomField.getText(), typeField.getText(), imagePath);
             }
             return null;
         });
@@ -137,6 +166,9 @@ public class AjouterBadgeFXML {
         Optional<Badge> result = dialog.showAndWait();
         result.ifPresent(newBadge -> {
             try {
+                // Mettre à jour le champ colimg de Badge avec le nom de l'image
+                newBadge.setImgBadge(imageField.getText());
+
                 ServiceBadge serviceBadge = new ServiceBadge();
                 serviceBadge.insertOne(newBadge);
                 // Refresh the table view to reflect the changes
@@ -147,7 +179,8 @@ public class AjouterBadgeFXML {
         });
     }
 
-    // Method to check for duplicates
+
+    //Method to check for duplicates
     private boolean isDuplicate(String nom, String type) {
         try {
             ServiceBadge serviceBadge = new ServiceBadge();
@@ -177,7 +210,7 @@ public class AjouterBadgeFXML {
         setupSupprimerButtonColumn();
     }
 
-    private void setupModifierButtonColumn() {
+   private void setupModifierButtonColumn() {
         TableColumn<Badge, Void> modifierColumn = new TableColumn<>("Modifier");
         modifierColumn.setCellFactory(col -> new TableCell<Badge, Void>() {
             private final Button modifyButton = new Button("Modifier");
@@ -215,6 +248,20 @@ public class AjouterBadgeFXML {
         nomField.setPromptText("Nom du badge");
         TextField typeField = new TextField(badge.getType());
         typeField.setPromptText("Type du badge");
+        TextField imageField = new TextField(badge.getImgBadge());
+        imageField.setPromptText("Chemin de l'image");
+
+        // Image selection button
+        Button selectImageButton = new Button("Sélectionner une nouvelle image");
+        selectImageButton.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Sélectionner une nouvelle image");
+            File selectedFile = fileChooser.showOpenDialog(dialog.getOwner());
+            if (selectedFile != null) {
+                // Afficher le chemin du fichier dans le champ de texte
+                imageField.setText(selectedFile.getPath());
+            }
+        });
 
         // Enable/disable the modify button depending on whether fields are filled
         Node modifyButtonNode = dialog.getDialogPane().lookupButton(modifyButtonType);
@@ -222,22 +269,31 @@ public class AjouterBadgeFXML {
 
         // Do some validation (using the Java 8 lambda syntax)
         nomField.textProperty().addListener((observable, oldValue, newValue) -> {
-            modifyButtonNode.setDisable(newValue.trim().isEmpty() || typeField.getText().trim().isEmpty());
+            modifyButtonNode.setDisable(newValue.trim().isEmpty() || typeField.getText().trim().isEmpty() || imageField.getText().trim().isEmpty());
         });
 
         typeField.textProperty().addListener((observable, oldValue, newValue) -> {
-            modifyButtonNode.setDisable(newValue.trim().isEmpty() || nomField.getText().trim().isEmpty());
+            modifyButtonNode.setDisable(newValue.trim().isEmpty() || nomField.getText().trim().isEmpty() || imageField.getText().trim().isEmpty());
+        });
+
+        imageField.textProperty().addListener((observable, oldValue, newValue) -> {
+            modifyButtonNode.setDisable(newValue.trim().isEmpty() || nomField.getText().trim().isEmpty() || typeField.getText().trim().isEmpty());
         });
 
         // Layout for the dialog
         VBox vbox = new VBox(20);
-        vbox.getChildren().addAll(new Label("Nom du badge:"), nomField, new Label("Type du badge:"), typeField);
+        vbox.getChildren().addAll(
+                new Label("Nom du badge:"), nomField,
+                new Label("Type du badge:"), typeField,
+                new Label("Chemin de l'image:"), imageField,
+                selectImageButton
+        );
         dialog.getDialogPane().setContent(vbox);
 
         // Convert the result to a Badge object when the modify button is clicked
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == modifyButtonType) {
-                return new Badge(nomField.getText(), typeField.getText());
+                return new Badge(nomField.getText(), typeField.getText(), imageField.getText());
             }
             return null;
         });
@@ -256,6 +312,7 @@ public class AjouterBadgeFXML {
             }
         });
     }
+
 
     private void setupSupprimerButtonColumn() {
         TableColumn<Badge, Void> supprimerColumn = new TableColumn<>("Supprimer");

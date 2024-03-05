@@ -1,6 +1,7 @@
 package controllers;
 
 
+import com.mysql.cj.conf.ConnectionUrlParser;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,19 +13,17 @@ import javafx.scene.Parent;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import models.Badge;
+import javafx.util.Pair;
 import models.Certificat;
 import services.ServiceBadge;
 import services.ServiceCertificat;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,11 +42,7 @@ public class AjouterCertificateFXML {
     @FXML
     private StackedBarChart<String, Number> stackedBarChart;
 
-    @FXML
-    private CategoryAxis xAxis;
 
-    @FXML
-    private NumberAxis yAxis;
     @FXML
     private TableView<Certificat> tabcertif;
 
@@ -116,7 +111,7 @@ public class AjouterCertificateFXML {
         // Convert the result to a Certificat object when the add button is clicked
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButton) {
-                return new Certificat(nomField.getText(), Date.valueOf(dateCertifPicker.getValue()), 0);
+                return new Certificat(nomField.getText(), Date.valueOf(dateCertifPicker.getValue()));
             }
             return null;
         });
@@ -248,7 +243,7 @@ public class AjouterCertificateFXML {
         // Convert the result to a Certificat object when the modify button is clicked
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == modifyButtonType) {
-                return new Certificat(certificat.getId(), nomField.getText(), Date.valueOf(dateCertifPicker.getValue()), certificat.getFormationId());
+                return new Certificat(certificat.getId(), nomField.getText(), Date.valueOf(dateCertifPicker.getValue()));
             }
             return null;
         });
@@ -266,14 +261,27 @@ public class AjouterCertificateFXML {
             }
         });
     }
+    private void remplirStackedBarChart() {
+        ServiceCertificat serviceCertificat = new ServiceCertificat();
+        List<Pair<String, Integer>> certificatNombrePersonnes = serviceCertificat.getCertificatNombrePersonnes();
 
+        // Créer une série de données pour la StackedBarChart
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (Pair<String, Integer> pair : certificatNombrePersonnes) {
+            series.getData().add(new XYChart.Data<>(pair.getKey(), pair.getValue()));
+        }
 
+        // Effacer les données existantes de la StackedBarChart
+        stackedBarChart.getData().clear();
 
-
+        // Ajouter la série de données à la StackedBarChart
+        stackedBarChart.getData().add(series);
+    }
     @FXML
     public void initialize() {
         displayAllCertificatesInTableView();
         setupButtonColumns();
+        remplirStackedBarChart();
 
     }
 

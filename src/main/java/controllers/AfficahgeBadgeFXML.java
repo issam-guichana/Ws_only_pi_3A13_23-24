@@ -1,8 +1,11 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +31,9 @@ public class AfficahgeBadgeFXML {
     @FXML
     private AnchorPane parent;
 
+    @FXML
+    private ComboBox<String> idFilterDropdown; // Dropdown for filtering badges by name
+
     private ServiceBadge badgeService = new ServiceBadge();
     private List<Badge> allBadges;
 
@@ -49,41 +55,44 @@ public class AfficahgeBadgeFXML {
         for (int i = startIndex; i < endIndex; i++) {
             Badge badge = allBadges.get(i);
 
-            // Create a VBox to hold the components of each badge
-            VBox badgeBox = new VBox();
-            badgeBox.setSpacing(10); // Vertical spacing between components
-            badgeBox.setAlignment(Pos.CENTER); // Align components to the center horizontally
-            badgeBox.setStyle("-fx-background-color: #E68C3AFF;-fx-background-radius: 10px; -fx-padding: 10px;"); // Set background color
-            badgeBox.setEffect(new DropShadow());
+            // Check if badge name matches the selected filter, or if "All" is selected
+            if ("All".equals(idFilterDropdown.getValue()) || badge.getNomBadge().equals(idFilterDropdown.getValue())) {
+                // Create a VBox to hold the components of each badge
+                VBox badgeBox = new VBox();
+                badgeBox.setSpacing(10); // Vertical spacing between components
+                badgeBox.setAlignment(Pos.CENTER); // Align components to the center horizontally
+                badgeBox.setStyle("-fx-background-color: #E68C3AFF;-fx-background-radius: 10px; -fx-padding: 10px;"); // Set background color
+                badgeBox.setEffect(new DropShadow());
 
-            // Create a label to display the badge name
-            Label badgeNameLabel = new Label(badge.getNomBadge());
-            badgeNameLabel.setStyle("-fx-text-fill: white");
+                // Create a label to display the badge name
+                Label badgeNameLabel = new Label(badge.getNomBadge());
+                badgeNameLabel.setStyle("-fx-text-fill: white");
 
-            // Create a label to display the badge type
-            Label badgeTypeLabel = new Label(badge.getType());
-            badgeTypeLabel.setStyle("-fx-text-fill: white");
+                // Create a label to display the badge type
+                Label badgeTypeLabel = new Label(badge.getType());
+                badgeTypeLabel.setStyle("-fx-text-fill: white");
 
-            Button button = new Button();
-            Text buttonText = new Text("View Details");
-            buttonText.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
-            buttonText.setFill(Color.WHITE);
-            buttonText.setUnderline(true);
-            button.setGraphic(buttonText);
-            button.setStyle("-fx-background-color: transparent; -fx-border-color: rgba(38,38,38,0.64);-fx-border-radius: 10px;-fx-background-radius: 10px");
-            // Add event handler to the button to handle viewing badge details
+                Button button = new Button();
+                Text buttonText = new Text("View Details");
+                buttonText.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 12));
+                buttonText.setFill(Color.WHITE);
+                buttonText.setUnderline(true);
+                button.setGraphic(buttonText);
+                button.setStyle("-fx-background-color: transparent; -fx-border-color: rgba(38,38,38,0.64);-fx-border-radius: 10px;-fx-background-radius: 10px");
+                // Add event handler to the button to handle viewing badge details
 
-            // Add nodes to the VBox in the desired order
-            badgeBox.getChildren().addAll(badgeNameLabel, badgeTypeLabel, button);
+                // Add nodes to the VBox in the desired order
+                badgeBox.getChildren().addAll(badgeNameLabel, badgeTypeLabel, button);
 
-            // Add the VBox to the grid at the specified column and row
-            badgesGrid.add(badgeBox, col, row);
+                // Add the VBox to the grid at the specified column and row
+                badgesGrid.add(badgeBox, col, row);
 
-            // Increment column index and reset to 0 if it reaches 5
-            col++;
-            if (col == 5) {
-                col = 0;
-                row++;
+                // Increment column index and reset to 0 if it reaches 5
+                col++;
+                if (col == 5) {
+                    col = 0;
+                    row++;
+                }
             }
         }
 
@@ -94,15 +103,32 @@ public class AfficahgeBadgeFXML {
         System.out.println("Displayed badges: " + startIndex + " to " + (endIndex - 1));
     }
 
+
     // This method can be called to initialize the badges and display the first page
     public void initialize() {
         try {
             allBadges = badgeService.selectAll();
+            initializeFilterDropdown();
             displayBadgesForPage(1); // Display the first page of badges initially
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle the exception as needed
         }
     }
-}
 
+    // Initialize the dropdown for filtering badges by name
+    private void initializeFilterDropdown() {
+        ObservableList<String> badgeNames = FXCollections.observableArrayList();
+        badgeNames.add("All"); // Option to display all badges
+        for (Badge badge : allBadges) {
+            badgeNames.add(badge.getNomBadge());
+        }
+        idFilterDropdown.setItems(badgeNames);
+        idFilterDropdown.setValue("All"); // Default to display all badges
+
+        // Add event listener to handle filtering when dropdown value changes
+        idFilterDropdown.setOnAction(event -> {
+            displayBadgesForPage(1); // Display filtered badges when dropdown value changes
+        });
+    }
+}

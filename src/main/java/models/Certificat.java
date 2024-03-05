@@ -6,21 +6,21 @@ public class Certificat {
     private int id;
     private String nomCertif;
     private Date dateCertif;
-    private int formationId; // Foreign key
+
 
     public Certificat() {}
 
-    public Certificat(String nomCertif, Date dateCertif, int formationId) {
+    public Certificat(String nomCertif, Date dateCertif ) {
         this.nomCertif = nomCertif;
         this.dateCertif = dateCertif;
-        this.formationId = formationId;
+        //this.formationId = formationId;
     }
 
-    public Certificat(int id, String nomCertif, Date dateCertif, int formationId) {
+    public Certificat(int id, String nomCertif, Date dateCertif) {
         this.id = id;
         this.nomCertif = nomCertif;
         this.dateCertif = dateCertif;
-        this.formationId = formationId;
+        //this.formationId = formationId;
     }
 
     // Getters and setters for all fields, including id
@@ -48,13 +48,8 @@ public class Certificat {
         this.dateCertif = dateCertif;
     }
 
-    public int getFormationId() {
-        return formationId;
-    }
 
-    public void setFormationId(int formationId) {
-        this.formationId = formationId;
-    }
+
 
     // toString method
     @Override
@@ -63,7 +58,7 @@ public class Certificat {
                 "id=" + id +
                 ", nomCertif='" + nomCertif + '\'' +
                 ", dateCertif=" + dateCertif +
-                ", formationId=" + formationId +
+               // ", formationId=" + formationId +
                 '}';
     }
 }
