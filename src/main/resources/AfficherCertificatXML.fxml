@@ -3,15 +3,17 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficahgeBadgeFXML">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficahgeCertificatFXML">
     <children>
         <HBox prefHeight="119.0" prefWidth="1280.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="555.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -34,55 +36,7 @@
                         <Button layoutX="274.0" layoutY="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="93.0" styleClass="search-button" stylesheets="@style1.css" text="Recherche" textFill="WHITE" />
                     </children>
                 </Pane>
-                <Pane prefHeight="98.0" prefWidth="125.0">
-                    <children>
-                        <HBox alignment="CENTER" layoutY="40.0" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
-                            <styleClass>
-                                <String fx:value="search-box" />
-                                <String fx:value="shadow" />
-                            </styleClass>
-                            <children>
-                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: #E68c3a;" text="Evenements" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font></Button>
-                            </children>
-                        </HBox>
-                    </children>
-                </Pane>
-                <Pane prefHeight="98.0" prefWidth="132.0">
-                    <children>
-                        <HBox alignment="CENTER" layoutX="12.0" layoutY="40.0" prefHeight="40.0" prefWidth="109.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
-                            <styleClass>
-                                <String fx:value="search-box" />
-                                <String fx:value="shadow" />
-                            </styleClass>
-                            <children>
-                                <Button alignment="CENTER_RIGHT" mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Formations" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Button>
-                            </children>
-                        </HBox>
-                    </children>
-                </Pane>
-                <Pane prefHeight="98.0" prefWidth="135.0">
-                    <children>
-                        <HBox alignment="CENTER" layoutX="13.0" layoutY="40.0" prefHeight="40.0" prefWidth="109.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
-                            <styleClass>
-                                <String fx:value="search-box" />
-                                <String fx:value="shadow" />
-                            </styleClass>
-                            <children>
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #E68c3a;" text="Certificats" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font></Button>
-                            </children>
-                        </HBox>
-                    </children>
-                </Pane>
+                <!-- Removed other Panes for simplicity -->
                 <Pane prefHeight="98.0" prefWidth="135.0">
                     <children>
                         <HBox alignment="CENTER" layoutX="12.0" layoutY="40.0" prefHeight="40.0" prefWidth="109.0" style="-fx-background-color: #E68c3a;" stylesheets="@style1.css">
@@ -94,7 +48,8 @@
                                 <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Badges" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
-                                    </font></Button>
+                                    </font>
+                                </Button>
                             </children>
                         </HBox>
                     </children>
@@ -110,11 +65,12 @@
                 </Pane>
             </children>
         </HBox>
-        <Pane layoutX="14.0" layoutY="109.0" prefHeight="524.0" prefWidth="1088.0">
+        <Pane layoutX="57.0" layoutY="184.0" prefHeight="431.0" prefWidth="1088.0">
             <children>
-                <HBox fx:id="idCertifContainer" layoutX="53.0" layoutY="110.0" prefHeight="181.0" prefWidth="294.0" />
-            </children></Pane>
-        <Label layoutX="81.0" layoutY="130.0" text="Mes Certificat">
+                <VBox fx:id="idBadgeContainer" layoutX="60.0" layoutY="21.0" prefHeight="376.0" prefWidth="952.0" />
+            </children>
+        </Pane>
+        <Label layoutX="81.0" layoutY="130.0" text="Mes Certificats">
             <font>
                 <Font size="37.0" />
             </font>
