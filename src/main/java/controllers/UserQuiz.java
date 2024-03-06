@@ -194,11 +194,11 @@ public class UserQuiz {
                 Quiz selectedQuiz = allQuizzes.get(index);
                 try {
                     // Load the UserQuestions controller
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserQuestions.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Captcha.fxml"));
                     Parent root = loader.load();
-                    UserQuestions userQuestionsController = loader.getController();
+                    Captcha captcha = loader.getController();
                     // Pass the selected quiz to the UserQuestions controller
-                    userQuestionsController.initData(selectedQuiz);
+                    captcha.initData(selectedQuiz);
                     // Set the scene to the UserQuestions controller
                     button.getScene().setRoot(root);
                 } catch (IOException e) {
