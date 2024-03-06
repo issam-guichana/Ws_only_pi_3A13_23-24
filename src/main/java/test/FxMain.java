@@ -11,14 +11,37 @@ import javafx.stage.Stage;
 import models.GoogleDriveUploader;
 
 import java.io.IOException;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class FxMain extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) {launch();}
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass()
+              .getResource("/LoginUser.fxml"));
+                //.getResource("/UpdateProfile.fxml"));
+                //.getResource("/AdminInterface.fxml"));
+                 //.getResource("/WebcamInterface.fxml"));
+                ///.getResource("/UserSettings.fxml"));
+      
+      //**********AZIZ
+         // FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenemntFXML.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/calendierFXML.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDetailsFXML.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/participerFXML.fxml"));
+      
+
+        Parent parent = loader.load();
+        Scene scene = new Scene(parent);
+        stage.setTitle("Formini.tn");
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/CrudFormationFXML.fxml"));
             Parent root = loader.load();
@@ -49,5 +72,4 @@ public class FxMain extends Application {
             System.err.println("Error loading FXML file: " + e.getMessage());
         }
     }
-
 }

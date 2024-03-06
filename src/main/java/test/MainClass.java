@@ -1,23 +1,26 @@
+
 package test;
 
+import models.User;
+import services.UserService;
+import utils.DBconnection;
+
 import java.sql.SQLException;
-import models.Categorie;
-import services.ServiceCategorie;
-import utils.DBConnection;
 
 public class MainClass {
-    public MainClass() {
-    }
-
     public static void main(String[] args) {
+        DBconnection cn1 =DBconnection.getInstance();
+
+        User u = new User(3,"issam","issam@esprit.tn","azerty",22,"admin");
+       // User uid = new User(3);
+
+        UserService us = new UserService();
+
         try {
-            DBConnection dbConnection = DBConnection.getInstance();
-            ServiceCategorie serviceCategorie = new ServiceCategorie();
-            Categorie categorie = new Categorie(2, "cc");
-            serviceCategorie.insertOne(categorie);
-            //serviceCategorie.deleteOne(categorie);
+           // us.deleteOne(u);
+            System.out.println(us.selectAll());
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Erreur: "+e.getMessage());
         }
 
     }
