@@ -61,6 +61,9 @@ public class AjouterQuiz {
     private Text ftext11;
 
     @FXML
+    private Button export;
+
+    @FXML
     private TableView<Quiz> quizlist;
 
     @FXML
@@ -73,6 +76,40 @@ public class AjouterQuiz {
     private Button btnQuiz;
 
 
+    @FXML
+    void sendQuizPDFByEmail(ActionEvent event) {
+        try {
+            // Generate PDF containing all quizzes
+            byte[] pdfBytes = generateQuizPDF();
+
+            // Send PDF via email
+            String adminEmail = "sadok.mestiri@gmail.com"; // Change this to admin's email
+            EmailUtil.send(adminEmail, pdfBytes);
+
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Email Sent");
+            alert.setHeaderText(null);
+            alert.setContentText("The PDF containing all quizzes has been sent to the admin.");
+            alert.showAndWait();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("An error occurred while sending the email.");
+            alert.showAndWait();
+        }
+    }
+
+    private byte[] generateQuizPDF() throws IOException, SQLException {
+        // Get all quizzes
+        ServiceQuiz serviceQuiz = new ServiceQuiz();
+        List<Quiz> quizzes = serviceQuiz.selectAll();
+
+        // Generate PDF containing all quizzes
+        return PDFGenerator.generateQuizPDF(quizzes);
+    }
     @FXML
     void ajouterQuiz(ActionEvent event) {
         btnadd.setOnAction(e -> {

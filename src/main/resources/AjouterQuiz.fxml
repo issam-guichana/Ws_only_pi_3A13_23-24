@@ -166,7 +166,7 @@
             </DropShadow>
          </effect>
       </VBox>
-      <VBox layoutX="278.0" layoutY="280.0" prefHeight="264.0" prefWidth="615.0" styleClass="quiz-add-container">
+      <VBox layoutX="278.0" layoutY="268.0" prefHeight="276.0" prefWidth="615.0" styleClass="quiz-add-container">
          <effect>
             <DropShadow height="18.07" radius="12.1975" width="32.72">
                <color>
@@ -423,6 +423,25 @@
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="export" layoutX="829.0" layoutY="275.0" mnemonicParsing="false" onAction="#sendQuizPDFByEmail" prefHeight="38.0" prefWidth="41.0" styleClass="button-import">
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/file.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="26.66" radius="11.3625" width="20.79">
+               <color>
+                  <Color red="0.23000000417232513" green="0.20239999890327454" blue="0.20239999890327454" opacity="0.9301526546478271" />
+               </color>
+            </DropShadow>
+         </effect>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
