@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "formini",
+  "private_key_id": "83adda5815f5a2535f57152b8e61b7c9817a7e7e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCmI17B4wHkkyGJ\nsCQ7KEkIn8kLSVzcAdo9WkOODKMCUg4jvL4QtWOfrgp/prworGo6SZFwFwakLaYI\nu09SZr9smUs4Ph+i8fMmKwvHuGfv9GbRoNbAYgI0UvWeWK//epdg6d8esAPjb+mD\n7vj7u8ZUlr7+rvyIvjhmOXrkxPODCwQfRkjqX2E5t5nIm9WnaKDWGIeUBVALWRWH\nIi1rnFxL8HflyVXgcOhxQEwk3Dxamc7lGHF7skg/h4aoLhD7DhvIbymKpo5YE9n4\nGALmjleTyatJL+Hd/f6Gvf66Yln6WGHxc5skJ/ZRM+oqRqoShpc9K8vlKisWghwX\ncIQT/h9BAgMBAAECggEAHYpqfeUkYAU9UGMufgpSuiLXN5eK2F/H82LKYkai8XWv\np/EWhpgKJ8llen8mM8E8fjK4loqxlp27SRAtMYStgtzbABwjufB1gJLk3FVQvdzi\nL2H+7WQ/6hfaLpasbKvaoNPU5Xr8pgMvLVNfmDsyL7ZCLbzlkFbqZlrQHD9c4S7Z\n5u4xh0DELpi0X1od4nes34aM5eq78Rm+8ma8/lrEO3+45sFCtsCqWgSsz32dxvxu\nFaRjXph5oca+/pu8HHRleXxUYvEbV4/4Ps5I4xyC6z5n6aJmuEt+AbeXUJCLUrqD\nPOBw0vByAJ571b5YwkvVbtn3Wpca3lfTG4UAWqrb8QKBgQDTZfXVb2ysQ9Y+hQH9\nWPEjFntJaUQ4nW2zXHvYwYFCZOU4BxLZgZq/TL7OFra6egm5XHmkCc+Yf4iNV85U\nTre0TUZddbBoduJJqzIkH3V9FvVUs1UdJumQftdFVBUb2FpwfiDpDZpUz12cZvZT\ntcbR9b64KrVIExZcJq0Qe94wrQKBgQDJMNJA4HVd0zdi3SwxyzEvKZTXbn3TqO8Y\nWVFkN1jizKkhA/1vH4PGtVJ7vrLejKkEVKd61+OarTRc0urTidBPOviwVF++qBGE\nBl36sOwJcJuXBLOAtQKVrfh/APEWQPimQ/GffovwylhCjdD5cWiVTngfbOW6to89\nuZ6za5b3ZQKBgQCl05h42dQEeZ5JIqsB4lAd9xe06XdTdeLEzOp1iK1tuJm6Toox\nxqHuKDSQk265btvL5MeirvOCq6AhR9yZc7pVHDzzOUutVnyBz2IgxfCytFy0GYzN\ntmWHLIiPYLrCQgAHuFj2l+4VUykadAYMek5BCyWVcCMOK7LhjJE7mf8cbQKBgHoO\n9IAHrSzPB7sjE7zh2WUThQluL0hKJURQa+Cw82wlXjZ5hTf1lqznNLN+bmY2UBQg\nh7svXxZoHmxySaUs5wQqctYHWk8BCB9g/YMp8wmHF933LC/ZoUfN1AS5PYqSwEee\n0OhCjgP3vrQh9bZf52MtyBLIrlcoip6YDoArtdtBAoGAbN9Vn4cPSrWkyOEBpZwZ\niVGZJa69HehMY2wwkjne0oDMYnDY8chA+I+O1E6DAljKO19JpxjiA8/8adBNqLWg\nReTcmPS+36DgZP6toJHTXxVhSElmiQdoSTCIIF8ginYXVFdAQbMmG09UiBA7ww4x\njbo1/h601j5Ftys2YILT3o0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "forminiservice@formini.iam.gserviceaccount.com",
+  "client_id": "115466599674033093840",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/forminiservice%40formini.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
