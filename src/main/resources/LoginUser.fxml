@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginUserController">
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="490.0" style="-fx-background-color: #D8D1BD;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="144.0" fitWidth="457.0" layoutX="17.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../img/logo.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageView" fitHeight="274.0" fitWidth="456.0" layoutX="18.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="650.0" prefWidth="509.0" style="-fx-background-color: #F4F2EF;" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="tfUsername" layoutX="169.0" layoutY="287.0" prefHeight="40.0" prefWidth="220.0" promptText="Nom d'utilisateur" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField fx:id="tfPassword" layoutX="169.0" layoutY="353.0" prefHeight="40.0" prefWidth="220.0" promptText="Mot de passe" style="-fx-background-color: transparent; -fx-border-color: #E68C3A; -fx-border-width: 0px 0px 2px 0px;" />
+            <FontAwesomeIconView fill="#e68c3a" glyphName="USER" layoutX="130.0" layoutY="317.0" size="28" text="" />
+            <FontAwesomeIconView fill="#e68c3a" glyphName="KEY" layoutX="126.0" layoutY="383.0" size="28" />
+            <Button fx:id="bLogin" layoutX="204.0" layoutY="446.0" mnemonicParsing="false" onAction="#connect" prefHeight="0.0" prefWidth="136.0" style="-fx-background-color: #E68C3A;" text="Se connecter" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+            <Hyperlink fx:id="hForgotPwd" layoutX="199.0" layoutY="550.0" onAction="#ForgotPwd" text="Mot de passe oublié ?">
+               <font>
+                  <Font size="14.0" />
+               </font></Hyperlink>
+            <Hyperlink fx:id="hRegister" layoutX="163.0" layoutY="585.0" onAction="#GoToRegister" text="Vous n'avez pas encore un compte ?">
+               <font>
+                  <Font size="14.0" />
+               </font></Hyperlink>
+            <FontAwesomeIconView fill="#e68c3a" glyphName="USERS" layoutX="227.0" layoutY="169.0" size="80" />
+            <Text fill="#213e60" layoutX="122.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connectez-vous à votre compte " wrappingWidth="296.31494140625">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="passwordfalsemessage" layoutX="218.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
