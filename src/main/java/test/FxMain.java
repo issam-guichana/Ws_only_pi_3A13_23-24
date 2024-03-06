@@ -1,3 +1,4 @@
+
 package test;
 
 import com.google.api.services.drive.Drive;
@@ -34,6 +35,10 @@ public class FxMain extends Application {
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/calendierFXML.fxml"));
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDetailsFXML.fxml"));
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/participerFXML.fxml"));
+      
+      //******************Sadok
+//        FXMLLoader loader= new FXMLLoader(getClass().getResource("/AjouterQuiz.fxml"));
+// //        FXMLLoader loader= new FXMLLoader(getClass().getResource("/UserQuiz.fxml"));
       
 
         Parent parent = loader.load();

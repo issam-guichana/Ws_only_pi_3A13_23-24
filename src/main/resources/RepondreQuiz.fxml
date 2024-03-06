@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="672.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RepondreQuiz">
+   <ImageView fitHeight="576.0" fitWidth="1255.0" layoutY="96.0" pickOnBounds="true">
+      <image>
+         <Image url="@img/149280064_6ed3b71b-e002-41b0-b23f-c05c481794f4.jpg" />
+      </image>
+      <effect>
+         <ColorAdjust contrast="1.0" hue="-0.8" />
+      </effect></ImageView>
+    <HBox prefHeight="96.0" prefWidth="1255.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+                <children>
+                    <ImageView fitHeight="64.0" fitWidth="200.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@img/logo-removebg-preview.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="388.0">
+                <children>
+                    <TextField layoutX="26.0" layoutY="30.0" prefHeight="40.0" prefWidth="235.0" promptText="Tapez ici" stylesheets="@css/styles.css">
+                        <font>
+                            <Font name="Cambria" size="18.0" />
+                        </font>
+                        <styleClass>
+                            <String fx:value="transparent" />
+                            <String fx:value="search-box" />
+                        </styleClass>
+                        <cursor>
+                            <Cursor fx:constant="TEXT" />
+                        </cursor>
+                    </TextField>
+                    <Button layoutX="268.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@css/styles.css" text="Recherche" textFill="WHITE" />
+                </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="125.0">
+                <children>
+                    <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@css/styles.css">
+                        <styleClass>
+                            <String fx:value="search-box" />
+                            <String fx:value="shadow" />
+                        </styleClass>
+                        <children>
+                            <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Evenements" />
+                        </children>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </HBox>
+                </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="132.0">
+                <children>
+                    <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@css/styles.css">
+                        <styleClass>
+                            <String fx:value="search-box" />
+                            <String fx:value="shadow" />
+                        </styleClass>
+                        <children>
+                            <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Formations" />
+                        </children>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </HBox>
+                </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="135.0">
+                <children>
+                    <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@css/styles.css">
+                        <styleClass>
+                            <String fx:value="search-box" />
+                            <String fx:value="shadow" />
+                        </styleClass>
+                        <children>
+                            <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Certifs" />
+                        </children>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </HBox>
+                </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="135.0">
+                <children>
+                    <HBox alignment="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #E68c3a;" stylesheets="@css/styles.css">
+                        <styleClass>
+                            <String fx:value="search-box" />
+                            <String fx:value="shadow" />
+                        </styleClass>
+                        <children>
+                            <Button mnemonicParsing="false" style="-fx-background-color: #E68c3a;" text="Badges" />
+                        </children>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </HBox>
+                </children>
+            </Pane>
+            <Pane prefHeight="98.0" prefWidth="135.0">
+                <children>
+                    <ImageView fitHeight="61.0" fitWidth="61.0" layoutX="37.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@img/utilisateur.png" />
+                        </image>
+                    </ImageView>
+                </children></Pane>
+        </children>
+
+    </HBox>
+   <VBox layoutX="224.0" layoutY="175.0" prefHeight="139.0" prefWidth="827.0" styleClass="question-BG" stylesheets="@css/styles.css" />
+   <Label fx:id="question" alignment="CENTER" layoutX="231.0" layoutY="183.0" prefHeight="122.0" prefWidth="812.0" text="Label" textFill="WHITE" />
+   <Button fx:id="choix1" layoutX="162.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleChoiceSelection" prefHeight="58.0" prefWidth="425.0" styleClass="question-BG" stylesheets="@css/styles.css" text="Button" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="choix2" layoutX="162.0" layoutY="522.0" mnemonicParsing="false" onAction="#handleChoiceSelection" prefHeight="58.0" prefWidth="425.0" styleClass="question-BG" stylesheets="@css/styles.css" text="Button" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="choix3" layoutX="669.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleChoiceSelection" prefHeight="58.0" prefWidth="425.0" styleClass="question-BG" stylesheets="@css/styles.css" text="Button" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="choix4" layoutX="669.0" layoutY="522.0" mnemonicParsing="false" onAction="#handleChoiceSelection" prefHeight="58.0" prefWidth="425.0" styleClass="question-BG" stylesheets="@css/styles.css" text="Button" textFill="WHITE">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <ProgressBar fx:id="countdownBar" layoutX="162.0" layoutY="120.0" prefHeight="18.0" prefWidth="941.0" progress="0.0" />
+</AnchorPane>

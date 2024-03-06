@@ -1,0 +1,124 @@
+.search-box {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100px; /* Add 'px' unit for radius */
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
+
+.right-bar{
+    -fx-background-color: #D3D3D3;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
+.chosen-fruit-card{
+    -fx-background-color: #F16C31;
+    -fx-background-radius: 30;
+}
+
+.comboBox{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 30;
+}
+
+.add-btn{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.free-delivery-card{
+    -fx-background-color: #D3D3D3;
+    -fx-background-radius: 30;
+}
+
+.shopping-online-card{
+    -fx-background-color: #BAEAC3;
+    -fx-background-radius: 30;
+}
+
+.fruit-item{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30;
+}
+.button-add, .button-import {
+    -fx-background-color: #E68C3A;
+    -fx-text-fill: white;
+}
+
+.button-add:hover, .button-import:hover {
+    -fx-background-color: #D77E20; /* Slightly darker shade for hover effect */
+}
+
+/* Background */
+.root{
+
+    -fx-background-color:white;
+
+}
+
+/* Inputs */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: #b4b4b4;
+}
+
+/* Table */
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f5f5f5;
+}
+.refresh-btn{
+    -fx-background-color: transparant;
+}
+.quiz-add-container {
+    -fx-background-color: #213e60;
+    -fx-background-radius: 8;
+}
+
+
+.input-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #213E60;
+    -fx-padding: 5px;
+}
+.quiz-container{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.quiz-list-container{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+.quiz-list-bg{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(255, 255, 255, 0.7); /* Adjust opacity as needed */
+
+}
+.start-quiz-bg{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(44, 42, 42, 0.7); /* Adjust opacity and color as needed */
+
+}
+.blur-effect {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0.5, 0, 0);
+}
+.question-BG {
+    -fx-background-color:#E68C3A ; /* Blue background color with opacity */
+    -fx-background-radius: 10; /* Border radius for rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Add shadow effect */
+}
