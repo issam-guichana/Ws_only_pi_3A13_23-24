@@ -1,0 +1,16 @@
+Controllers\ForgotPasswordController$1.class
+Controllers\ForgotPasswordController.class
+Controllers\ResetPwdController.class
+Controllers\LoginUserController$1.class
+Controllers\AdminMainInterfaceController.class
+Controllers\WebcamInterfaceController.class
+Controllers\LoginUserController.class
+Controllers\AdminInterfaceController.class
+Controllers\UpdateProfileController.class
+Controllers\DeleteProfileController.class
+Controllers\AdminInterfaceController$1.class
+Controllers\RegisterUserController.class
+Controllers\AdminAddFormateurController.class
+Controllers\UserSettingsController.class
+Controllers\AdminUpdateFormateurController.class
+test\FxMain.class
