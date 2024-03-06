@@ -7,22 +7,29 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class FxMain extends Application {
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) {launch();}
 
     @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenemntFXML.fxml"));
+    public void start(Stage stage) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass()
+              .getResource("/LoginUser.fxml"));
+                //.getResource("/UpdateProfile.fxml"));
+                //.getResource("/AdminInterface.fxml"));
+                 //.getResource("/WebcamInterface.fxml"));
+                ///.getResource("/UserSettings.fxml"));
+      
+      //**********AZIZ
+         // FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenemntFXML.fxml"));
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/calendierFXML.fxml"));
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDetailsFXML.fxml"));
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/participerFXML.fxml"));
+      
+
         Parent parent = loader.load();
         Scene scene = new Scene(parent);
-        stage.setTitle("Ajouter un evenment");
+        stage.setTitle("Formini.tn");
         stage.setScene(scene);
+        stage.setResizable(true);
         stage.show();
     }
 }
-
-
