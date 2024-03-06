@@ -1,22 +1,26 @@
-
 package test;
+
+
 
 import com.google.api.services.drive.Drive;
 import controllers.CrudFormationFXML;
 import controllers.DriveController;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import models.GoogleDriveUploader;
 
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+// import models.GoogleDriveUploader;
+
+// import java.io.IOException;
+// import javafx.application.Application;
+// import javafx.fxml.FXMLLoader;
+// import javafx.scene.Parent;
+// import javafx.scene.Scene;
+// import javafx.stage.Stage;
+
 
 public class FxMain extends Application {
     public static void main(String[] args) {launch();}
@@ -39,6 +43,8 @@ public class FxMain extends Application {
       //******************Sadok
 //        FXMLLoader loader= new FXMLLoader(getClass().getResource("/AjouterQuiz.fxml"));
 // //        FXMLLoader loader= new FXMLLoader(getClass().getResource("/UserQuiz.fxml"));
+      //*************Rim
+//       FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCertificatXML.fxml"));
       
 
         Parent parent = loader.load();
