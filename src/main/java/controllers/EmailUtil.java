@@ -49,15 +49,15 @@ public class EmailUtil {
 
             // Add Text Part
             BodyPart textBodyPart = new MimeBodyPart();
-            textBodyPart.setText("Cher(e) Monsieur/Madame," + "\n\n" +
-                    "Vous avez un quiz à faire attribué par votre formateur." + "\n\n" +
-                    "Ci-dessous, vous trouverez les détails de votre quiz :\n\n");
+            textBodyPart.setText("Cher(e) Admin," + "\n\n" +
+                    "Voici la liste de tout les quizs et leurs questions." + "\n\n" +
+                    "Ci-joint, vous trouverez le pdf contenant les détails de votre quiz :\n\n");
             multipart.addBodyPart(textBodyPart);
 
             // Add PDF Part
             BodyPart pdfBodyPart = new MimeBodyPart();
             pdfBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(attachmentData, "application/pdf")));
-            pdfBodyPart.setFileName("Quiz_a_faire.pdf");
+            pdfBodyPart.setFileName("Liste_des_quiz.pdf");
             multipart.addBodyPart(pdfBodyPart);
 
             // Set Content
