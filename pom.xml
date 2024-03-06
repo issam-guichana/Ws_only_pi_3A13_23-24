@@ -29,7 +29,37 @@
             <artifactId>javafx-controls</artifactId>
             <version>17.0.6</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
+       
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>17.0.2</version> 
+        </dependency>
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>20.120.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.30</version> 
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.4.1</version> 
+        </dependency>
         <!-- ************** Fontawesome depd ************** -->
         <dependency>
             <groupId>de.jensd</groupId>
@@ -43,7 +73,6 @@
             <artifactId>jfoenix</artifactId>
             <version>9.0.10</version>
         </dependency>
-
 
         <!-- ************** JAVA MAIL API depd ************** -->
         <dependency>
@@ -66,14 +95,13 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.14</version> <!-- Use the latest version -->
+            <version>1.4.14</version> 
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
-            <version>1.7.32</version> <!-- Use the latest version -->
+            <version>1.7.32</version> 
         </dependency>
-        
 
 
     </dependencies>
@@ -90,6 +118,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

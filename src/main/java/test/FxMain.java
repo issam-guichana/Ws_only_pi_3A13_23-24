@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class FxMain extends Application {
-
     public static void main(String[] args) {launch();}
 
     @Override
@@ -18,6 +17,13 @@ public class FxMain extends Application {
                 //.getResource("/AdminInterface.fxml"));
                  //.getResource("/WebcamInterface.fxml"));
                 ///.getResource("/UserSettings.fxml"));
+      
+      //**********AZIZ
+         // FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenemntFXML.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/calendierFXML.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDetailsFXML.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/participerFXML.fxml"));
+      
 
         Parent parent = loader.load();
         Scene scene = new Scene(parent);
