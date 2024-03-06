@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1440.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CrudFormationFXML">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="775.0" prefWidth="253.0" style="-fx-background-color: #213E60;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="86.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logo-removebg-preview.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="50.0" />
+                    </VBox.margin></ImageView>
+
+                <Label alignment="CENTER" prefHeight="52.0" prefWidth="218.0" style="-fx-background-color: white; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Bienvenue Admin" textFill="#213e60">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font></Label>
+
+
+
+                <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Utilisateurs" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/utilisateur.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="253.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Evénements" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/calendrier.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="idbtnform" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#formationBack" prefHeight="69.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Formations" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/casquette-de-graduation.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="idbtncertif" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Certificats" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/document.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Badges" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/bouclier-verifier.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnSettings1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Quiz" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/editer.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnSettings111" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Discussion" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/commentaire.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnSettings11" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="256.0" style="-fx-background-color: #213E60;" stylesheets="@style.css" text="Se déconnecter" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/connexion-alt.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+        <StackPane layoutX="252.0" prefHeight="674.0" prefWidth="1188.0" style="-fx-background-color: #02030A;">
+            <children>
+                <Pane fx:id="pnlCustomer" prefHeight="711.0" prefWidth="1188.0" />
+                <Pane fx:id="pnlOrders" prefHeight="709.0" prefWidth="1188.0" />
+                <Pane fx:id="pnlMenus" prefHeight="694.0" prefWidth="1188.0" />
+                <Pane fx:id="pnlOverview" prefHeight="640.0" prefWidth="1181.0" style="-fx-background-color: #F4F2EF;">
+                    <children>
+                        <VBox layoutX="130.0" layoutY="272.0" prefHeight="315.0" prefWidth="902.0">
+                            <children>
+                                <TableView fx:id="table" onMouseClicked="#gotData" prefHeight="315.0" prefWidth="980.0" style="-fx-background-color: #FFFFFF;">
+                                    <columns>
+                                        <TableColumn fx:id="NomCol" prefWidth="153.0" text="Formation" />
+                                        <TableColumn fx:id="DESCRIPTIONcol" prefWidth="160.0" text="Description" />
+                              <TableColumn fx:id="FormateurCol" prefWidth="148.0" text="Formateur" />
+                              <TableColumn fx:id="CATCol" prefWidth="162.0" text="Categorie" />
+                              <TableColumn fx:id="PRIXCol" prefWidth="134.0" text="Prix" />
+                              <TableColumn fx:id="CERTIFCOL" prefWidth="144.0" text="Certif" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                  </VBox>
+                  <TextField fx:id="nomfx" layoutX="182.0" layoutY="34.0" prefHeight="47.0" prefWidth="218.0" promptText="Nom Formation..." styleClass="text-field" />
+                  <TextField fx:id="descriptionfx" layoutX="567.0" layoutY="33.0" prefHeight="47.0" prefWidth="236.0" promptText="Description..." styleClass="text-field" />
+                  <TextField fx:id="formateurfx" layoutX="182.0" layoutY="112.0" prefHeight="47.0" prefWidth="218.0" promptText="Formateur.." styleClass="text-field" />
+                  <Button fx:id="btnsupprimer" layoutX="645.0" layoutY="211.0" mnemonicParsing="false" onAction="#deleteOne" prefHeight="37.0" prefWidth="101.0" style="-fx-background-color: #E68C3A;" styleClass="button-add" text="Supprimer" />
+                  <Text fx:id="ftext1" layoutX="72.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Nom Formation">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="ftext11" layoutX="471.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Description">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="ftext12" layoutX="86.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Formateur">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="ftext13" layoutX="486.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Categorie">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="fxCategorieChoiceBox" layoutX="567.0" layoutY="110.0" prefHeight="47.0" prefWidth="236.0" />
+                  <Button fx:id="btncat11" layoutX="710.0" layoutY="168.0" mnemonicParsing="false" onAction="#AjouterCategorie" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: #E68C3A;" styleClass="button-add" text="Ajouter Catégorie" />
+                  <Button fx:id="btnajouter11" layoutX="345.0" layoutY="211.0" mnemonicParsing="false" onAction="#insertOne" prefHeight="37.0" prefWidth="109.0" style="-fx-background-color: #E68C3A;" styleClass="button-add" text="Ajouter" />
+                  <Button fx:id="btnmodifier" layoutX="963.0" layoutY="211.0" mnemonicParsing="false" onAction="#updateOne" prefHeight="37.0" prefWidth="118.0" style="-fx-background-color: #E68C3A;" styleClass="button-add" text="Modifier" />
+                  <Button fx:id="uploadButton" layoutX="155.0" layoutY="217.0" mnemonicParsing="false" onAction="#handleUploadPDF" text="Ajouter cahier des charges" />
+                  <ImageView fitHeight="53.0" fitWidth="34.0" layoutX="113.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/PDF_file_icon.svg.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="prixfx" layoutX="938.0" layoutY="34.0" prefHeight="47.0" prefWidth="236.0" promptText="Prix...." styleClass="text-field" />
+                  <Text fx:id="ftext111" layoutX="854.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Prix">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="850.0" layoutY="127.0" text="Certif" />
+                  <ChoiceBox fx:id="CertifChoiceBox" layoutX="938.0" layoutY="112.0" prefHeight="47.0" prefWidth="236.0" />
+
+                                                  </children>
+
+                  
+                                              </Pane>
+            </children>
+        </StackPane>
+    </children>
+    <effect>
+        <DropShadow color="#1b1eeb" />
+    </effect>
+</AnchorPane>
