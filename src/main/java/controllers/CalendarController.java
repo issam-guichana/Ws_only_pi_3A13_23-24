@@ -67,9 +67,13 @@ public class CalendarController implements Initializable {
 
         _monthChosen = true;
         _yearChosen = true; // Set these flags to true initially
+        removePassedEvents(); // Remove events that have passed
         numberOfDaysInMonth();
     }
-
+    private void removePassedEvents() {
+        // Call the removePassedEvents method from your CalendarData class
+        calendarData.removePassedEvents();
+    }
     @FXML
     void monthPressed(ActionEvent event) {
         MenuItem btn = (MenuItem) event.getSource();

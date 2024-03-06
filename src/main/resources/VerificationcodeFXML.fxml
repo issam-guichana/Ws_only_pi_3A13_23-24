@@ -13,4 +13,5 @@
         <Button fx:id="cancelButton" layoutX="226.0" layoutY="150.0" mnemonicParsing="false" onAction="#goToCalendar" text="Annuler " />
         <Label fx:id="messageLabel" layoutX="150.0" layoutY="200.0" />
     </children>
+
 </AnchorPane>

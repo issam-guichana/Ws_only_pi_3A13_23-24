@@ -83,4 +83,46 @@ public class CalendarData {
 
         return null;
     }
+
+    public void removePassedEvents() {
+        Calendar currentDate = Calendar.getInstance();
+        List<Calendar> eventsToRemove = new ArrayList<>();
+
+        System.out.println("Events before removal: " + calendarData.keySet());
+
+        for (Calendar date : calendarData.keySet()) {
+            if (date.before(currentDate)) {
+                // Event date is before the current date, consider it ended
+                eventsToRemove.add(date);
+
+                // Remove the corresponding records from the database
+                removeEventsForDay(date);
+            }
+        }
+
+        // Remove the ended events from the map
+        for (Calendar dateToRemove : eventsToRemove) {
+            calendarData.remove(dateToRemove);
+        }
+
+        System.out.println("Events after removal: " + calendarData.keySet());
+    }
+
+    private void removeEventsForDay(Calendar date) {
+        String req = "DELETE FROM evenement WHERE date_event = ?";
+
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            java.sql.Date sqlDate = new java.sql.Date(date.getTimeInMillis());
+            ps.setDate(1, sqlDate);
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("Removed events for date: " + sqlDate);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

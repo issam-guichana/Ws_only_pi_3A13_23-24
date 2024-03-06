@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.protobuf.Message;
+import com.mysql.cj.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,7 +17,20 @@ import javafx.stage.Stage;
 import models.Evenement;
 import services.Payment;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.sql.DataSource;
 import java.io.IOException;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+import java.util.Properties;
 
 public class VerificationcodeFXML {
 
@@ -78,10 +93,12 @@ public class VerificationcodeFXML {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Load Web Page on Button Click");
             primaryStage.show();
+
         } else {
             // Code is not valid, show an error message
             messageLabel.setText("Invalid verification code. Please try again.");
         }
+
     }
 
     @FXML

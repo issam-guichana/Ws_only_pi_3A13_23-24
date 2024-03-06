@@ -54,7 +54,10 @@ public class Evenement {
     public Evenement() {
 
     }
-
+    public boolean canParticipate() {
+        int currentParticipants = participants.size();
+        return currentParticipants < nbrP;
+    }
     public String getLieu() {
         return lieu;
     }
@@ -142,10 +145,5 @@ public class Evenement {
                 ", participants=" + participants +
                 '}';
     }
-    public String generateMapUrl() {
-        // Use the Google Maps Static API to generate a map URL based on the location
-        // Example URL format: https://maps.googleapis.com/maps/api/staticmap?center=place&size=600x300&key=YOUR_API_KEY
-        // Replace YOUR_API_KEY with your actual Google Maps API key
-        return "https://maps.googleapis.com/maps/api/staticmap?center=" + lieu + "&size=600x300&key=YOUR_API_KEY";
-    }
+
 }

@@ -4,16 +4,23 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import models.Userparticipants;
 import services.ServiceEvenement;
-import models.Evenement;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserParticipantController {
+
 
     @FXML
     private TableView<Userparticipants> tbParticipants;
@@ -37,12 +44,10 @@ public class UserParticipantController {
 
     private int eventId; // Set the event ID when navigating to this interface
 
-    private List<Userparticipants> allParticipants; // Store all participants for filtering
+    private List<Userparticipants> allParticipants;// Store all participants for filtering
 
     public void initialize() {
 
-
-        colUserId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUser_id()).asObject());
         colUserName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUserName()));
         colEventName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEvent_name()));
 
@@ -51,37 +56,23 @@ public class UserParticipantController {
         setupButtonColumns();
     }
 
+
+
     public void setEventId(int eventId) {
         this.eventId = eventId;
-        // Fetch the selected event based on the eventId
-        try {
-            ServiceEvenement se = new ServiceEvenement();
-            this.selectedEvent = se.selectOne(eventId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle exception
-        }
-
         loadParticipants();
     }
 
-
-
     private void loadParticipants() {
         try {
-            ServiceEvenement se=new ServiceEvenement();
+            ServiceEvenement se = new ServiceEvenement();
             allParticipants = se.getParticipants(eventId);
-            ObservableList<Userparticipants> participantList = FXCollections.observableArrayList(allParticipants);
-            tbParticipants.setItems(participantList);
-
-            // Update participant count label
-            lblParticipantCount.setText("Participant Count: " + allParticipants.size());
+            updateTableView(allParticipants);
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exception
         }
     }
-
 
     @FXML
     private void searchParticipants() {
@@ -91,31 +82,19 @@ public class UserParticipantController {
 
         if (searchText.isEmpty()) {
             // If search text is empty, display all participants
-            if (selectedEvent == null) {
-                // Fetch all participants
-                try {
-                    ServiceEvenement se = new ServiceEvenement();
-                    allParticipants = se.getParticipants(0); // Pass 0 to indicate all participants
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    // Handle exception
-                }
-            }
-            filteredParticipants = allParticipants;
+            filteredParticipants = new ArrayList<>(allParticipants);
         } else {
-            // Filter participants based on the search text
+            // Filter participants based on the search text and event name
             filteredParticipants = allParticipants.stream()
                     .filter(participant -> String.valueOf(participant.getUser_id()).contains(searchText) ||
-                            participant.getUserName().toLowerCase().contains(searchText))
+                            participant.getUserName().toLowerCase().contains(searchText) ||
+                            participant.getEvent_name().toLowerCase().contains(searchText))
                     .collect(Collectors.toList());
         }
-        System.out.println("rechercher...");
+
         updateTableView(filteredParticipants);
+        refreshTableView();
     }
-    private Evenement selectedEvent;
-
-
-
 
     private void updateTableView(List<Userparticipants> participants) {
         ObservableList<Userparticipants> participantList = FXCollections.observableArrayList(participants);
@@ -124,9 +103,14 @@ public class UserParticipantController {
         // Update participant count label
         lblParticipantCount.setText("Participant Count: " + participants.size());
     }
+    private void refreshTableView() {
+        tbParticipants.getColumns().get(0).setVisible(false);
+        tbParticipants.getColumns().get(0).setVisible(true);
+    }
     private void setupButtonColumns() {
         setupSupprimerButtonColumn();
     }
+
     private void setupSupprimerButtonColumn() {
         TableColumn<Userparticipants, Void> supprimerColumn = new TableColumn<>("Supprimer");
         supprimerColumn.setCellFactory(col -> new TableCell<Userparticipants, Void>() {
@@ -136,7 +120,7 @@ public class UserParticipantController {
                 deleteButton.setOnAction(event -> {
                     Userparticipants up = getTableView().getItems().get(getIndex());
                     // Action to perform when the "Supprimer" button is clicked
-                    ServiceEvenement se=new ServiceEvenement();
+                    ServiceEvenement se = new ServiceEvenement();
                     System.out.println("Delete participant: " + up.getUserName());
                     try {
                         se.deletetwo(up);

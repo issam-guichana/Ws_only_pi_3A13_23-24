@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Evenement;
+import models.Userparticipants;
 import services.ServiceEvenement;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,6 +36,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -42,8 +46,12 @@ public class AjouterEvenementFXML {
     private Button tfListP;
 
     @FXML
-    private DatePicker tfDate_event;
+    private Button extract;
 
+    @FXML
+    private DatePicker tfDate_event;
+    @FXML
+    private TextField search;
     @FXML
     private TextArea tfDescr1;
     @FXML
@@ -82,7 +90,8 @@ public class AjouterEvenementFXML {
     private TableColumn<Evenement, String> Collieu;
     @FXML
     private TableColumn<Evenement, String> colDescr;
-
+    @FXML
+    private MenuButton sortMenuButton;
     @FXML
     private TableColumn<Evenement, Integer> colId;
     @FXML
@@ -108,7 +117,7 @@ public class AjouterEvenementFXML {
     @FXML
     private ImageView imageevenement;
     private String xamppFolderPath = "C:/xampp/htdocs/img/";
-
+    private ServiceEvenement serviceEvenement;
     @FXML
     void ajouterEvenemnt(ActionEvent event) {
         try {
@@ -276,9 +285,10 @@ public class AjouterEvenementFXML {
         }
     }
 
-@FXML
+    @FXML
+
     void afficherevent() {
-        //colId.setCellValueFactory(new PropertyValueFactory<>("id_event"));
+        // colId.setCellValueFactory(new PropertyValueFactory<>("id_event"));
         ColNom.setCellValueFactory(new PropertyValueFactory<>("nom_event"));
         colDescr.setCellValueFactory(new PropertyValueFactory<>("description"));
         coldate.setCellValueFactory(new PropertyValueFactory<>("date_event"));
@@ -287,9 +297,10 @@ public class AjouterEvenementFXML {
         colPrix.setCellValueFactory(new PropertyValueFactory<>("prix"));
         colNbrP.setCellValueFactory(new PropertyValueFactory<>("nbrP"));
         colimg.setCellValueFactory(new PropertyValueFactory<>("image_event"));
+
         try {
-            ServiceEvenement se = new ServiceEvenement();
-            List<Evenement> events = se.selectAll();
+            serviceEvenement = new ServiceEvenement(tbEvents);
+            List<Evenement> events = serviceEvenement.selectAll();
             ObservableList<Evenement> el = FXCollections.observableArrayList(events);
             tbEvents.setItems(el);
         } catch (SQLException e) {
@@ -329,6 +340,7 @@ public class AjouterEvenementFXML {
         assert colNbrP != null : "fx:id=\"colNbrP\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert colimg != null : "fx:id=\"Colimg\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
         assert tbEvents != null : "fx:id=\"tbEvents\" was not injected: check your FXML file 'AjouterEvenementFXML.fxml'.";
+
         SpinnerValueFactory<LocalTime> factory = new SpinnerValueFactory<LocalTime>() {
             {
                 setValue(defaultValue());
@@ -362,7 +374,9 @@ public class AjouterEvenementFXML {
         });
 
         afficherevent();
-
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            search();
+        });
     }
 
     @FXML
@@ -483,6 +497,73 @@ public class AjouterEvenementFXML {
         }
     }
 
-    public void SearchEvenemnt(ActionEvent actionEvent) {
+    private void updateTableView(List<Evenement> events) {
+        ObservableList<Evenement> el = FXCollections.observableArrayList(events);
+        tbEvents.setItems(el);
+    }
+    @FXML
+    void search() {
+        String keyword = search.getText();
+        try {
+            ServiceEvenement serviceEvenement = new ServiceEvenement();
+            List<Evenement> searchResults = serviceEvenement.searchEvents(keyword);
+            updateTableView(searchResults);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception as needed (e.g., show an alert)
+        }
+    }
+
+    public void sortCroissant(ActionEvent actionEvent) {
+        sortTable(true);
+    }
+
+    public void sortDecroissant(ActionEvent actionEvent) {
+        sortTable(false);
+    }
+    private void sortTable(boolean ascending) {
+        ObservableList<Evenement> events = tbEvents.getItems();
+        events.sort(Comparator.comparing(Evenement::getDate_event, Comparator.nullsLast(Comparator.naturalOrder())));
+
+        if (!ascending) {
+            Collections.reverse(events);
+        }
+
+        tbEvents.setItems(events);
+    }
+    @FXML
+    void extractPDF(ActionEvent event) {
+        try {
+            // Get the list of events from the table view
+            List<Evenement> events = tbEvents.getItems();
+
+            // Check if there are events to include in the PDF
+            if (events.isEmpty()) {
+                System.out.println("No events to export.");
+                return;
+            }
+
+            // Generate PDF with event information
+            byte[] pdfBytes = PDFGenerator.generateQuizPDF(events);
+
+            // Use FileChooser to choose the location to save the PDF
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            fileChooser.setInitialFileName("Events.pdf"); // Set default file name
+            File file = fileChooser.showSaveDialog(extract.getScene().getWindow());
+
+            if (file != null) {
+                try (FileOutputStream fos = new FileOutputStream(file)) {
+                    fos.write(pdfBytes);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    System.out.println("Error saving PDF.");
+                }
+            }
+        } catch (IOException | SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Error generating PDF.");
+        }
+
     }
 }

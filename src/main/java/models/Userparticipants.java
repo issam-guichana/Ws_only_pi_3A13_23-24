@@ -14,7 +14,13 @@ public class Userparticipants {
         this.event_name = event_name;
     }
 
+    public Userparticipants(String userName,String event_name) {
+        this.event_name = event_name;
+        this.userName = userName;
+    }
+
     public Userparticipants() {
+
     }
 
     public String getEvent_name() {

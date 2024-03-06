@@ -114,6 +114,14 @@ public class EventDetailsFXML implements Initializable {
             e.printStackTrace();
         }
     }
+    private int getPrix() {
+        try {
+            return Integer.parseInt(prix.getText());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid price format");
+            return 0; // or handle it according to your requirements
+        }
+    }
 
     public void participerevent(ActionEvent actionEvent) {
         try {

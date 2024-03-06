@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceEvenement implements CRUD<Evenement> {
 
@@ -148,17 +149,18 @@ public class ServiceEvenement implements CRUD<Evenement> {
     public List<Userparticipants> getParticipants(int event_id) throws SQLException {
         List<Userparticipants> participants = new ArrayList<>();
 
-
         String query;
         if (event_id > 0) {
-            query = "SELECT up.user_id, up.userName, up.event_id, e.nom_event " +
+            query = "SELECT u.username, e.nom_event " +
                     "FROM usr_evt up " +
+                    "JOIN user u ON up.user_id = u.id_user " +
                     "JOIN evenement e ON up.event_id = e.id_event " +
                     "WHERE up.event_id = ?";
         } else {
-            query = "SELECT up.user_id, up.userName, up.event_id, e.nom_event " +
-                    "FROM usr_evt up " +
-                    "JOIN evenement e ON up.event_id = e.id_event";
+            query = "SELECT u.username, e.nom_event " +
+                    "FROM usr_evt " +
+                    "JOIN user u ON usr_evt.user_id = u.id_user " +
+                    "JOIN evenement e ON usr_evt.event_id = e.id_event";
         }
 
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
@@ -169,9 +171,7 @@ public class ServiceEvenement implements CRUD<Evenement> {
             try (ResultSet resultSet = ps.executeQuery()) {
                 while (resultSet.next()) {
                     Userparticipants participant = new Userparticipants();
-                    participant.setUser_id(resultSet.getInt("user_id"));
                     participant.setUserName(resultSet.getString("userName"));
-                    participant.setEvent_id(resultSet.getInt("event_id"));
                     participant.setEvent_name(resultSet.getString("nom_event"));
                     participants.add(participant);
                 }
@@ -227,6 +227,27 @@ public class ServiceEvenement implements CRUD<Evenement> {
         }
 
         return true; // Event name is unique
+    }
+    public List<Evenement> searchEvents(String keyword) throws SQLException {
+        List<Evenement> allEvents = selectAll();
+
+        if (keyword == null || keyword.isEmpty()) {
+            return allEvents;
+        }
+
+        // Filter events based on the keyword
+        List<Evenement> filteredEvents = allEvents.stream()
+                .filter(event ->
+                        event.getNom_event().toLowerCase().contains(keyword.toLowerCase()) ||
+                                event.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
+                                event.getLieu().toLowerCase().contains(keyword.toLowerCase()) ||
+                                event.getDate_event().toString().contains(keyword) ||
+                                String.valueOf(event.getPrix()).contains(keyword) ||
+                                String.valueOf(event.getNbrP()).contains(keyword)
+                )
+                .collect(Collectors.toList());
+
+        return filteredEvents;
     }
 }
 
