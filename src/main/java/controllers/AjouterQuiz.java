@@ -108,7 +108,7 @@ public class AjouterQuiz {
         List<Quiz> quizzes = serviceQuiz.selectAll();
 
         // Generate PDF containing all quizzes
-        return PDFGenerator.generateQuizPDF(quizzes);
+        return PDFGeneratorQuiz.generateQuizPDF(quizzes);
     }
     @FXML
     void ajouterQuiz(ActionEvent event) {
@@ -381,5 +381,8 @@ public class AjouterQuiz {
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             rechercherQuiz(new ActionEvent());
         });
+        export.disableProperty().bind(
+                quizlist.itemsProperty().isNull()
+        );
     }
 }

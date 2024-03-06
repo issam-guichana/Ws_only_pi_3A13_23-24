@@ -16,7 +16,7 @@ package controllers;
         import java.util.List;
 
 
-public class PDFGenerator {
+public class PDFGeneratorQuiz {
     public static byte[] generateQuizPDF(List<Quiz> quizzes) throws IOException, SQLException {
         try (PDDocument document = new PDDocument()) {
             for (Quiz quiz : quizzes) {
