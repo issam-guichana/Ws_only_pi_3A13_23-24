@@ -114,9 +114,7 @@ public class Ajoutroomformateur implements Initializable {
 
         // Check if recipientEmail is not null before using it
        // if (recipientEmail != null) {
-           // String senderEmail = "rahma.sakkat@etudiant-isi.utm.tn";
-         //   String password = "11670867";
-
+       
             //Properties props = new Properties();
             //props.put("mail.smtp.host", "smtp.office365.com");
             //props.put("mail.smtp.port", "587");
